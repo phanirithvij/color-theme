@@ -4,8 +4,8 @@
   "description": "A showcase of a color theme based on any image",
   "main": "index.js",
   "scripts": {
-    "dev:client": "gulp devC",
-    "prod:client": "gulp prodC"
+    "dev:client": "gulp dev",
+    "prod:client": "gulp prod"
   },
   "keywords": [
     "theme",
