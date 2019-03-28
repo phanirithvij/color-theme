@@ -1,0 +1,1 @@
+fetch("http://localhost:5000/infile.jpg",{method:"GET",headers:{"Content-Type":"application/json"},body:JSON.stringify({})}).then(function(n){return n.json()}).then(function(n){console.log(n)});
