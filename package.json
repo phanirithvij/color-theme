@@ -1,0 +1,28 @@
+{
+  "name": "pallete-theme",
+  "version": "1.0.0",
+  "description": "A showcase of a color theme based on any image",
+  "main": "index.js",
+  "scripts": {
+    "dev:client": "gulp devC",
+    "prod:client": "gulp prodC"
+  },
+  "keywords": [
+    "theme",
+    "colortheif",
+    "python",
+    "sass"
+  ],
+  "author": "Phani Rithvij (phanirithvij20003@gmail.com)",
+  "license": "MIT",
+  "devDependencies": {
+    "gulp": "^4.0.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-sass": "^4.0.2",
+    "gulp-typescript": "^5.0.1",
+    "gulp-uglify": "^3.0.2"
+  },
+  "dependencies": {
+    "typescript": "^3.3.4000"
+  }
+}
