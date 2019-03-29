@@ -29,3 +29,15 @@ document.documentElement.style.setProperty('--your-variable', '#YOURCOLOR');
 ```shell
 ffmpeg -ss 3 -i /d/Videos/TVSHOWS/Gintama/Gintama_Season_7_Episode_345.mp4 -vf "select=gt(scene\,0.4)" -frames:v 100 -vsync vfr -vf fps=fps=1/6 out%003d.jpg
 ```
+
+Taken from [here](https://askubuntu.com/questions/377579/ffmpeg-output-screenshot-gallery)
+
+```shell
+ffmpeg -i /d/Videos/TVSHOWS/Gintama/Gintama_Season_8_Episode_367_HorribleSubs.mkv -vf "select='gt(scene,0.4)',scale=120:-1,tile=layout=10x10" -frames:v 1 -qscale:v 2 output.jpg
+```
+
+ImageMagick [here](http://www.imagemagick.org/Usage/montage/)
+
+```shell
+montage out*.jpg -resize 180x320 -tile 10x10 -geometry +0+0 montage.jpg
+```
