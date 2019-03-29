@@ -16,11 +16,13 @@
   "author": "Phani Rithvij (phanirithvij20003@gmail.com)",
   "license": "MIT",
   "devDependencies": {
+    "del": "^4.0.0",
     "gulp": "^4.0.0",
     "gulp-concat": "^2.6.1",
     "gulp-sass": "^4.0.2",
     "gulp-typescript": "^5.0.1",
-    "gulp-uglify": "^3.0.2"
+    "gulp-uglify": "^3.0.2",
+    "vinyl-paths": "^2.1.0"
   },
   "dependencies": {
     "typescript": "^3.3.4000"

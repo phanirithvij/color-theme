@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Color Theme</title>
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
     <div id="main">
@@ -13,10 +13,8 @@
 
         </nav>
         <div id="imgc">
-            <img src="" alt="theme" id="theme"/>
         </div>
     </div>
-    <script src="/js/theme.js"></script>
-    <script src="/js/prod.all.js"></script>
+    <script src="{{ url_for('static', filename='js/prod.all.js') }}"></script>
 </body>
 </html>
