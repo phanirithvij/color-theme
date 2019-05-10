@@ -48,6 +48,7 @@ Found [here](http://palette.site/)
 
 email : phanirithvij2000@gmail.com
 pwd:    stdGUQ8JWz28SKc
+api_key : 1a3d575520ff2130aba23a88f09b2c28
 
 + Builds 3D histogram grid, searches for local maxima of the hit count
     
