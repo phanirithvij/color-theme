@@ -46,6 +46,9 @@ Found three ways of extracting colors from images.
 
 Found [here](http://palette.site/)
 
+email : phanirithvij2000@gmail.com
+pwd:    stdGUQ8JWz28SKc
+
 + Builds 3D histogram grid, searches for local maxima of the hit count
     
     [https://github.com/pixelogik/ColorCube](https://github.com/pixelogik/ColorCube)
