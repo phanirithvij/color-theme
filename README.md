@@ -41,3 +41,23 @@ ImageMagick [here](http://www.imagemagick.org/Usage/montage/)
 ```shell
 montage out*.jpg -resize 180x320 -tile 10x10 -geometry +0+0 montage.jpg
 ```
+
+Found three ways of extracting colors from images.
+
+Found [here](http://palette.site/)
+
++ Builds 3D histogram grid, searches for local maxima of the hit count
+    
+    [https://github.com/pixelogik/ColorCube](https://github.com/pixelogik/ColorCube)
+
+    File: `ColorCube.py`
++ Based on Palette class from Android SDK
+
+    [https://github.com/akfish/node-vibrant/](https://github.com/akfish/node-vibrant/)
+    
+    File : `vibrant.js`
++ Clusters similar colors in 3D model, sort them by volume and returns base colors for each block
+
+    [https://github.com/lokesh/color-thief](https://github.com/lokesh/color-thief)
+
+    File: `rgbaster.js`
