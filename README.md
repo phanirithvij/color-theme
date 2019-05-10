@@ -1,4 +1,4 @@
-# A simple showcase of image based color theme
+# A simple showcase of a image based color theme
 
 ## Setup
 
