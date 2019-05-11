@@ -1,3 +1,12 @@
-        :root 
-{'--bg-color : rgb(30,37,37);\r\n--color-0 : rgb(30,37,37);\r\n--color-1 : rgb(239,240,226);\r\n--color-2 : rgb(170,147,87);\r\n--color-3 : rgb(182,162,116);\r\n--color-4 : rgb(121,131,128);\r\n--color-5 : rgb(100,95,81);\r\n--color-6 : rgb(187,181,159);\r\n--color-7 : rgb(174,162,158);\r\n--color-8 : rgb(179,186,185);\r\n--color-9 : rgb(84,108,107);\r\n'}
-    
+:root{--bg-color : rgb(30,37,37);
+--color-0 : rgb(30,37,37);
+--color-1 : rgb(239,240,226);
+--color-2 : rgb(170,147,87);
+--color-3 : rgb(182,162,116);
+--color-4 : rgb(121,131,128);
+--color-5 : rgb(100,95,81);
+--color-6 : rgb(187,181,159);
+--color-7 : rgb(174,162,158);
+--color-8 : rgb(179,186,185);
+--color-9 : rgb(84,108,107);
+}

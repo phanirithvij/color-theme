@@ -1,7 +1,8 @@
 from utils import get_colors
 import os
+import uuid
 
-from flask import Flask, request, jsonify, send_file, render_template
+from flask import Flask, request, jsonify, send_file, send_from_directory, render_template
 
 app = Flask(__name__)
 app.static_folder = app.root_path + "/public"
@@ -24,15 +25,16 @@ def getcolorCss(filename:str):
     for i,col in enumerate(colors[1]):
         colorstrings += f"--color-{i} : rgb({col[0]},{col[1]},{col[2]});{os.linesep}"
     print(colorstrings)
-    dataS = f"""\
-        :root {os.linesep}{
-            {colorstrings}
-        }
-    """
+    dataS = ":root{" + colorstrings + "}"
     print(os.linesep)
-    with open('src/server/tmp/sy.css', "w+") as cssfile:
+
+    temp_dir = os.path.abspath('src/server/tmp/')
+    uid = uuid.uuid1()
+    temp_file = os.path.join(temp_dir, f"{uid}!{filename}.css")
+
+    with open(temp_file, "w+") as cssfile:
         cssfile.write(dataS)
-    return send_file(os.path.abspath("src/server/tmp/sy.css"), mimetype="text/css") # send a freshly created css file
+    return send_from_directory(temp_dir, temp_file, as_attachment=True) # send a freshly created css file
 
 @app.route('/image/<filename>/')
 def getimage(filename:str):
