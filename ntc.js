@@ -1694,11 +1694,12 @@ try {
 } catch (error) {
 	node = false
 }
+
 if (node){
 	console.log("[ntc.js] > node.js")
 	let args = process.argv
 	if (args.length < 3){
-		console.log("less than 3 args")
+		// console.log("less than 3 args")
 	} else {
 		const colors = args.filter((_, i)=>i>1)
 		console.log(colors)
