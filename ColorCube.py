@@ -137,14 +137,14 @@ class ColorCube:
 
 		return colors
 
-	def find_local_maxima(self, image):
+	def find_local_maxima(self, image:Image):
 		# Finds and returns local maxima in 3d histogram, sorted with respect to hit count
 
 		# Reset all cells
 		self.clear_cells()
 
 		# Iterate over all pixels of the image
-		for p in image.getdata(): 
+		for p in image.getdata():
 
 			# Get color components
 			r = float(p[0])/255.0
@@ -255,7 +255,7 @@ class ColorCube:
 			# Add to filtered array if is distinct        	
 			if is_distinct == True:
 				result.append(m)
-        	
+
 		return result
 
 	def filter_too_similar(self, maxima):
@@ -281,7 +281,7 @@ class ColorCube:
 
 			if delta >= 0.5:
 				result.append(m)
-        	
+
 		return result
 
 ################################################################################
