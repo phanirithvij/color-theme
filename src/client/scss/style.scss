@@ -10,6 +10,12 @@ body, html {
     height: 100%;
 }
 
+#cont{
+    position: absolute;
+    z-index: 1;
+    background: var(--color-3);
+}
+
 #imgc {
     background-image: url(/image/infile.jpg);
 	// position: fixed;
@@ -18,7 +24,7 @@ body, html {
     -webkit-filter: blur(40px);
 	-o-filter: blur(40px);
 	filter: blur(40px);
-    z-index: -100;
+    z-index: -1;
     background-position: top;
     background-repeat: no-repeat;
 	-webkit-background-size: cover;

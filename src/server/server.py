@@ -8,14 +8,12 @@ from flask_cors import CORS, cross_origin
 
 from utils.gencss import gen_css
 from utils import get_colors
-from configs.db import init_db
+from configs.db import init_db, insert_pair, get_existing
 from configs import JOINER as joiner
+from configs import APP_DB
 
 app = Flask(__name__)
 CORS(app)
-
-conn = sqlite3.connect(os.path.abspath("src/server/tmp/database.db"))
-cur  = conn.cursor()
 
 app.static_folder = app.root_path + "/public"
 
@@ -37,13 +35,28 @@ def getcolorCss(filename:str):
     print(request.args)
     file_exists = False
     css_file = None
+    temp_dir = os.path.abspath('src/server/tmp/')
+    image_dir = os.path.abspath("src/server/img/")
+
+    file_act_path = os.path.abspath(os.path.join(image_dir, filename))
+
+    if not os.path.isfile(file_act_path):
+        print(f"[server.py:getcolorCss] > {filename} is inexistent")
+        return send_file(os.path.abspath("src/client/css/404.css"))
+
+    exist = get_existing(filename)
+    if exist and exist[0]:
+        col = exist[0]
+        css_file = f"{col[0]}{joiner}{col[1]}.css"
+        css_file = os.path.join(temp_dir, css_file)
+        print(css_file, "is the css file from db")
+        file_exists = True
 
     if not file_exists:
         file = os.path.abspath(f"src/server/img/{filename}")
         colors = (get_colors(file))
         # data = {"main":colors[0], "palette":colors[1]}
         dataS = gen_css(colors)
-        temp_dir = os.path.abspath('src/server/tmp/')
         uid = uuid.uuid1()
 
         temp_file = os.path.join(temp_dir, f"{filename}{joiner}{uid}.css")
@@ -53,6 +66,7 @@ def getcolorCss(filename:str):
         css_file = temp_file
 
         # insert to db
+        insert_pair(filename, uid)
 
     return send_file(css_file) # send a freshly created css file
 
@@ -69,5 +83,5 @@ def gethome():
     return render_template("index.html")
 
 if __name__ == "__main__":
-    init_db(conn, cur)
+    init_db()
     app.run(debug=True, port=5000)

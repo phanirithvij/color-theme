@@ -16,3 +16,15 @@ This doc contains all the bugs encountered while developing this piece of junk
 + Importing from parent directory python
     - **Issue** : importing from upper directories in python is a pain
     - **Solution** : Don't do it
+
++ SQlite3 same thread error
+    - **Issue** : sqlite3.ProgrammingError: SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 24440 and this is thread id 17404.
+    - **Solution** :
+
+        ```python
+        # Use a seperate connection object in every function instead of passing it as an argument like
+        # #447d3b is the CTRL + K + V preview green color
+        import sqlite3
+        conn = sqlite3.connect(db_name)
+        cur = conn.cursor()
+        ```

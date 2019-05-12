@@ -51,7 +51,7 @@ class ColorCube:
 	# Uses a 3d RGB histogram to find local maximas in the density distribution
 	# in order to retrieve dominant colors of pixel images
 	def __init__(self, resolution=30, avoid_color=None, distinct_threshold=0.2, bright_threshold=0.6):
-		
+
 		# Keep resolution
 		self.resolution = resolution
 

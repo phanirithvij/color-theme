@@ -1,4 +1,8 @@
+import os
+
 JOINER = "!#@#!"
+
+APP_DB = os.path.abspath("src/server/tmp/database.db")
 
 CREATE_DB = """\
 CREATE TABLE IF NOT EXISTS images (
@@ -10,15 +14,15 @@ CREATE TABLE IF NOT EXISTS images (
 """
 
 INSERT_CSS_ENTRY = """\
-INSERT INTO images VALUES(
-    {}, {}, {}
+INSERT INTO images VALUES (
+    "{}", "{}", {}
 );
 """
 
 GET_CSS = """\
-SELECT * FROM images WHERE filename = {};
+SELECT * FROM images WHERE filename = "{}";
 """
 
 CLEAN_UP_SQL = """\
-DELETE FROM images WHERE filename = {};
+DELETE FROM images WHERE filename = "{}";
 """
