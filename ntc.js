@@ -1702,15 +1702,18 @@ if (node){
 		// console.log("less than 3 args")
 	} else {
 		const colors = args.filter((_, i)=>i>1)
-		console.log(colors)
+		// console.log(colors)
 		colors.forEach(c=>{
-			console.log(`color: ${c}- name: `, ntc.name(c))
+			console.log(`color: ${c} `, ntc.name(c))
 		})
 	}
 }
 
+
+	/* example usage */
+
+	/* λ node ntc.js '#1994e3' '#757575' '#010101' '#ffffff' '#f6f7f7' '#050505' '#707171' */
+
+	/* λ node ntc.js $(node vibrant.js) */
+
 /* till here */
-
-/* example usage */
-
-/* λ node ntc.js '#1994e3' '#757575' '#010101' '#ffffff' '#f6f7f7' '#050505' '#707171' */

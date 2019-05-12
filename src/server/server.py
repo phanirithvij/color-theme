@@ -6,7 +6,6 @@ from flask import Flask, request, jsonify
 from flask import send_file, send_from_directory, render_template
 from flask_cors import CORS, cross_origin
 
-
 from utils.gencss import gen_css
 from utils import get_colors
 from configs.db import init_db
