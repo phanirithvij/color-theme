@@ -1,5 +1,5 @@
 node_modules/
 tmp/
 temp/
-__pychache__/
+__pycache__/
 *.pyc
