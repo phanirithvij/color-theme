@@ -1710,3 +1710,7 @@ if (node){
 }
 
 /* till here */
+
+/* example usage */
+
+/* λ node ntc.js '#1994e3' '#757575' '#010101' '#ffffff' '#f6f7f7' '#050505' '#707171' */

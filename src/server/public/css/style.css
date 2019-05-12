@@ -3,11 +3,14 @@ body, html {
   margin: 0;
   background: var(--bg-color); }
 
+#main {
+  height: 100%; }
+
 #imgc {
   background-image: url(/image/infile.jpg);
-  -webkit-filter: blur(18px);
-  -o-filter: blur(18px);
-  filter: blur(18px);
+  -webkit-filter: blur(40px);
+  -o-filter: blur(40px);
+  filter: blur(40px);
   z-index: -100;
   background-position: top;
   background-repeat: no-repeat;
@@ -15,4 +18,5 @@ body, html {
   -moz-background-size: cover;
   -ms-background-size: cover;
   -o-background-size: cover;
-  background-size: cover; }
+  background-size: cover;
+  height: 100%; }

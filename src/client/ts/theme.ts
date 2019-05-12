@@ -20,7 +20,17 @@ img.onload = (ev)=>{
 };
 img.src = "/image/infile.jpg";
 
-fetch(`${API_GET}/infile.jpg`, {
+const fetch_css = ()=>{
+    const css = document.createElement('link');
+    css.rel = "stylesheet";
+    css.type = "text/css";
+    css.href = "/colorcss/infile.jpg/style.css";
+    document.head.appendChild(css);
+}
+
+fetch_css();
+
+/* fetch(`${API_GET}/infile.jpg`, {
     method : "GET",
     headers: {
         "Content-Type": "application/json",
@@ -38,9 +48,21 @@ fetch(`${API_GET}/infile.jpg`, {
         html.style.setProperty(`--color-${i}`, `rgb(${color[0]},${color[1]},${color[2]})`);            
     });
 
-    const css = document.createElement('link');
-    css.rel = "stylesheet";
-    css.type = "text/css";
-    css.href = "/colorcss/infile.jpg/style.css";
-    document.head.appendChild(css);
+    console.log("a small update")
 });
+ */
+/* A naive Pseudo-Ecrypting image names on frontend can be done using */
+
+/*
+// by sending
+    btoa(btoa('filename'))
+// to the server instead of filename
+// like an id but not uuid
+
+// and decode on server side (python)
+import base64
+data = from_client()
+once = base64.b64decode(data).decode('utf-8')
+twice= base64.b64decode(once).decode('utf-8')
+print(twice == "filename")
+*/
