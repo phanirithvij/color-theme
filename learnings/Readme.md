@@ -73,3 +73,24 @@ Along with some new stuff that I might google again and again.
         ```
     - **Tags** : flask, 404, python
 
++ Sqlite3 insert uuid
+    - **Issue** : To insert a uuid into a db in sqlite3 it gave an error
+
+        ```python
+        File "D:\Images\pallete\pallete-theme\src\server\configs\db.py", line 46, in insert_pair
+            cur.execute(INSERT_CSS_ENTRY, (file, uuid, timE))
+        sqlite3.InterfaceError: Error binding parameter 1 - probably unsupported type.
+        ```
+    - **Solution** :
+
+        ```python
+        # convert uuid to an str as it is of type uuid.UUID
+        import uuid
+        id_u = uuid.uuid1()
+        
+        print(type(id_u))  # <class 'uuid.UUID'>
+
+        # sqlite insert
+        id_str = str(id_u)
+        ```
+    - **Tags** : sqlite3, python, uuid
