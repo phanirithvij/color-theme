@@ -18,7 +18,7 @@ def insert_pair(file: str, uuid: str):
     cur = conn.cursor()
 
     timE = time.time()
-    cur.execute(INSERT_CSS_ENTRY.format(file, uuid, timE))
+    cur.execute(INSERT_CSS_ENTRY, (file, uuid, timE))
     conn.commit()
 
     cur.close()
@@ -28,7 +28,7 @@ def get_existing(file: str):
     conn = sqlite3.connect(APP_DB)
     cur = conn.cursor()
 
-    cur.execute(GET_CSS.format(file))
+    cur.execute(GET_CSS, (file,))
     data = cur.fetchall()
 
     cur.close()

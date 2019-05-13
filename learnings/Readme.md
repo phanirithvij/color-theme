@@ -23,8 +23,25 @@ This doc contains all the bugs encountered while developing this piece of junk
 
         ```python
         # Use a seperate connection object in every function instead of passing it as an argument like
-        # #447d3b is the CTRL + K + V preview green color
+        # [#447d3b] is the CTRL + K + V [preview] comment's green color
         import sqlite3
         conn = sqlite3.connect(db_name)
         cur = conn.cursor()
+        # Don't do it globally
+        # do it once in a file
+        ```
++ Using f-strings in sql
+    - **Issue** : Using `f"{data}"` f-strings in sql is bad as it eases sql injection.
+    - **Solution** :
+
+        Use the provided way i.e use `?`s.
+        ```python
+        import sqlite3
+        sql_query = """
+        INSERT INTO table (name, blah, blah2) VALUES (?, ?, ?)
+        """
+        conn = sqlite3.connect("db.db")
+        c = conn.cursor()
+
+        c.execute(sql_squery, ("blah", "blah", "blah"))
         ```

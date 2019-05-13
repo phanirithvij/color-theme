@@ -2,7 +2,7 @@ import os
 import uuid
 import sqlite3
 
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, abort
 from flask import send_file, send_from_directory, render_template
 from flask_cors import CORS, cross_origin
 
@@ -10,14 +10,14 @@ from utils.gencss import gen_css
 from utils import get_colors
 from configs.db import init_db, insert_pair, get_existing
 from configs import JOINER as joiner
-from configs import APP_DB
+from configs import APP_DB, NO_SUCH_IMAGE
 
 app = Flask(__name__)
 CORS(app)
 
 app.static_folder = app.root_path + "/public"
 
-@app.route('/colors/<filename>')
+@app.route('/colors/<filename>/data.json')
 @cross_origin()
 def getcolors(filename:str):
     print(request.args)
@@ -42,7 +42,7 @@ def getcolorCss(filename:str):
 
     if not os.path.isfile(file_act_path):
         print(f"[server.py:getcolorCss] > {filename} is inexistent")
-        return send_file(os.path.abspath("src/client/css/404.css"))
+        return send_file(os.path.abspath("src/server/public/css/404.css"))
 
     exist = get_existing(filename)
     if exist and exist[0]:
@@ -75,10 +75,12 @@ def getcolorCss(filename:str):
 def getimage(filename:str):
     print(request.args)
     file = os.path.abspath(f"src/server/img/{filename}")
-    return send_file(file)
+    if os.path.isfile(file):
+        return send_file(file)
+
+    return NO_SUCH_IMAGE.format(filename), 404
 
 @app.route('/')
-@cross_origin()
 def gethome():
     return render_template("index.html")
 

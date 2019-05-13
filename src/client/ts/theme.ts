@@ -30,7 +30,7 @@ const fetch_css = ()=>{
 
 fetch_css();
 
-/* fetch(`${API_GET}/infile.jpg`, {
+fetch(`${API_GET}/infile.jpg/data.json`, {
     method : "GET",
     headers: {
         "Content-Type": "application/json",
@@ -50,7 +50,7 @@ fetch_css();
 
     console.log("a small update")
 });
- */
+
 /* A naive Pseudo-Ecrypting image names on frontend can be done using */
 
 /*

@@ -6,17 +6,18 @@ body, html {
 #main {
   height: 100%; }
 
-#cont {
+#content {
+  height: 100%;
+  width: 100%;
   position: absolute;
-  z-index: 1;
-  background: var(--color-3); }
+  z-index: 1; }
 
 #imgc {
+  z-index: -1;
   background-image: url(/image/infile.jpg);
   -webkit-filter: blur(40px);
   -o-filter: blur(40px);
   filter: blur(40px);
-  z-index: -1;
   background-position: top;
   background-repeat: no-repeat;
   -webkit-background-size: cover;
