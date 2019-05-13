@@ -17,7 +17,6 @@ CORS(app)
 
 app.static_folder = app.root_path + "/public"
 
-
 @app.route('/colors/<filename>/data.json')
 @cross_origin()
 def getcolors(filename: str):
@@ -29,7 +28,6 @@ def getcolors(filename: str):
         "palette": colors[1]
     }
     return jsonify(data)
-
 
 @app.route('/colorcss/<filename>/style.css')
 @cross_origin()
@@ -72,7 +70,6 @@ def getcolorCss(filename: str):
 
     return send_file(css_file)  # send a freshly created css file
 
-
 @app.route('/image/<filename>')
 @cross_origin()
 def getimage(filename: str):
@@ -83,11 +80,9 @@ def getimage(filename: str):
 
     return NO_SUCH_IMAGE.format(filename), 404
 
-
 @app.route('/')
 def gethome():
     return render_template("index.html")
-
 
 if __name__ == "__main__":
     init_db()
