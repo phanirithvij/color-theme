@@ -60,7 +60,16 @@ Along with some new stuff that I might google again and again.
         Following [this answer from stackoverflow](https://stackoverflow.com/a/29516120/8608146)
         ```python
         @app.route("/<filename>")
+        def fileee(filename: str):
             if not get_file(filename):
                 return "hello this is a <b>404</b>", 404
         ```
+
+        ```python
+        from flask import abort
+        @app.route("/err")
+        def err():
+            abort(404)
+        ```
     - **Tags** : flask, 404, python
+
