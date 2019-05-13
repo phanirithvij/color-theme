@@ -1,4 +1,4 @@
-from PIL import Image, ImageDraw
+# from PIL import Image, ImageDraw
 from colorthief import ColorThief
 
 def get_colors(infile, numcolors=10) -> (tuple, list):
@@ -10,7 +10,7 @@ def get_colors(infile, numcolors=10) -> (tuple, list):
     colors = colort.get_palette(color_count=numcolors)
     maincol = colort.get_color()
     if (len(colors) != numcolors):
-        colors = colort.get_palette(color_count=numcolors+1)
+        colors = colort.get_palette(color_count=numcolors + 1)
 
     return (maincol, colors)
 

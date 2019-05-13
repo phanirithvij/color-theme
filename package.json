@@ -25,6 +25,7 @@
     "vinyl-paths": "^2.1.0"
   },
   "dependencies": {
+    "node-fetch": "^2.5.0",
     "typescript": "^3.3.4000"
   }
 }

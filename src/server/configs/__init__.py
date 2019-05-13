@@ -22,8 +22,8 @@ CREATE_COLORS = """\
 CREATE TABLE IF NOT EXISTS colors (
     filename    TEXT,
     color       VARCHAR (7),
-    id          INT AUTO_INCREMENT,
-    PRIMARY KEY (filename, id)
+    number      INTEGER,
+    UNIQUE(filename, color, number)
 );
 """
 
@@ -32,7 +32,7 @@ SELECT * FROM colors WHERE filename = ?;
 """
 
 INSERT_COLOR_ENTRY = """\
-INSERT INTO colors (filename, color) VALUES (?, ?);
+INSERT INTO colors (filename, color, number) VALUES (?, ?, ?);
 """
 
 INSERT_CSS_ENTRY = """\

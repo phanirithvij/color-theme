@@ -18,6 +18,8 @@ from . import CREATE_TABLE_IMGS, CREATE_COLORS
 from . import INSERT_CSS_ENTRY, GET_CSS
 from . import GET_COLORS_FILE, INSERT_COLOR_ENTRY
 
+from utils.colors import rgb2hex
+
 def init_db():
     """
     Initialize all tables in the database
@@ -41,10 +43,7 @@ def insert_pair(file: str, uuid: uuid.UUID):
     cur = conn.cursor()
 
     timE = time.time()
-    print("CSS INSERT")
-    print(file, uuid, timE)
-    print(type(file), type(uuid), type(timE))
-    cur.execute(INSERT_CSS_ENTRY, (file, str(uuid), timE))
+    cur.execute(INSERT_CSS_ENTRY, (file, str(uuid), timE))  # a learning
     conn.commit()
 
     cur.close()
@@ -58,9 +57,13 @@ def insert_file_colors(file: str, colors: list):
     cur = conn.cursor()
 
     print("INSERT")
-    for color in colors:
-        hexc = '#%02X%02X%02X' % color
-        cur.execute(INSERT_COLOR_ENTRY, (file, hexc))
+    for i, color in enumerate(colors):
+        hexc = rgb2hex(color)
+        try:
+            cur.execute(INSERT_COLOR_ENTRY, (file, hexc, i))
+        except sqlite3.IntegrityError as e:
+            print("No duplicates for you", file)
+            print(e)
     conn.commit()
 
     cur.close()
