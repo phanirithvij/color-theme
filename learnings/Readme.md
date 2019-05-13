@@ -14,10 +14,12 @@ Along with some new stuff that I might google again and again.
         ```
 
         from [this stackoverflow post](https://stackoverflow.com/a/51031104/8608146)
+    - **Tags** : sqlite3, install, windows, pip, python
 
 + Importing from parent directory python
     - **Issue** : importing from upper directories in python is a pain
     - **Solution** : Don't do it
+    - **Tags** : python, import
 
 + SQlite3 same thread error
     - **Issue** : sqlite3.ProgrammingError: SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 24440 and this is thread id 17404.
@@ -32,6 +34,8 @@ Along with some new stuff that I might google again and again.
         # Don't do it globally
         # do it once in a file
         ```
+    - **Tags** : sqlite3, python
+
 + Using f-strings in sql
     - **Learning** : Using `f"{data}"` f-strings in sql is bad as it eases sql injection.
     - **Solution** :
@@ -47,6 +51,8 @@ Along with some new stuff that I might google again and again.
 
         c.execute(sql_squery, ("blah", "blah", "blah"))
         ```
+    - **Tags** : sqlite3, sql, python
+
 + Flask 404
     - **Learning** : To send a custom 404 python, flask
     - **Solution** :
@@ -57,3 +63,4 @@ Along with some new stuff that I might google again and again.
             if not get_file(filename):
                 return "hello this is a <b>404</b>", 404
         ```
+    - **Tags** : flask, 404, python
