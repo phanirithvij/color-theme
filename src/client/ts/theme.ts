@@ -42,11 +42,11 @@ fetch(`${API_GET}/infile.jpg/data.json`, {
     const bg : RGB = a.main;
     const palette : RGB[] = a.palette;
     console.log(bg, palette);
-    const html : HTMLHtmlElement = document.querySelector(':root');
-    html.style.setProperty('--bg-color', `rgb(${bg[0]},${bg[1]},${bg[2]})`);
-    palette.forEach((color : RGB, i: number)=> {
-        html.style.setProperty(`--color-${i}`, `rgb(${color[0]},${color[1]},${color[2]})`);            
-    });
+    // const html : HTMLHtmlElement = document.querySelector(':root');
+    // html.style.setProperty('--bg-color', `rgb(${bg[0]},${bg[1]},${bg[2]})`);
+    // palette.forEach((color : RGB, i: number)=> {
+    //     html.style.setProperty(`--color-${i}`, `rgb(${color[0]},${color[1]},${color[2]})`);            
+    // });
 
     console.log("a small update")
 });

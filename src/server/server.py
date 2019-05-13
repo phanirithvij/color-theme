@@ -8,7 +8,10 @@ from flask_cors import CORS, cross_origin
 
 from utils.gencss import gen_css
 from utils import get_colors
-from configs.db import init_db, insert_pair, get_existing
+from configs.db import init_db
+from configs.db import insert_pair, insert_file_colors
+from configs.db import get_existing, get_existing_colors
+
 from configs import JOINER as joiner
 from configs import NO_SUCH_IMAGE
 
@@ -22,11 +25,27 @@ app.static_folder = app.root_path + "/public"
 def getcolors(filename: str):
     print(request.args)
     file = os.path.abspath(f"src/server/img/{filename}")
-    colors = (get_colors(file))
-    data = {
-        "main": colors[0],
-        "palette": colors[1]
-    }
+    data = {}
+    if not os.path.isfile(file):
+        return jsonify({
+            "error": 404,
+            "message": f"No such file {filename}"
+        }), 404
+
+    # get from db
+    colors = get_existing_colors(filename)
+    if colors and len(colors):
+        data = {
+            "main": colors[0],
+            "palette": colors
+        }
+    else:
+        ex_colors = get_colors(file)
+        insert_file_colors(filename, ex_colors[1])
+        data = {
+            "main": ex_colors[0],
+            "palette": ex_colors[1]
+        }
     return jsonify(data)
 
 @app.route('/colorcss/<filename>/style.css')
@@ -54,7 +73,7 @@ def getcolorCss(filename: str):
 
     if not file_exists:
         file = os.path.abspath(f"src/server/img/{filename}")
-        colors = (get_colors(file))
+        colors = get_colors(file)
         # data = {"main":colors[0], "palette":colors[1]}
         dataS = gen_css(colors)
         uid = uuid.uuid1()
@@ -67,6 +86,7 @@ def getcolorCss(filename: str):
 
         # insert to db
         insert_pair(filename, uid)
+        insert_file_colors(filename, colors[1])
 
     return send_file(css_file)  # send a freshly created css file
 
@@ -75,10 +95,11 @@ def getcolorCss(filename: str):
 def getimage(filename: str):
     print(request.args)
     file = os.path.abspath(f"src/server/img/{filename}")
-    if os.path.isfile(file):
-        return send_file(file)
 
-    return NO_SUCH_IMAGE.format(filename), 404
+    if not os.path.isfile(file):
+        return NO_SUCH_IMAGE.format(filename), 404
+
+    return send_file(file)
 
 @app.route('/')
 def gethome():

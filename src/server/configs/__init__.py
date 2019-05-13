@@ -9,31 +9,34 @@ No such image {} exists here please check again.
 
 APP_DB = os.path.abspath("src/server/tmp/database.db")
 
-CREATE_DB = """\
+CREATE_TABLE_IMGS = """\
 CREATE TABLE IF NOT EXISTS images (
-    filename    TEXT,
-    uuid        VARCHAR (100),
-    time        INT,
+    filename    VARCHAR (200),
+    uuid        VARCHAR (40),
+    time        REAL,
     PRIMARY KEY (uuid)
-)
+);
 """
 
 CREATE_COLORS = """\
 CREATE TABLE IF NOT EXISTS colors (
     filename    TEXT,
     color       VARCHAR (7),
-    PRIMARY KEY (filename)
-)
+    id          INT AUTO_INCREMENT,
+    PRIMARY KEY (filename, id)
+);
 """
 
 GET_COLORS_FILE = """\
 SELECT * FROM colors WHERE filename = ?;
 """
 
+INSERT_COLOR_ENTRY = """\
+INSERT INTO colors (filename, color) VALUES (?, ?);
+"""
+
 INSERT_CSS_ENTRY = """\
-INSERT INTO images VALUES (
-    ?, ?, ?
-);
+INSERT INTO images (filename, uuid, time) VALUES (?, ?, ?);
 """
 
 GET_CSS = """\
