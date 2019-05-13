@@ -2,9 +2,11 @@
 
 This doc contains all the bugs encountered while developing this piece of junk
 
+Along with some new stuff that I might google again and again.
+
 ## Issues
 + Sqlite3 installation Windows
-    - **Issue** : In windows sqlite3 wasn't in build when I was using `python 3.7.3`
+    - **Issue** : In windows sqlite3 wasn't in-built when I was using `python 3.7.3`
     - **Solution**
 
         ```shell
@@ -31,7 +33,7 @@ This doc contains all the bugs encountered while developing this piece of junk
         # do it once in a file
         ```
 + Using f-strings in sql
-    - **Issue** : Using `f"{data}"` f-strings in sql is bad as it eases sql injection.
+    - **Learning** : Using `f"{data}"` f-strings in sql is bad as it eases sql injection.
     - **Solution** :
 
         Use the provided way i.e use `?`s.
@@ -44,4 +46,14 @@ This doc contains all the bugs encountered while developing this piece of junk
         c = conn.cursor()
 
         c.execute(sql_squery, ("blah", "blah", "blah"))
+        ```
++ Flask 404
+    - **Learning** : To send a custom 404 python, flask
+    - **Solution** :
+
+        Following [this answer from stackoverflow](https://stackoverflow.com/a/29516120/8608146)
+        ```python
+        @app.route("/<filename>")
+            if not get_file(filename):
+                return "hello this is a <b>404</b>", 404
         ```
