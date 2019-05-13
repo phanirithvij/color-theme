@@ -1,37 +1,39 @@
 import os
 import uuid
-import sqlite3
+# import sqlite3
 
-from flask import Flask, request, jsonify, abort
-from flask import send_file, send_from_directory, render_template
+from flask import Flask, request, jsonify
+from flask import send_file, render_template
 from flask_cors import CORS, cross_origin
 
 from utils.gencss import gen_css
 from utils import get_colors
 from configs.db import init_db, insert_pair, get_existing
 from configs import JOINER as joiner
-from configs import APP_DB, NO_SUCH_IMAGE
+from configs import NO_SUCH_IMAGE
 
 app = Flask(__name__)
 CORS(app)
 
 app.static_folder = app.root_path + "/public"
 
+
 @app.route('/colors/<filename>/data.json')
 @cross_origin()
-def getcolors(filename:str):
+def getcolors(filename: str):
     print(request.args)
     file = os.path.abspath(f"src/server/img/{filename}")
     colors = (get_colors(file))
     data = {
-        "main"      : colors[0],
-        "palette"   : colors[1]
+        "main": colors[0],
+        "palette": colors[1]
     }
     return jsonify(data)
 
+
 @app.route('/colorcss/<filename>/style.css')
 @cross_origin()
-def getcolorCss(filename:str):
+def getcolorCss(filename: str):
     print(request.args)
     file_exists = False
     css_file = None
@@ -68,11 +70,12 @@ def getcolorCss(filename:str):
         # insert to db
         insert_pair(filename, uid)
 
-    return send_file(css_file) # send a freshly created css file
+    return send_file(css_file)  # send a freshly created css file
+
 
 @app.route('/image/<filename>')
 @cross_origin()
-def getimage(filename:str):
+def getimage(filename: str):
     print(request.args)
     file = os.path.abspath(f"src/server/img/{filename}")
     if os.path.isfile(file):
@@ -80,9 +83,11 @@ def getimage(filename:str):
 
     return NO_SUCH_IMAGE.format(filename), 404
 
+
 @app.route('/')
 def gethome():
     return render_template("index.html")
+
 
 if __name__ == "__main__":
     init_db()
