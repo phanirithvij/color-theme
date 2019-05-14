@@ -30,6 +30,10 @@ const fetch_css = ()=>{
 
 fetch_css();
 
+let ColorCube;
+
+(new ColorCube).get_colors(document.querySelector('#img-main'))
+
 fetch(`${API_GET}/infile.jpg/data.json`, {
     method : "GET",
     headers: {

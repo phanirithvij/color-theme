@@ -20,7 +20,7 @@ from configs import JOINER as joiner
 from configs import NO_SUCH_IMAGE
 
 app = Flask(__name__)
-CORS(app)
+cors = CORS(app)
 
 app.static_folder = app.root_path + "/public"
 
@@ -122,6 +122,7 @@ def getimage(filename: str):
     return send_file(file)
 
 @app.route('/', methods=['POST', 'GET'])
+@cross_origin()
 def gethome():
     init_db()
     if request.method == "GET":

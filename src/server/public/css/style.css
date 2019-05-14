@@ -14,10 +14,6 @@ body, html {
 
 #imgc {
   z-index: -1;
-  background-image: url(/image/infile.jpg);
-  -webkit-filter: blur(40px);
-  -o-filter: blur(40px);
-  filter: blur(40px);
   background-position: top;
   background-repeat: no-repeat;
   -webkit-background-size: cover;
@@ -26,3 +22,7 @@ body, html {
   -o-background-size: cover;
   background-size: cover;
   height: 100%; }
+
+#img-main {
+  max-height: 100%;
+  max-width: 100%; }
