@@ -10,7 +10,9 @@ from flask_cors import CORS, cross_origin
 # from utils.gencss import gen_css
 from utils import get_colors
 from utils.gencss import get_colors_gen_css
-from utils.colors import hex2rgb
+from utils.colors import hex2rgb, rgb2hex
+from utils.names import get_names
+from utils.vibrant import get_vibrants
 
 from configs.db import init_db
 from configs.db import insert_pair, insert_file_colors
@@ -26,7 +28,7 @@ app.static_folder = app.root_path + "/public"
 
 @app.route('/colors/<filename>/data.json', methods=['GET'])
 @cross_origin()
-def getcolors(filename: str):
+def get_colors_and_names(filename: str):
     init_db()
     print(request.args)
     file = os.path.abspath(f"src/server/img/{filename}")
@@ -37,24 +39,33 @@ def getcolors(filename: str):
             "message": f"No such file {filename}"
         }), 404
 
+    x = get_vibrants(file)
+    print(x)
+
     # get from db
     colors = get_existing_colors(filename)
     if colors and len(colors):
+        pure_colors = [x[1] for x in colors]
+        colors_names = get_names(pure_colors)
         data = {
-            "main": colors[0],
-            "palette": colors
+            "main": get_names([colors[0][1]]),
+            "palette": colors_names
         }
     else:
         ex_colors = get_colors(file)
+        # rgb to hex to get the names
+        ex_colors_hex = [rgb2hex(x) for x in ex_colors[1]]
+        ex_colors_names = get_names(ex_colors_hex)
         data = {
-            "main": ex_colors[0],
-            "palette": ex_colors[1]
+            "main": get_names([rgb2hex(ex_colors[0])]),
+            "palette": ex_colors_names
         }
         exist_css = get_existing(filename)
         if not exist_css:
             uid, colors, css_file = get_colors_gen_css(filename, joiner)
             # insert to css_table in db
             insert_pair(filename, uid)
+        # theif => method = 1 default
         insert_file_colors(filename, ex_colors[1])
     return jsonify(data)
 
@@ -105,6 +116,7 @@ def getcolorCss(filename: str):
         # insert to css_table in db
         insert_pair(filename, uid)
     if not get_existing_colors(filename):
+        # theif => method = 1 default
         insert_file_colors(filename, colors[1])
 
     return send_file(css_file)  # send a freshly created css file

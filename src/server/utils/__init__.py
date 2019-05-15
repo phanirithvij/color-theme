@@ -15,4 +15,4 @@ def get_colors(infile, numcolors=10) -> (tuple, list):
     return (maincol, colors)
 
 if __name__ == '__main__':
-    print(get_colors('../infile.jpg', 10))
+    print(get_colors('../infile.png', 10))

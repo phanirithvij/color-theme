@@ -1696,16 +1696,23 @@ try {
 }
 
 if (node){
-	console.log("[ntc.js] > node.js")
+	// console.log("[ntc.js] > node.js")
 	let args = process.argv
 	if (args.length < 3){
 		// console.log("less than 3 args")
 	} else {
 		const colors = args.filter((_, i)=>i>1)
 		// console.log(colors)
+		a = []
 		colors.forEach(c=>{
-			console.log(`color: ${c} `, ntc.name(c))
+			hex = c
+			name = ntc.name(hex)
+			similar_color = name[0]
+			exact = name[2]
+			name = name[1]
+			a.push({hex, name, similar_color, exact})
 		})
+		console.log(JSON.stringify(a))
 	}
 }
 

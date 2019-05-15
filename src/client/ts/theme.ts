@@ -17,24 +17,24 @@ img.onload = (ev)=>{
     bgImg.style.width = `${img.naturalWidth}`;
     bgImg.style.height = `${img.naturalHeight}`;
     bgImg.parentElement.hidden = false;
+
+    let ColorCube = window['ColorCube'] || null;    
+    console.log((new ColorCube).get_colors(document.querySelector('#img-main')))
 };
-img.src = "/image/infile.jpg";
+img.src = "/image/infile.png";
 
 const fetch_css = ()=>{
     const css = document.createElement('link');
     css.rel = "stylesheet";
     css.type = "text/css";
-    css.href = "/colorcss/infile.jpg/style.css";
+    css.href = "/colorcss/infile.png/style.css";
     document.head.appendChild(css);
 }
 
 fetch_css();
 
-let ColorCube;
 
-(new ColorCube).get_colors(document.querySelector('#img-main'))
-
-fetch(`${API_GET}/infile.jpg/data.json`, {
+fetch(`${API_GET}/infile.png/data.json`, {
     method : "GET",
     headers: {
         "Content-Type": "application/json",
