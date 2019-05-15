@@ -33,7 +33,6 @@ const fetch_css = ()=>{
 
 fetch_css();
 
-
 fetch(`${API_GET}/infile.png/data.json`, {
     method : "GET",
     headers: {
