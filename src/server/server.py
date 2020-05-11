@@ -6,6 +6,7 @@ import json
 from flask import Flask, request, jsonify
 from flask import send_file, render_template
 from flask_cors import CORS, cross_origin
+import jinja2
 
 # from utils.gencss import gen_css
 from utils import get_colors
@@ -25,6 +26,14 @@ app = Flask(__name__)
 cors = CORS(app)
 
 app.static_folder = app.root_path + "/public"
+
+# https://stackoverflow.com/a/13598839/8608146
+my_loader = jinja2.ChoiceLoader([
+    app.jinja_loader,
+    jinja2.FileSystemLoader([app.static_folder]),
+])
+app.jinja_loader = my_loader
+
 
 @app.route('/colors/<filename>/data.json', methods=['GET'])
 @cross_origin()
@@ -68,6 +77,7 @@ def get_colors_and_names(filename: str):
         # theif => method = 1 default
         insert_file_colors(filename, ex_colors[1])
     return jsonify(data)
+
 
 @app.route('/colorcss/<filename>/style.css', methods=['GET'])
 @cross_origin()
@@ -121,6 +131,7 @@ def getcolorCss(filename: str):
 
     return send_file(css_file)  # send a freshly created css file
 
+
 @app.route('/image/<filename>', methods=['GET'])
 @cross_origin()
 def getimage(filename: str):
@@ -133,6 +144,7 @@ def getimage(filename: str):
 
     return send_file(file)
 
+
 @app.route('/', methods=['POST', 'GET'])
 @cross_origin()
 def gethome():
@@ -143,6 +155,7 @@ def gethome():
         data = request.data
         print(json.loads(data), "json baby")
         return jsonify({"sucess": True})
+
 
 if __name__ == "__main__":
     init_db()

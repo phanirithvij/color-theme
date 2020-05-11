@@ -19,13 +19,14 @@
     "del": "^4.0.0",
     "gulp": "^4.0.2",
     "gulp-concat": "^2.6.1",
-    "gulp-sass": "^4.0.2",
+    "gulp-sass": "^4.1.0",
     "gulp-typescript": "^5.0.1",
     "gulp-uglify": "^3.0.2",
     "vinyl-paths": "^2.1.0"
   },
   "dependencies": {
     "node-fetch": "^2.5.0",
+    "node-vibrant": "^3.1.5",
     "typescript": "^3.3.4000"
   }
 }

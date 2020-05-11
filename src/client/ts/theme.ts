@@ -9,31 +9,34 @@ interface colorData {
 
 const bgImg : HTMLDivElement = document.querySelector('#imgc');
 bgImg.parentElement.hidden = true;
-const img : HTMLImageElement = new Image();
-img.onload = (ev)=>{
+const imgx : HTMLImageElement = new Image();
+imgx.onload = (ev)=>{
     console.log(ev);
-    console.log(img.naturalWidth, img.naturalHeight);
+    console.log(imgx.naturalWidth, imgx.naturalHeight);
     // bgImg.appendChild(img);
-    bgImg.style.width = `${img.naturalWidth}`;
-    bgImg.style.height = `${img.naturalHeight}`;
+    bgImg.style.width = `${imgx.naturalWidth}`;
+    bgImg.style.height = `${imgx.naturalHeight}`;
     bgImg.parentElement.hidden = false;
+
+    console.log(ev.target);
 
     let ColorCube = window['ColorCube'] || null;    
     console.log((new ColorCube).get_colors(document.querySelector('#img-main')))
 };
-img.src = "/image/infile.png";
+const filename = "infile.jpg"
+imgx.src = `/image/${filename}`;
 
 const fetch_css = ()=>{
     const css = document.createElement('link');
     css.rel = "stylesheet";
     css.type = "text/css";
-    css.href = "/colorcss/infile.png/style.css";
+    css.href = `/colorcss/${filename}/style.css`;
     document.head.appendChild(css);
 }
 
 fetch_css();
 
-fetch(`${API_GET}/infile.png/data.json`, {
+fetch(`${API_GET}/${filename}/data.json`, {
     method : "GET",
     headers: {
         "Content-Type": "application/json",
