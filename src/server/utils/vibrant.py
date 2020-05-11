@@ -9,10 +9,24 @@ except ModuleNotFoundError:
 
 VIBRANT_JS = os.path.abspath("./vibrant.js")
 
-def get_vibrants(image_path):
+def get_vibrants_node(image_path):
     image_path = os.path.abspath(image_path)
     cmd = f"node \"{VIBRANT_JS}\" \"{image_path}\""
     resp = subprocess.check_output(cmd)
+    dataP = json.loads(resp)
+    respS = []
+    for x in dataP:
+        hex_ = x["hex"]
+        temp_ = get_names([f"\"{hex_}\""])[0]
+        temp_["vibrant_name"] = x["vibrant_name"]
+        respS.append(temp_)
+    return respS
+
+def get_vibrants(image_path):
+    image_path = os.path.abspath(image_path)
+    cmd = f".\\src\\server\\scripts\\scripts \"{image_path}\""
+    resp = subprocess.check_output(cmd)
+    print(resp)
     dataP = json.loads(resp)
     respS = []
     for x in dataP:
