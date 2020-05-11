@@ -41,24 +41,36 @@ func main() {
 
 	colors := []ColorItem{}
 
-	d := palette.VibrantSwatch().RGBAInt()
-	c := ColorItem{VibrantName: "Vibrant", Hex: cssHex(d)}
-	colors = append(colors, c)
-	d = palette.DarkVibrantSwatch().RGBAInt()
-	c = ColorItem{VibrantName: "DarkVibrant", Hex: cssHex(d)}
-	colors = append(colors, c)
-	d = palette.LightVibrantSwatch().RGBAInt()
-	c = ColorItem{VibrantName: "LightVibrant", Hex: cssHex(d)}
-	colors = append(colors, c)
-	d = palette.MutedSwatch().RGBAInt()
-	c = ColorItem{VibrantName: "Muted", Hex: cssHex(d)}
-	colors = append(colors, c)
-	d = palette.LightMutedSwatch().RGBAInt()
-	c = ColorItem{VibrantName: "LightMuted", Hex: cssHex(d)}
-	colors = append(colors, c)
-	d = palette.DarkMutedSwatch().RGBAInt()
-	c = ColorItem{VibrantName: "DarkMutedSwatch", Hex: cssHex(d)}
-	colors = append(colors, c)
+	d := palette.VibrantSwatch()
+	if d != nil {
+		c := ColorItem{VibrantName: "Vibrant", Hex: cssHex(d.RGBAInt())}
+		colors = append(colors, c)
+	}
+	d = palette.DarkVibrantSwatch()
+	if d != nil {
+		c := ColorItem{VibrantName: "DarkVibrant", Hex: cssHex(d.RGBAInt())}
+		colors = append(colors, c)
+	}
+	d = palette.LightVibrantSwatch()
+	if d != nil {
+		c := ColorItem{VibrantName: "LightVibrant", Hex: cssHex(d.RGBAInt())}
+		colors = append(colors, c)
+	}
+	d = palette.MutedSwatch()
+	if d != nil {
+		c := ColorItem{VibrantName: "Muted", Hex: cssHex(d.RGBAInt())}
+		colors = append(colors, c)
+	}
+	d = palette.LightMutedSwatch()
+	if d != nil {
+		c := ColorItem{VibrantName: "LightMuted", Hex: cssHex(d.RGBAInt())}
+		colors = append(colors, c)
+	}
+	d = palette.DarkMutedSwatch()
+	if d != nil {
+		c := ColorItem{VibrantName: "DarkMutedSwatch", Hex: cssHex(d.RGBAInt())}
+		colors = append(colors, c)
+	}
 
 	data, err := json.MarshalIndent(colors, "", "")
 	if err != nil {

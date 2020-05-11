@@ -18,12 +18,12 @@ imgx.onload = (ev)=>{
     bgImg.style.height = `${imgx.naturalHeight}`;
     bgImg.parentElement.hidden = false;
 
-    console.log(ev.target);
+    // console.log(ev.target);
 
     let ColorCube = window['ColorCube'] || null;    
     console.log((new ColorCube).get_colors(document.querySelector('#img-main')))
 };
-const filename = "infile.jpg"
+const filename = "one.jpg"
 imgx.src = `/image/${filename}`;
 
 const fetch_css = ()=>{
@@ -44,7 +44,7 @@ fetch(`${API_GET}/${filename}/data.json`, {
 })
 .then(s=>s.json())
 .then((a:colorData)=>{
-    console.log(a);
+    // console.log(a);
     const bg : RGB = a.main;
     const palette : RGB[] = a.palette;
     console.log(bg, palette);

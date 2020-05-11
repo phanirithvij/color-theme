@@ -28,11 +28,11 @@ cors = CORS(app)
 app.static_folder = app.root_path + "/public"
 
 # https://stackoverflow.com/a/13598839/8608146
-my_loader = jinja2.ChoiceLoader([
-    app.jinja_loader,
-    jinja2.FileSystemLoader([app.static_folder]),
-])
-app.jinja_loader = my_loader
+# my_loader = jinja2.ChoiceLoader([
+#     app.jinja_loader,
+#     jinja2.FileSystemLoader([app.static_folder, app.root_path + '/templates']),
+# ])
+# app.jinja_loader = my_loader
 
 
 @app.route('/colors/<filename>/data.json', methods=['GET'])

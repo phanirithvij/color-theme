@@ -1,1 +1,28 @@
-body,html{height:100%;margin:0;background:var(--bg-color)}#main{height:100%}#content{height:100%;width:100%;position:absolute;z-index:1}#imgc{z-index:-1;background-position:top;background-repeat:no-repeat;-webkit-background-size:cover;-moz-background-size:cover;-ms-background-size:cover;-o-background-size:cover;background-size:cover;height:100%}#img-main{max-height:100%;max-width:100%}
+body, html {
+  height: 100%;
+  margin: 0;
+  background: var(--bg-color); }
+
+#main {
+  height: 100%; }
+
+#content {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  z-index: 1; }
+
+#imgc {
+  z-index: -1;
+  background-position: top;
+  background-repeat: no-repeat;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -ms-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  height: 100%; }
+
+#img-main {
+  max-height: 100%;
+  max-width: 100%; }
