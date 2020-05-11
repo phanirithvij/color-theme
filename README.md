@@ -26,6 +26,9 @@ document.documentElement.style.setProperty('--your-variable', '#YOURCOLOR');
 ```
 
 ### FFMPEG Gen Thumbs
+
+These are extremely slow
+
 ```shell
 ffmpeg -ss 3 -i /d/Videos/TVSHOWS/Gintama/Gintama_Season_7_Episode_345.mp4 -vf "select=gt(scene\,0.4)" -frames:v 100 -vsync vfr -vf fps=fps=1/6 out%003d.jpg
 ```
@@ -36,10 +39,29 @@ Taken from [here](https://askubuntu.com/questions/377579/ffmpeg-output-screensho
 ffmpeg -i /d/Videos/TVSHOWS/Gintama/Gintama_Season_8_Episode_367_HorribleSubs.mkv -vf "select='gt(scene,0.4)',scale=120:-1,tile=layout=10x10" -frames:v 1 -qscale:v 2 output.jpg
 ```
 
+**Updated**
+
+Taken from [here](https://superuser.com/a/821680/1049709)
+
+Use a for loop for number of frames times
+
+```
+ffmpeg -ss <T> -i <movie>
+   -vf select="eq(pict_type\,I)" -vframes 1 image<X>.jpg
+```
+
+```shell
+# each command will look like this:
+ffmpeg -ss 1:38:36.708297 -i D:\\Videos\\MOVIES\\Sonic\\Sonic.The.Hedgehog.2020.1080p.WEBRip.x264.AAC-[YTS.MX].mp4 -filter_complex [0]select=eq(pict_type\,I)[s0];[s0]scale=160:-2[s1] -map [s1] -vframes 1 tmp/sonic099.jpg -loglevel quiet -y
+```
+
+Implementation is in [`ff.py`](ff.py)
+
 ImageMagick [here](http://www.imagemagick.org/Usage/montage/)
 
 ```shell
-montage out*.jpg -resize 180x320 -tile 10x10 -geometry +0+0 montage.jpg
+# montage out*.jpg -resize 180x320 -tile 10x10 -geometry +0+0 montage.jpg
+montage tmp/sonic*.jpg -tile 10x10 -geometry +0+0 tmp/montagesonic.jpg
 ```
 
 Found three ways of extracting colors from images.
