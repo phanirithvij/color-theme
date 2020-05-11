@@ -11,7 +11,7 @@ from PIL import Image
 
 in_filename = sys.argv[1]
 time = 3
-width = 200
+des_width = 160
 N = 130
 
 probe = ffmpeg.probe(in_filename)
@@ -67,7 +67,7 @@ for x in range(N):
         .input(in_filename, ss=T)
         # for small videos this should be removed
         .filter('select', 'eq(pict_type,I)')
-        .filter('scale', 160, -2)
+        .filter('scale', des_width, -2)
         .output(f"tmp/sonic{x}.jpg", vframes=1)
         .global_args('-loglevel', 'quiet')
         .overwrite_output()
@@ -79,8 +79,10 @@ for x in range(N):
         print(err)
     # print(out)
 
-
-transp_img = Image.new('RGB', (160, int(160 * height/width)))
+# fill the last image with blank images
+# to make it same dimensions as all the grid images
+# This will save complex logic in the client side
+transp_img = Image.new('RGB', (des_width, int(des_width * height/width)))
 transp_img.save('tmp/transp_img.jpg')
 N25 = (N//25+1)*25
 for x in range(N, N25):
