@@ -2,14 +2,17 @@
 Gets 100 keyframes out of a video
 """
 
-import ffmpeg
-import sys
 import datetime
+import sys
+from shutil import copyfile
+
+import ffmpeg
+from PIL import Image
 
 in_filename = sys.argv[1]
 time = 3
 width = 200
-N = 100
+N = 130
 
 probe = ffmpeg.probe(in_filename)
 
@@ -17,6 +20,9 @@ video_stream = next(
     (stream for stream in probe['streams'] if stream['codec_type'] == 'video'), None)
 
 duration = float(video_stream['duration'])
+width = int(video_stream['width'])
+height = int(video_stream['height'])
+
 
 # https://superuser.com/a/821680/1049709
 # ffmpeg -ss <T> -i <movie>
@@ -43,7 +49,10 @@ duration = float(video_stream['duration'])
 
 # Selector for the thumbnail div on yt
 # #movie_player > div.ytp-tooltip.ytp-bottom.ytp-preview > div.ytp-tooltip-bg
-# 
+#
+
+# 24 multiple >= N
+# N = (N//25+1)*25
 
 for x in range(N):
     T = (x+0.5)*duration/N
@@ -69,3 +78,11 @@ for x in range(N):
     if err is not None:
         print(err)
     # print(out)
+
+
+transp_img = Image.new('RGB', (160, int(160 * height/width)))
+transp_img.save('tmp/transp_img.jpg')
+N25 = (N//25+1)*25
+for x in range(N, N25):
+    x = f"{x}".zfill(3)
+    copyfile('tmp/transp_img.jpg', f'tmp/sonic{x}.jpg')
