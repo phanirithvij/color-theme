@@ -2,10 +2,7 @@ import json
 import os
 import subprocess
 
-try:
-    from names import get_names
-except ModuleNotFoundError:
-    from .names import get_names
+from .names import get_names
 
 VIBRANT_JS = os.path.abspath("./vibrant.js")
 

@@ -2,10 +2,8 @@ import json
 import os
 import subprocess
 
-try:
-    from names import get_names
-except ModuleNotFoundError:
-    from .names import get_names
+
+from .names import get_names
 
 RGBASTER_JS = os.path.abspath("./rgbaster.js")
 

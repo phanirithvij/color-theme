@@ -1,5 +1,5 @@
 
-import os
+# import os
 import sys
 from collections import Counter
 
@@ -8,8 +8,8 @@ import requests
 from PIL import Image
 from sklearn.cluster import KMeans
 
-import utils.serviceconfig as serviceconfig
-from utils.names import get_names
+from . import serviceconfig
+from .names import get_names
 
 # copied from
 # https://github.com/rmotr/color-extractor-service/
@@ -94,6 +94,9 @@ def extract_colors_from_url(url, clusters=None):
 
 
 if __name__ == '__main__':
-    url = "https://images.unsplash.com/photo-1535039200576-80dc22bceb59?fit=crop&w=668&q=80"
+    url = "".join(
+        "https://images.unsplash.com/photo-1535039200576-80dc22bceb59",
+        "?fit=crop&w=668&q=80"
+    )
     print(get_color_service_pallete(sys.argv[1], clusters=10))
     print(extract_colors_from_url(url))
