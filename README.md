@@ -2,17 +2,17 @@
 
 ## Setup
 
-
 ### REQUIRES LINUX
+
 Because the project uses celery (for background scheduled tasks)
 
 And celery requires redis (or some erlang rabbitmq meh)
 
-Redis is not officially supported on windows as it's main usage is in production deployments and production deployments *will* be linux.
+Redis is not officially supported on windows as it's main usage is in production deployments and production deployments _will_ be linux.
 
 I've setup a celery boilerplate in this fork https://github.com/phanirithvij/flask-socketio-celery-example
 
-Which has 
+Which has
 
 ```shell
 # run with
@@ -36,13 +36,13 @@ Npm setup
 npm i
 ```
 
-
 ## TODO
 
 - [x] look at https://github.com/angristan/palette
 - [ ] Implement celery bgtasks and update the clients of their image color extraction progress
 - [ ] store generated palettes in json file for each image and send them from that point.
 - [ ] celery is a great learning as I need to implement it in the BTP project.
+- [ ] setup a venv for this project because flask_socketio is messed up for some reason on global python site-packages.
 
 ### Note
 
@@ -97,6 +97,7 @@ Found [here](http://palette.site/)
 
 email : phanirithvij2000@gmail.com
 pwd: ...@123
+
 <!-- api_key : 1a3d575520ff2130aba23a88f09b2c28 -->
 
 - Builds 3D histogram grid, searches for local maxima of the hit count
