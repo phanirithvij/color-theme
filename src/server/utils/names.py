@@ -13,6 +13,7 @@ MODELS = [
     Knn("server/data/xkcd.csv"),
     Knn("server/data/wikipedia_color_names.csv"),
     Knn("server/data/resene.csv"),
+    Knn("server/data/colorhexa_com.csv"),
 ]
 
 
