@@ -3,15 +3,22 @@
 ## Setup
 
 
+### REQUIRES LINUX
+Because the project uses celery (for background scheduled tasks)
+
+And celery requires redis (or some erlang rabbitmq meh)
+
+Redis is not officially supported on windows as it's main usage is in production deployments and production deployments *will* be linux.
+
+I've setup a celery boilerplate in this fork https://github.com/phanirithvij/flask-socketio-celery-example
+
+Which has 
+
 ```shell
 # run with
 # from src directory
 py -m server
 ```
-
-## TODO
-
-look at https://github.com/angristan/palette
 
 > Python > 3.6
 
@@ -28,6 +35,14 @@ Npm setup
 ```shell
 npm i
 ```
+
+
+## TODO
+
+- [x] look at https://github.com/angristan/palette
+- [ ] Implement celery bgtasks and update the clients of their image color extraction progress
+- [ ] store generated palettes in json file for each image and send them from that point.
+- [ ] celery is a great learning as I need to implement it in the BTP project.
 
 ### Note
 
