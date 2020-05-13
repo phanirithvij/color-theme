@@ -1,8 +1,8 @@
 from PIL import Image
 
-from .ColorCube import ColorCube
-from .colors import *
-from .names import get_names
+from server.utils.ColorCube import ColorCube
+from server.utils.colors import rgb2hex
+from server.utils.names import get_names
 
 def get_colors_cube(path: str):
     cc = ColorCube()

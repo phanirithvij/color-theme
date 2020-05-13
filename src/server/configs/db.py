@@ -20,10 +20,10 @@ import sqlite3
 import time
 import uuid
 
-from . import APP_DB
-from . import CREATE_TABLE_IMGS, CREATE_COLORS
-from . import INSERT_CSS_ENTRY, GET_CSS
-from . import GET_COLORS_FILE_THEIF, INSERT_COLOR_ENTRY
+from server.configs import APP_DB
+from server.configs import CREATE_TABLE_IMGS, CREATE_COLORS
+from server.configs import INSERT_CSS_ENTRY, GET_CSS
+from server.configs import GET_COLORS_FILE_THEIF, INSERT_COLOR_ENTRY
 
 from server.utils.colors import rgb2hex
 

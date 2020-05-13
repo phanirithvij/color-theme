@@ -2,7 +2,7 @@ import json
 import os
 import subprocess
 
-from .names import get_names
+from server.utils.names import get_names
 
 VIBRANT_JS = os.path.abspath("./vibrant.js")
 

@@ -4,20 +4,20 @@ import os
 # import jinja2
 from flask import Flask, jsonify, render_template, request, send_file
 from flask_cors import CORS, cross_origin
-# from utils.gencss import gen_css
-from .utils import get_colors_colortheif
-from .utils.baster import get_baster_colors
-from .utils.colors import hex2rgb, rgb2hex
-from .utils.colorservice import get_color_service_pallete
-from .utils.cube import get_colors_cube
-from .utils.gencss import get_colors_gen_css
-from .utils.names import get_names
-from .utils.vibrant import get_vibrants
 
-from .configs import JOINER as joiner
-from .configs import NO_SUCH_IMAGE
-from .configs.db import (get_existing, get_existing_colors, init_db,
-                         insert_file_colors, insert_pair)
+from server.configs import JOINER as joiner
+from server.configs import NO_SUCH_IMAGE
+from server.configs.db import (get_existing, get_existing_colors, init_db,
+                               insert_file_colors, insert_pair)
+# from utils.gencss import gen_css
+from server.utils import get_colors_colortheif
+from server.utils.baster import get_baster_colors
+from server.utils.colors import hex2rgb, rgb2hex
+from server.utils.colorservice import get_color_service_pallete
+from server.utils.cube import get_colors_cube
+from server.utils.gencss import get_colors_gen_css
+from server.utils.names import get_names
+from server.utils.vibrant import get_vibrants
 
 # import uuid
 # import sqlite3

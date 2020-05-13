@@ -8,8 +8,8 @@ import requests
 from PIL import Image
 from sklearn.cluster import KMeans
 
-from . import serviceconfig
-from .names import get_names
+from server.utils import serviceconfig
+from server.utils.names import get_names
 
 # copied from
 # https://github.com/rmotr/color-extractor-service/

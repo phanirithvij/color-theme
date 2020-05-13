@@ -3,6 +3,12 @@
 ## Setup
 
 
+```shell
+# run with
+# from src directory
+py -m server
+```
+
 ## TODO
 
 look at https://github.com/angristan/palette
@@ -14,7 +20,7 @@ look at https://github.com/angristan/palette
 Python Dependencies
 
 ```shell
-pip install Pillow colorthief flask
+pip install -r requirements.txt
 ```
 
 Npm setup

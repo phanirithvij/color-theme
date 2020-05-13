@@ -3,7 +3,7 @@ import os
 import subprocess
 
 
-from .names import get_names
+from server.utils.names import get_names
 
 RGBASTER_JS = os.path.abspath("server/scripts/rgbaster.js")
 

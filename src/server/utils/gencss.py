@@ -1,7 +1,7 @@
 import os
 import uuid
 
-from . import get_colors_colortheif
+from server.utils import get_colors_colortheif
 
 def gen_css(colors):
     colorstrings = f"""
