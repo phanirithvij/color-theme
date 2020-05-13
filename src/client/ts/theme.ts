@@ -104,7 +104,6 @@ fetch(`${API_GET}/${filename}/data.json`, {
       txt = `<span style="color:${getContrast(p.hex)};background-color:${
         p.hex
       };">         </span>`;
-      // ${p.names}
       out += txt;
     });
 
