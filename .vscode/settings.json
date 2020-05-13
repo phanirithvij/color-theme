@@ -2,5 +2,8 @@
     "python.linting.pylintEnabled": false,
     "python.linting.flake8Enabled": true,
     "python.linting.enabled": true,
-    "python.linting.flake8Args": ["--ignore=E302,E305"] /* two lines */
+    "python.linting.flake8Args": [
+        "--ignore=E302,E305"
+    ],
+    "python.pythonPath": "C:\\Users\\Rithvij\\AppData\\Local\\Programs\\Python\\Python38\\python.exe" /* two lines */
 }

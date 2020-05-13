@@ -2,6 +2,11 @@
 
 ## Setup
 
+
+## TODO
+
+look at https://github.com/angristan/palette
+
 > Python > 3.6
 
 > Node Js > 10.0.0
@@ -13,16 +18,17 @@ pip install Pillow colorthief flask
 ```
 
 Npm setup
+
 ```shell
 npm i
 ```
 
 ### Note
 
-To change `:root` vars in css through js 
+To change `:root` vars in css through js
 
 ```javascript
-document.documentElement.style.setProperty('--your-variable', '#YOURCOLOR');
+document.documentElement.style.setProperty("--your-variable", "#YOURCOLOR");
 ```
 
 ### FFMPEG Gen Thumbs
@@ -69,21 +75,24 @@ Found three ways of extracting colors from images.
 Found [here](http://palette.site/)
 
 email : phanirithvij2000@gmail.com
-pwd:    stdGUQ8JWz28SKc
-api_key : 1a3d575520ff2130aba23a88f09b2c28
+pwd: ...@123
+<!-- api_key : 1a3d575520ff2130aba23a88f09b2c28 -->
 
-+ Builds 3D histogram grid, searches for local maxima of the hit count
-    
-    [https://github.com/pixelogik/ColorCube](https://github.com/pixelogik/ColorCube)
+- Builds 3D histogram grid, searches for local maxima of the hit count
 
-    File: `ColorCube.py`
-+ Based on Palette class from Android SDK
+  [https://github.com/pixelogik/ColorCube](https://github.com/pixelogik/ColorCube)
 
-    [https://github.com/akfish/node-vibrant/](https://github.com/akfish/node-vibrant/)
-    
-    File : `vibrant.js`
-+ Clusters similar colors in 3D model, sort them by volume and returns base colors for each block
+  File: `ColorCube.py`
 
-    [https://github.com/lokesh/color-thief](https://github.com/lokesh/color-thief)
+- Based on Palette class from Android SDK
 
-    File: `rgbaster.js`
+  [https://github.com/akfish/node-vibrant/](https://github.com/akfish/node-vibrant/)
+
+  File : `vibrant.js`
+
+- Clusters similar colors in 3D model, sort them by volume and returns base colors for each block
+
+  [https://github.com/lokesh/color-thief](https://github.com/lokesh/color-thief)
+
+- Rgbaster from [https://github.com/briangonzalez/rgbaster.js](https://github.com/briangonzalez/rgbaster.js)
+  File: `rgbaster.js`

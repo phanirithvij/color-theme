@@ -302,6 +302,6 @@ if __name__ == "__main__":
 	# Get colors for that image
 	colors = cc.get_colors(image)
 	
-	# Print first four colors (there might be much more)
+	# Print first ten colors (there might be much more)
 	for c in colors[:10]:
 		print(c)

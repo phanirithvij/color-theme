@@ -9,6 +9,7 @@ except ModuleNotFoundError:
 
 VIBRANT_JS = os.path.abspath("./vibrant.js")
 
+
 def get_vibrants_node(image_path):
     image_path = os.path.abspath(image_path)
     cmd = f"node \"{VIBRANT_JS}\" \"{image_path}\""
@@ -22,19 +23,23 @@ def get_vibrants_node(image_path):
         respS.append(temp_)
     return respS
 
+
 def get_vibrants(image_path):
     image_path = os.path.abspath(image_path)
     cmd = f".\\src\\server\\scripts\\scripts \"{image_path}\""
     resp = subprocess.check_output(cmd)
-    print(resp)
+    print("..." * 21)
     dataP = json.loads(resp)
-    respS = []
+    hexs = []
     for x in dataP:
         hex_ = x["hex"]
-        temp_ = get_names([f"\"{hex_}\""])[0]
+        hexs.append(hex_)
+    temps = get_names(hexs)
+    for temp_, x in zip(temps, dataP):
         temp_["vibrant_name"] = x["vibrant_name"]
-        respS.append(temp_)
-    return respS
+
+    return temps
+
 
 if __name__ == "__main__":
     # make the import "names" from ".names"

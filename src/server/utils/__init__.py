@@ -1,7 +1,7 @@
 # from PIL import Image, ImageDraw
 from colorthief import ColorThief
 
-def get_colors(infile, numcolors=10) -> (tuple, list):
+def get_colors_colortheif(infile, numcolors=10) -> (tuple, list):
     """returns (maincolor, colorlist)"""
     if numcolors < 2:
         numcolors = 2
@@ -15,4 +15,4 @@ def get_colors(infile, numcolors=10) -> (tuple, list):
     return (maincol, colors)
 
 if __name__ == '__main__':
-    print(get_colors('../infile.png', 10))
+    print(get_colors_colortheif('../infile.png', 10))

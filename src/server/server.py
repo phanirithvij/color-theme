@@ -1,26 +1,27 @@
-import os
 import json
-# import uuid
-# import sqlite3
+import os
 
-from flask import Flask, request, jsonify
-from flask import send_file, render_template
+# import jinja2
+from flask import Flask, jsonify, render_template, request, send_file
 from flask_cors import CORS, cross_origin
-import jinja2
-
 # from utils.gencss import gen_css
-from utils import get_colors
-from utils.gencss import get_colors_gen_css
+from utils import get_colors_colortheif
+from utils.baster import get_baster_colors
 from utils.colors import hex2rgb, rgb2hex
+from utils.colorservice import get_color_service_pallete
+from utils.cube import get_colors_cube
+from utils.gencss import get_colors_gen_css
 from utils.names import get_names
 from utils.vibrant import get_vibrants
 
-from configs.db import init_db
-from configs.db import insert_pair, insert_file_colors
-from configs.db import get_existing, get_existing_colors
-
 from configs import JOINER as joiner
 from configs import NO_SUCH_IMAGE
+from configs.db import (get_existing, get_existing_colors, init_db,
+                        insert_file_colors, insert_pair)
+
+# import uuid
+# import sqlite3
+
 
 app = Flask(__name__)
 cors = CORS(app)
@@ -48,26 +49,40 @@ def get_colors_and_names(filename: str):
             "message": f"No such file {filename}"
         }), 404
 
-    x = get_vibrants(file)
-    print(x)
+    vibrant_palette = get_vibrants(file)
+    print(vibrant_palette)
 
     # get from db
     colors = get_existing_colors(filename)
     if colors and len(colors):
         pure_colors = [x[1] for x in colors]
         colors_names = get_names(pure_colors)
+        baster_colors = get_baster_colors(file)
         data = {
-            "main": get_names([colors[0][1]]),
-            "palette": colors_names
+            "file": filename,
+            # "main": get_names([colors[0][1]])[0],
+            "main": baster_colors[0],
+            "palette": colors_names,
+            "vibrant_palette": vibrant_palette,
+            "cube": get_colors_cube(file),
+            "rgbaster": get_baster_colors(file),
+            "service": get_color_service_pallete(file),
         }
     else:
-        ex_colors = get_colors(file)
+        ex_colors = get_colors_colortheif(file)
         # rgb to hex to get the names
         ex_colors_hex = [rgb2hex(x) for x in ex_colors[1]]
         ex_colors_names = get_names(ex_colors_hex)
+        baster_colors = get_baster_colors(file)
         data = {
-            "main": get_names([rgb2hex(ex_colors[0])]),
-            "palette": ex_colors_names
+            "file": filename,
+            # "main": get_names([rgb2hex(ex_colors[0])]),
+            "main": baster_colors[0],
+            "palette": ex_colors_names,
+            "vibrant_palette": vibrant_palette,
+            "cube": get_colors_cube(file),
+            "rgbaster": baster_colors,
+            "service": get_color_service_pallete(file),
         }
         exist_css = get_existing(filename)
         if not exist_css:

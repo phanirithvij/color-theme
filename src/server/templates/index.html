@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,22 +8,39 @@
     <title>Color Theme</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
+
 <body>
+    <script>
+        var params = new URL(window.location.href);
+
+        var imagefile = (params.searchParams.get('img') ?? 'gin.jpg');
+    </script>
     <div id="main">
         <nav id="mainnav">
         </nav>
-        <div id="content"> 
+        <div id="content">
             <h2>Hello World! This is the Home Page</h2>
-            <div class="palette-1">
-            </div>
         </div>
         <div id="imgc">
-            <img src="/image/infile.jpg" alt="bg-image" id="img-main">
+            <img alt="bg-image" id="img-main">
+        </div>
+        <div id="pals" style="height:400px;">
+            <div id="pal1"></div>
+            <div id="pal2"></div>
+            <div id="pal3"></div>
+            <div id="pal4"></div>
+            <div id="pal5"></div>
         </div>
         <div id="error">
         </div>
     </div>
-    <script src="{{ url_for('static', filename='js/colorcube.js') }}"></script>
+    <script>
+        document.querySelector('#img-main').src = `/image/${imagefile}`;
+        console.log('set source');
+    </script>
+    <script src="{{ url_for('static', filename='js/console.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/colors.js') }}"></script>
     <script src="{{ url_for('static', filename='js/prod.js') }}"></script>
 </body>
+
 </html>

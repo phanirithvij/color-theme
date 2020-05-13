@@ -1,61 +1,189 @@
-const API_GET : string = "http://localhost:5000/colors";
+const API_GET: string = "http://localhost:5000/colors";
 
-type RGB = [number, number, number];
+type ColorItem = {
+  exact: boolean;
+  hex: string;
+  name: string;
+  similar_color: string;
+  vibrant_color?: string;
+  count?: number;
+};
 
 interface colorData {
-    main    : RGB;
-    palette : RGB[];
-};
+  main: ColorItem;
+  file: string;
+  palette: ColorItem[];
+  vibrant_palette: ColorItem[];
+  cube: ColorItem[];
+  rgbaster: ColorItem[];
+  service: ColorItem[];
+}
 
-const bgImg : HTMLDivElement = document.querySelector('#imgc');
+const bgImg: HTMLDivElement = document.querySelector("#imgc");
 bgImg.parentElement.hidden = true;
-const imgx : HTMLImageElement = new Image();
-imgx.onload = (ev)=>{
-    console.log(ev);
-    console.log(imgx.naturalWidth, imgx.naturalHeight);
-    // bgImg.appendChild(img);
-    bgImg.style.width = `${imgx.naturalWidth}`;
-    bgImg.style.height = `${imgx.naturalHeight}`;
-    bgImg.parentElement.hidden = false;
+const imgx: HTMLImageElement = new Image();
+imgx.onload = (ev) => {
+  console.log(ev);
+  console.log(imgx.naturalWidth, imgx.naturalHeight);
+  // bgImg.appendChild(img);
+  bgImg.style.width = `${imgx.naturalWidth}`;
+  bgImg.style.height = `${imgx.naturalHeight}`;
+  bgImg.parentElement.hidden = false;
 
-    // console.log(ev.target);
-
-    let ColorCube = window['ColorCube'] || null;    
-    console.log((new ColorCube).get_colors(document.querySelector('#img-main')))
+  // console.log(ev.target);
 };
-const filename = "one.jpg"
+declare var imagefile: string;
+const filename = imagefile;
+// imgx.src = filename;
 imgx.src = `/image/${filename}`;
 
-const fetch_css = ()=>{
-    const css = document.createElement('link');
-    css.rel = "stylesheet";
-    css.type = "text/css";
-    css.href = `/colorcss/${filename}/style.css`;
-    document.head.appendChild(css);
-}
+const fetch_css = () => {
+  const css = document.createElement("link");
+  css.rel = "stylesheet";
+  css.type = "text/css";
+  css.href = `/colorcss/${filename}/style.css`;
+  document.head.appendChild(css);
+};
 
 fetch_css();
 
+declare var styledConsoleLog: any;
+declare var invertColor: any;
+declare var altInvertColor: any;
+declare var addPalete: any;
+declare var getContrast: any;
+
+var jsonData : colorData;
+
 fetch(`${API_GET}/${filename}/data.json`, {
-    method : "GET",
-    headers: {
-        "Content-Type": "application/json",
-    }
+  method: "GET",
+  headers: {
+    "Content-Type": "application/json",
+  },
 })
-.then(s=>s.json())
-.then((a:colorData)=>{
+  .then((s) => s.json())
+  .then((a: colorData) => {
     // console.log(a);
-    const bg : RGB = a.main;
-    const palette : RGB[] = a.palette;
-    console.log(bg, palette);
+    jsonData = a;
+    const bg: ColorItem = a.main;
+    const palette: ColorItem[] = a.palette;
+    const vibrant_palette: ColorItem[] = a.vibrant_palette;
+    const cube: ColorItem[] = a.cube;
+    const rgbaster: ColorItem[] = a.rgbaster;
+    const service: ColorItem[] = a.service;
+    
+    console.log(jsonData.main);
+    const x: HTMLDivElement = document.querySelector('#content');
+    x.style.color = getContrast(bg.hex);
+
+    var out = "";
+    var txt = "";
+    palette.forEach((p) => {
+      txt = `<span style="color:${getContrast(p.hex)};background-color:${
+        p.hex
+      };">         </span>`;
+      out += txt;
+    });
+
+    styledConsoleLog(out);
+
+    out = "";
+    palette.forEach((p) => {
+      txt = `<div style="color:${getContrast(p.hex)};background-color:${
+        p.hex
+      };">${p.name}</div>`;
+      out += txt;
+    });
+    addPalete("#pal1", out);
+
+    var out = "";
+    var txt = "";
+    vibrant_palette.forEach((p) => {
+      txt = `<span style="color:${getContrast(p.hex)};background-color:${
+        p.hex
+      };">         </span>`;
+      // ${p.name}
+      out += txt;
+    });
+
+    styledConsoleLog(out);
+    out = "";
+    vibrant_palette.forEach((p) => {
+      txt = `<div style="color:${getContrast(p.hex)};background-color:${
+        p.hex
+      };"> ${p.name} </div>`;
+      out += txt;
+    });
+    addPalete("#pal2", out);
+
+    var out = "";
+    var txt = "";
+    cube.forEach((p) => {
+      txt = `<span style="color:${getContrast(p.hex)};background-color:${
+        p.hex
+      };">         </span>`;
+      // ${p.name}
+      out += txt;
+    });
+
+    styledConsoleLog(out);
+    out = "";
+    cube.forEach((p) => {
+      txt = `<div style="color:${getContrast(p.hex)};background-color:${
+        p.hex
+      };">${p.name}</div>`;
+      out += txt;
+    });
+    addPalete("#pal3", out);
+
+    var out = "";
+    var txt = "";
+    rgbaster.forEach((p) => {
+      txt = `<span style="color:${getContrast(p.hex)};background-color:${
+        p.hex
+      };">         </span>`;
+      // ${p.name}
+      out += txt;
+    });
+
+    styledConsoleLog(out);
+    out = "";
+    rgbaster.forEach((p) => {
+      txt = `<div style="color:${getContrast(p.hex)};background-color:${
+        p.hex
+      };">${p.name}</div>`;
+      out += txt;
+    });
+    addPalete("#pal4", out);
+
+    var out = "";
+    var txt = "";
+    service.forEach((p) => {
+      txt = `<span style="color:${getContrast(p.hex)};background-color:${
+        p.hex
+      };">         </span>`;
+      // ${p.name}
+      out += txt;
+    });
+
+    styledConsoleLog(out);
+    out = "";
+    service.forEach((p) => {
+      txt = `<div style="color:${getContrast(p.hex)};background-color:${
+        p.hex
+      };">${p.name}</div>`;
+      out += txt;
+    });
+    addPalete("#pal5", out);
+
     // const html : HTMLHtmlElement = document.querySelector(':root');
     // html.style.setProperty('--bg-color', `rgb(${bg[0]},${bg[1]},${bg[2]})`);
     // palette.forEach((color : RGB, i: number)=> {
-    //     html.style.setProperty(`--color-${i}`, `rgb(${color[0]},${color[1]},${color[2]})`);            
+    //     html.style.setProperty(`--color-${i}`, `rgb(${color[0]},${color[1]},${color[2]})`);
     // });
 
-    console.log("a small update")
-});
+    // console.log("a small update");
+  });
 
 /* A naive Pseudo-Ecrypting image names on frontend can be done using */
 
@@ -72,3 +200,18 @@ once = base64.b64decode(data).decode('utf-8')
 twice= base64.b64decode(once).decode('utf-8')
 print(twice == "filename")
 */
+
+// var shouldBreak = false;
+// for (var r = 0; r < 256; r++) {
+//   if (shouldBreak) break;
+//   for (var g = 0; g < 256; g++) {
+//     if (shouldBreak) break;
+//     for (var b = 0; b < 256; b++) {
+//       if (shouldBreak) break;
+//       if (invertColorRGB(r, g, b) != getContrastRGB(r, g, b)) {
+//         console.log("no", r, g, b);
+//         shouldBreak = true;
+//       }
+//     }
+//   }
+// }

@@ -1,7 +1,7 @@
 import os
 import uuid
 
-from . import get_colors
+from . import get_colors_colortheif
 
 def gen_css(colors):
     colorstrings = f"""
@@ -25,7 +25,7 @@ def get_colors_gen_css(filename: str, joiner: str, ex_colors=[], ex_uid=None):
     colors = []
 
     if not ex_colors:
-        colors = get_colors(file)
+        colors = get_colors_colortheif(file)
     else:
         # to convert it to the format gen_css uses
         colors = (ex_colors[0], ex_colors)

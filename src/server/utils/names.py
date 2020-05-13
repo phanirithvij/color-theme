@@ -6,14 +6,12 @@ NTC_PATH = os.path.abspath("./ntc.js")
 
 def get_names(colors: list):
     colors_a = ""
-    print(colors)
+    # print(colors)
     for x in colors:
         colors_a += " \"" + x + "\""
-    print(f"node \"{NTC_PATH}\" {colors_a}")
+    print(f"[names] node \"{NTC_PATH}\" {colors_a}")
     data = subprocess.check_output(f"node \"{NTC_PATH}\" {colors_a}")
     dataP = json.loads(data)
-    for pair in dataP:
-        print(pair)
     return dataP
 
 if __name__ == "__main__":

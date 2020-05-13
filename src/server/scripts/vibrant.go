@@ -95,6 +95,7 @@ func cssHex(hex vibrant.RGBAInt) string {
 	// it is of the form 0xaarrggbb
 	str := hex.String()
 	rgb := str[4:]
-	a := str[2:4]
-	return ("#" + rgb + a)
+	// a := str[2:4]
+	return ("#" + rgb)
+	// return ("#" + rgb + a)
 }
