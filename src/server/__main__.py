@@ -16,8 +16,9 @@ from server.utils.colors import hex2rgb, rgb2hex
 from server.utils.colorservice import get_color_service_pallete
 from server.utils.cube import get_colors_cube
 from server.utils.gencss import get_colors_gen_css
-from server.utils.names import get_names
+from server.utils.names import get_names, get_names_knn
 from server.utils.vibrant import get_vibrants
+from server.utils.get_colors import get_colors_image_js
 
 # import uuid
 # import sqlite3
@@ -57,7 +58,7 @@ def get_colors_and_names(filename: str):
     colors = get_existing_colors(filename)
     if colors and len(colors):
         pure_colors = [x[1] for x in colors]
-        colors_names = get_names(pure_colors)
+        colors_names = get_names_knn(pure_colors)
         baster_colors = get_baster_colors(file)
         data = {
             "file": filename,
@@ -68,12 +69,13 @@ def get_colors_and_names(filename: str):
             "cube": get_colors_cube(file),
             "rgbaster": get_baster_colors(file),
             "service": get_color_service_pallete(file),
+            "get_colors": get_colors_image_js(file),
         }
     else:
         ex_colors = get_colors_colortheif(file)
         # rgb to hex to get the names
         ex_colors_hex = [rgb2hex(x) for x in ex_colors[1]]
-        ex_colors_names = get_names(ex_colors_hex)
+        ex_colors_names = get_names_knn(ex_colors_hex)
         baster_colors = get_baster_colors(file)
         data = {
             "file": filename,
@@ -84,6 +86,7 @@ def get_colors_and_names(filename: str):
             "cube": get_colors_cube(file),
             "rgbaster": baster_colors,
             "service": get_color_service_pallete(file),
+            "get_colors": get_colors_image_js(file),
         }
         exist_css = get_existing(filename)
         if not exist_css:

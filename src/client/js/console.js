@@ -28,6 +28,10 @@ function styledConsoleLog(...arguments) {
 }
 
 function addPalete(selector, data){
-    const div = document.querySelector(selector);
+    var div = document.querySelector(selector);
+    if (!div){
+        div = document.createElement('div');
+        document.querySelector('#pals').appendChild(div);
+    }
     div.innerHTML += data;
 }

@@ -2,9 +2,9 @@ import json
 import os
 import subprocess
 
-from server.utils.names import get_names
+from server.utils.names import get_names_knn
 
-VIBRANT_JS = os.path.abspath("./vibrant.js")
+VIBRANT_JS = os.path.abspath("server/scripts/vibrant.js")
 
 
 def get_vibrants_node(image_path):
@@ -15,7 +15,7 @@ def get_vibrants_node(image_path):
     respS = []
     for x in dataP:
         hex_ = x["hex"]
-        temp_ = get_names([f"\"{hex_}\""])[0]
+        temp_ = get_names_knn([f"\"{hex_}\""])[0]
         temp_["vibrant_name"] = x["vibrant_name"]
         respS.append(temp_)
     return respS
@@ -31,7 +31,7 @@ def get_vibrants(image_path):
     for x in dataP:
         hex_ = x["hex"]
         hexs.append(hex_)
-    temps = get_names(hexs)
+    temps = get_names_knn(hexs)
     for temp_, x in zip(temps, dataP):
         temp_["vibrant_name"] = x["vibrant_name"]
 

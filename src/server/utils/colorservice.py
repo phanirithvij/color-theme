@@ -9,7 +9,7 @@ from PIL import Image
 from sklearn.cluster import KMeans
 
 from server.utils import serviceconfig
-from server.utils.names import get_names
+from server.utils.names import get_names_knn
 
 # copied from
 # https://github.com/rmotr/color-extractor-service/
@@ -30,7 +30,7 @@ def get_color_service_pallete(filename: str, **kwargs) -> list:
     with open(filename, 'rb') as fp:
         data = extract_colors_from_file(fp, **kwargs)
     hexs = [x["hex"] for x in data]
-    temps = get_names(hexs)
+    temps = get_names_knn(hexs)
     for temp, x in zip(temps, data):
         temp['count'] = x["count"]
     return temps

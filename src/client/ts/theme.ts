@@ -1,10 +1,10 @@
 const API_GET: string = "http://localhost:5000/colors";
 
 type ColorItem = {
-  exact: boolean;
+  exact: boolean[];
   hex: string;
-  name: string;
-  similar_color: string;
+  names: string[];
+  similar_colors: string[];
   vibrant_color?: string;
   count?: number;
 };
@@ -17,6 +17,7 @@ interface colorData {
   cube: ColorItem[];
   rgbaster: ColorItem[];
   service: ColorItem[];
+  get_colors: ColorItem[];
 }
 
 const bgImg: HTMLDivElement = document.querySelector("#imgc");
@@ -71,7 +72,8 @@ fetch(`${API_GET}/${filename}/data.json`, {
     const cube: ColorItem[] = a.cube;
     const rgbaster: ColorItem[] = a.rgbaster;
     const service: ColorItem[] = a.service;
-    
+    const get_colors: ColorItem[] = a.get_colors;
+
     console.log(jsonData.main);
     const x: HTMLDivElement = document.querySelector('#content');
     x.style.color = getContrast(bg.hex);
@@ -91,7 +93,7 @@ fetch(`${API_GET}/${filename}/data.json`, {
     palette.forEach((p) => {
       txt = `<div style="color:${getContrast(p.hex)};background-color:${
         p.hex
-      };">${p.name}</div>`;
+      };">${p.names}</div>`;
       out += txt;
     });
     addPalete("#pal1", out);
@@ -102,7 +104,7 @@ fetch(`${API_GET}/${filename}/data.json`, {
       txt = `<span style="color:${getContrast(p.hex)};background-color:${
         p.hex
       };">         </span>`;
-      // ${p.name}
+      // ${p.names}
       out += txt;
     });
 
@@ -111,7 +113,7 @@ fetch(`${API_GET}/${filename}/data.json`, {
     vibrant_palette.forEach((p) => {
       txt = `<div style="color:${getContrast(p.hex)};background-color:${
         p.hex
-      };"> ${p.name} </div>`;
+      };"> ${p.names} </div>`;
       out += txt;
     });
     addPalete("#pal2", out);
@@ -122,7 +124,7 @@ fetch(`${API_GET}/${filename}/data.json`, {
       txt = `<span style="color:${getContrast(p.hex)};background-color:${
         p.hex
       };">         </span>`;
-      // ${p.name}
+      // ${p.names}
       out += txt;
     });
 
@@ -131,7 +133,7 @@ fetch(`${API_GET}/${filename}/data.json`, {
     cube.forEach((p) => {
       txt = `<div style="color:${getContrast(p.hex)};background-color:${
         p.hex
-      };">${p.name}</div>`;
+      };">${p.names}</div>`;
       out += txt;
     });
     addPalete("#pal3", out);
@@ -142,7 +144,7 @@ fetch(`${API_GET}/${filename}/data.json`, {
       txt = `<span style="color:${getContrast(p.hex)};background-color:${
         p.hex
       };">         </span>`;
-      // ${p.name}
+      // ${p.names}
       out += txt;
     });
 
@@ -151,7 +153,7 @@ fetch(`${API_GET}/${filename}/data.json`, {
     rgbaster.forEach((p) => {
       txt = `<div style="color:${getContrast(p.hex)};background-color:${
         p.hex
-      };">${p.name}</div>`;
+      };">${p.names}</div>`;
       out += txt;
     });
     addPalete("#pal4", out);
@@ -162,7 +164,7 @@ fetch(`${API_GET}/${filename}/data.json`, {
       txt = `<span style="color:${getContrast(p.hex)};background-color:${
         p.hex
       };">         </span>`;
-      // ${p.name}
+      // ${p.names}
       out += txt;
     });
 
@@ -171,10 +173,30 @@ fetch(`${API_GET}/${filename}/data.json`, {
     service.forEach((p) => {
       txt = `<div style="color:${getContrast(p.hex)};background-color:${
         p.hex
-      };">${p.name}</div>`;
+      };">${p.names}</div>`;
       out += txt;
     });
     addPalete("#pal5", out);
+
+    var out = "";
+    var txt = "";
+    get_colors.forEach((p) => {
+      txt = `<span style="color:${getContrast(p.hex)};background-color:${
+        p.hex
+      };">         </span>`;
+      // ${p.names}
+      out += txt;
+    });
+
+    styledConsoleLog(out);
+    out = "";
+    get_colors.forEach((p) => {
+      txt = `<div style="color:${getContrast(p.hex)};background-color:${
+        p.hex
+      };">${p.names}</div>`;
+      out += txt;
+    });
+    addPalete("#pal6", out);
 
     // const html : HTMLHtmlElement = document.querySelector(':root');
     // html.style.setProperty('--bg-color', `rgb(${bg[0]},${bg[1]},${bg[2]})`);

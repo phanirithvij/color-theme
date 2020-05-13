@@ -2,7 +2,7 @@ from PIL import Image
 
 from server.utils.ColorCube import ColorCube
 from server.utils.colors import rgb2hex
-from server.utils.names import get_names
+from server.utils.names import get_names_knn
 
 def get_colors_cube(path: str):
     cc = ColorCube()
@@ -17,4 +17,4 @@ def get_colors_cube(path: str):
     # Print first ten colors (there might be much more)
     colors = [rgb2hex(tuple(x)) for x in colors]
 
-    return get_names(colors)
+    return get_names_knn(colors)

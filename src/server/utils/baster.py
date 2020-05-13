@@ -3,7 +3,7 @@ import os
 import subprocess
 
 
-from server.utils.names import get_names
+from server.utils.names import get_names_knn
 
 RGBASTER_JS = os.path.abspath("server/scripts/rgbaster.js")
 
@@ -18,7 +18,7 @@ def get_baster_colors(image_path):
     for x in dataP:
         hex_ = x["hex"]
         hexs.append(hex_)
-    temps = get_names(hexs)
+    temps = get_names_knn(hexs)
     for temp_, x in zip(temps, dataP):
         temp_["count"] = x["count"]
 
