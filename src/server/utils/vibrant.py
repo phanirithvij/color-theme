@@ -23,7 +23,7 @@ def get_vibrants_node(image_path):
 
 def get_vibrants(image_path):
     image_path = os.path.abspath(image_path)
-    cmd = f".\\src\\server\\scripts\\scripts \"{image_path}\""
+    cmd = f".\\server\\scripts\\scripts \"{image_path}\""
     resp = subprocess.check_output(cmd)
     print("..." * 21)
     dataP = json.loads(resp)

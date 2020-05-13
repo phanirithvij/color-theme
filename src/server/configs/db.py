@@ -25,7 +25,7 @@ from . import CREATE_TABLE_IMGS, CREATE_COLORS
 from . import INSERT_CSS_ENTRY, GET_CSS
 from . import GET_COLORS_FILE_THEIF, INSERT_COLOR_ENTRY
 
-from utils.colors import rgb2hex
+from server.utils.colors import rgb2hex
 
 def init_db():
     """

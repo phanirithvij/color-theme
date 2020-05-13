@@ -5,7 +5,7 @@ import subprocess
 
 from .names import get_names
 
-RGBASTER_JS = os.path.abspath("./rgbaster.js")
+RGBASTER_JS = os.path.abspath("server/scripts/rgbaster.js")
 
 
 def get_baster_colors(image_path):

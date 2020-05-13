@@ -18,7 +18,6 @@ from .configs import JOINER as joiner
 from .configs import NO_SUCH_IMAGE
 from .configs.db import (get_existing, get_existing_colors, init_db,
                          insert_file_colors, insert_pair)
-from .scripts import *
 
 # import uuid
 # import sqlite3
@@ -43,7 +42,7 @@ app.static_folder = app.root_path + "/public"
 def get_colors_and_names(filename: str):
     init_db()
     print(request.args)
-    file = os.path.abspath(f"src/server/img/{filename}")
+    file = os.path.abspath(f"server/img/{filename}")
     data = {}
     if not os.path.isfile(file):
         return jsonify({
@@ -103,14 +102,14 @@ def getcolorCss(filename: str):
     print(request.args)
     css_file_exists = False
     css_file = None
-    temp_dir = os.path.abspath('src/server/tmp/')
-    image_dir = os.path.abspath("src/server/img/")
+    temp_dir = os.path.abspath('server/tmp/')
+    image_dir = os.path.abspath("server/img/")
 
     file_act_path = os.path.abspath(os.path.join(image_dir, filename))
 
     if not os.path.isfile(file_act_path):
         print(f"[server.py:getcolorCss] > {filename} is inexistent")
-        return send_file(os.path.abspath("src/server/public/css/404.css"))
+        return send_file(os.path.abspath("server/public/css/404.css"))
 
     exist = get_existing(filename)
     if exist and exist[0]:
@@ -154,7 +153,7 @@ def getcolorCss(filename: str):
 def getimage(filename: str):
     init_db()
     print(request.args)
-    file = os.path.abspath(f"src/server/img/{filename}")
+    file = os.path.abspath(f"server/img/{filename}")
 
     if not os.path.isfile(file):
         return NO_SUCH_IMAGE.format(filename), 404

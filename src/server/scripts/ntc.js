@@ -30,7 +30,7 @@ Sample Usage:
 
 */
 
-var colorsDataset = require('./colorsdataset.json');
+var colorsDataset = require('../data/colorsdataset.json');
 
 var ntc = {
 

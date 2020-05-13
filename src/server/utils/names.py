@@ -2,7 +2,8 @@ import os
 import subprocess
 import json
 
-NTC_PATH = os.path.abspath("./ntc.js")
+NTC_PATH = os.path.abspath("server/scripts/ntc.js")
+# print(NTC_PATH)
 
 def get_names(colors: list):
     colors_a = ""

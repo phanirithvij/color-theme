@@ -7,7 +7,7 @@ NO_SUCH_IMAGE = """
 No such image {} exists here please check again.
 """
 
-APP_DB = os.path.abspath("src/server/tmp/database.db")
+APP_DB = os.path.abspath("server/tmp/database.db")
 
 CREATE_TABLE_IMGS = """\
 CREATE TABLE IF NOT EXISTS images (

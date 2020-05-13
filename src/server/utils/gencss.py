@@ -19,9 +19,9 @@ def get_colors_gen_css(filename: str, joiner: str, ex_colors=[], ex_uid=None):
     """
     Pass filename, joiner, existing_colors, existing_uid
     """
-    temp_dir = os.path.abspath('src/server/tmp/')
+    temp_dir = os.path.abspath('server/tmp/')
 
-    file = os.path.abspath(f"src/server/img/{filename}")
+    file = os.path.abspath(f"server/img/{filename}")
     colors = []
 
     if not ex_colors:
