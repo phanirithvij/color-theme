@@ -13,7 +13,7 @@ print('__file__={0:<35} | __name__={1:<20} | __package__={2:<20}'.format(
 """
 Usage from src directory
 
-py -m server.scripts.ntc ..\\colorsdataset.json ..\\ntc.csv
+py -m server.scripts.ntc ../colorsdataset.json ../ntc.csv
 """
 
 with open(os.path.abspath(sys.argv[1]), 'r') as jsonfile:

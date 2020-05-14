@@ -10,7 +10,7 @@ RGBASTER_JS = os.path.abspath("server/scripts/rgbaster.js")
 
 def get_baster_colors(image_path):
     image_path = os.path.abspath(image_path)
-    cmd = f"node \"{RGBASTER_JS}\" \"{image_path}\""
+    cmd = "node", RGBASTER_JS, image_path
     resp = subprocess.check_output(cmd)
     # print(resp)
     dataP = json.loads(resp)

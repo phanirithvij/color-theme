@@ -7,23 +7,23 @@ from server.utils.names import get_names_knn
 VIBRANT_JS = os.path.abspath("server/scripts/vibrant.js")
 
 
+# TODO remove this not using ntc.js anymore
+# using kmeans to get the color names
 def get_vibrants_node(image_path):
     image_path = os.path.abspath(image_path)
-    cmd = f"node \"{VIBRANT_JS}\" \"{image_path}\""
+    cmd = "node", VIBRANT_JS, image_path
     resp = subprocess.check_output(cmd)
     dataP = json.loads(resp)
-    respS = []
-    for x in dataP:
-        hex_ = x["hex"]
-        temp_ = get_names_knn([f"\"{hex_}\""])[0]
+    hexes = [x['hex'] for x in dataP]
+    respS = get_names_knn(hexes)
+    for temp_, x in zip(respS, dataP):
         temp_["vibrant_name"] = x["vibrant_name"]
-        respS.append(temp_)
     return respS
 
 
 def get_vibrants(image_path):
     image_path = os.path.abspath(image_path)
-    cmd = f".\\server\\scripts\\scripts \"{image_path}\""
+    cmd = "./server/scripts/scripts", image_path
     resp = subprocess.check_output(cmd)
     print("..." * 21)
     dataP = json.loads(resp)

@@ -16,7 +16,7 @@ from server.utils.colors import hex2rgb, rgb2hex
 from server.utils.colorservice import get_color_service_pallete
 from server.utils.cube import get_colors_cube
 from server.utils.gencss import get_colors_gen_css
-from server.utils.names import get_names, get_names_knn
+from server.utils.names import get_names_knn
 from server.utils.vibrant import get_vibrants
 from server.utils.get_colors import get_colors_image_js
 
@@ -95,6 +95,12 @@ def get_colors_and_names(filename: str):
             insert_pair(filename, uid)
         # theif => method = 1 default
         insert_file_colors(filename, ex_colors[1])
+    # file
+    # print(f"{file}.json")
+    jsonfile_path = f"server/tmp/{filename}.json"
+    with open(jsonfile_path, 'w+') as jsonfile:
+        json.dump(data, jsonfile)
+
     return jsonify(data)
 
 
@@ -168,8 +174,15 @@ def getimage(filename: str):
 @cross_origin()
 def gethome():
     init_db()
+    img = "gin.jpg"
+    if 'img' in request.args:
+        img = (request.args['img'])
     if request.method == "GET":
-        return render_template("index.html")
+        return render_template(
+            "index.html",
+            imagefile=f"/image/{img}",
+            colors=[],
+        )
     if request.method == "POST":
         data = request.data
         print(json.loads(data), "json baby")

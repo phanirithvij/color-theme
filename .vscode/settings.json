@@ -5,5 +5,6 @@
     "python.linting.flake8Args": [
         "--ignore=E302,E305"
     ],
-    "python.pythonPath": "C:\\Users\\Rithvij\\AppData\\Local\\Programs\\Python\\Python38\\python.exe" /* two lines */
+    "python.pythonPath": "/usr/local/bin/python3.8",
+    "python.formatting.provider": "autopep8" /* two lines */
 }

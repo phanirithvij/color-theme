@@ -30,6 +30,7 @@
     "get-image-colors": "^2.0.1",
     "node-fetch": "^2.5.0",
     "node-vibrant": "^3.1.5",
+    "pageres": "^5.2.0",
     "rgbaster": "^2.1.1",
     "typescript": "^3.3.4000"
   }

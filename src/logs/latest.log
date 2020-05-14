@@ -1,0 +1,76 @@
+[2020-05-14 19:15:18,348: WARNING/MainProcess] consumer: Connection to broker lost. Trying to re-establish the connection...
+Traceback (most recent call last):
+  File "/media/rithvij/Storage/Images/pallete/pallete-theme/src/venv/lib/python3.8/site-packages/celery/worker/consumer/consumer.py", line 318, in start
+    blueprint.start(self)
+  File "/media/rithvij/Storage/Images/pallete/pallete-theme/src/venv/lib/python3.8/site-packages/celery/bootsteps.py", line 119, in start
+    step.start(parent)
+  File "/media/rithvij/Storage/Images/pallete/pallete-theme/src/venv/lib/python3.8/site-packages/celery/worker/consumer/consumer.py", line 599, in start
+    c.loop(*c.loop_args())
+  File "/media/rithvij/Storage/Images/pallete/pallete-theme/src/venv/lib/python3.8/site-packages/celery/worker/loops.py", line 83, in asynloop
+    next(loop)
+  File "/media/rithvij/Storage/Images/pallete/pallete-theme/src/venv/lib/python3.8/site-packages/kombu/asynchronous/hub.py", line 364, in create_loop
+    cb(*cbargs)
+  File "/media/rithvij/Storage/Images/pallete/pallete-theme/src/venv/lib/python3.8/site-packages/kombu/transport/redis.py", line 1088, in on_readable
+    self.cycle.on_readable(fileno)
+  File "/media/rithvij/Storage/Images/pallete/pallete-theme/src/venv/lib/python3.8/site-packages/kombu/transport/redis.py", line 359, in on_readable
+    chan.handlers[type]()
+  File "/media/rithvij/Storage/Images/pallete/pallete-theme/src/venv/lib/python3.8/site-packages/kombu/transport/redis.py", line 693, in _receive
+    ret.append(self._receive_one(c))
+  File "/media/rithvij/Storage/Images/pallete/pallete-theme/src/venv/lib/python3.8/site-packages/kombu/transport/redis.py", line 703, in _receive_one
+    response = c.parse_response()
+  File "/media/rithvij/Storage/Images/pallete/pallete-theme/src/venv/lib/python3.8/site-packages/redis/client.py", line 3502, in parse_response
+    response = self._execute(conn, conn.read_response)
+  File "/media/rithvij/Storage/Images/pallete/pallete-theme/src/venv/lib/python3.8/site-packages/redis/client.py", line 3476, in _execute
+    return command(*args, **kwargs)
+  File "/media/rithvij/Storage/Images/pallete/pallete-theme/src/venv/lib/python3.8/site-packages/redis/connection.py", line 730, in read_response
+    response = self._parser.read_response()
+  File "/media/rithvij/Storage/Images/pallete/pallete-theme/src/venv/lib/python3.8/site-packages/redis/connection.py", line 321, in read_response
+    raw = self._buffer.readline()
+  File "/media/rithvij/Storage/Images/pallete/pallete-theme/src/venv/lib/python3.8/site-packages/redis/connection.py", line 256, in readline
+    self._read_from_socket()
+  File "/media/rithvij/Storage/Images/pallete/pallete-theme/src/venv/lib/python3.8/site-packages/redis/connection.py", line 201, in _read_from_socket
+    raise ConnectionError(SERVER_CLOSED_CONNECTION_ERROR)
+redis.exceptions.ConnectionError: Connection closed by server.
+[2020-05-14 19:15:18,353: WARNING/MainProcess] consumer: Connection to broker lost. Trying to re-establish the connection...
+Traceback (most recent call last):
+  File "/media/rithvij/Storage/Images/pallete/pallete-theme/src/venv/lib/python3.8/site-packages/celery/worker/consumer/consumer.py", line 318, in start
+    blueprint.start(self)
+  File "/media/rithvij/Storage/Images/pallete/pallete-theme/src/venv/lib/python3.8/site-packages/celery/bootsteps.py", line 119, in start
+    step.start(parent)
+  File "/media/rithvij/Storage/Images/pallete/pallete-theme/src/venv/lib/python3.8/site-packages/celery/worker/consumer/consumer.py", line 599, in start
+    c.loop(*c.loop_args())
+  File "/media/rithvij/Storage/Images/pallete/pallete-theme/src/venv/lib/python3.8/site-packages/celery/worker/loops.py", line 83, in asynloop
+    next(loop)
+  File "/media/rithvij/Storage/Images/pallete/pallete-theme/src/venv/lib/python3.8/site-packages/kombu/asynchronous/hub.py", line 364, in create_loop
+    cb(*cbargs)
+  File "/media/rithvij/Storage/Images/pallete/pallete-theme/src/venv/lib/python3.8/site-packages/kombu/transport/redis.py", line 1088, in on_readable
+    self.cycle.on_readable(fileno)
+  File "/media/rithvij/Storage/Images/pallete/pallete-theme/src/venv/lib/python3.8/site-packages/kombu/transport/redis.py", line 359, in on_readable
+    chan.handlers[type]()
+  File "/media/rithvij/Storage/Images/pallete/pallete-theme/src/venv/lib/python3.8/site-packages/kombu/transport/redis.py", line 693, in _receive
+    ret.append(self._receive_one(c))
+  File "/media/rithvij/Storage/Images/pallete/pallete-theme/src/venv/lib/python3.8/site-packages/kombu/transport/redis.py", line 703, in _receive_one
+    response = c.parse_response()
+  File "/media/rithvij/Storage/Images/pallete/pallete-theme/src/venv/lib/python3.8/site-packages/redis/client.py", line 3502, in parse_response
+    response = self._execute(conn, conn.read_response)
+  File "/media/rithvij/Storage/Images/pallete/pallete-theme/src/venv/lib/python3.8/site-packages/redis/client.py", line 3476, in _execute
+    return command(*args, **kwargs)
+  File "/media/rithvij/Storage/Images/pallete/pallete-theme/src/venv/lib/python3.8/site-packages/redis/connection.py", line 730, in read_response
+    response = self._parser.read_response()
+  File "/media/rithvij/Storage/Images/pallete/pallete-theme/src/venv/lib/python3.8/site-packages/redis/connection.py", line 321, in read_response
+    raw = self._buffer.readline()
+  File "/media/rithvij/Storage/Images/pallete/pallete-theme/src/venv/lib/python3.8/site-packages/redis/connection.py", line 256, in readline
+    self._read_from_socket()
+  File "/media/rithvij/Storage/Images/pallete/pallete-theme/src/venv/lib/python3.8/site-packages/redis/connection.py", line 201, in _read_from_socket
+    raise ConnectionError(SERVER_CLOSED_CONNECTION_ERROR)
+redis.exceptions.ConnectionError: Connection closed by server.
+[2020-05-14 19:15:18,362: INFO/MainProcess] Connected to redis://localhost:6379/0
+[2020-05-14 19:15:18,371: INFO/MainProcess] Connected to redis://localhost:6379/0
+[2020-05-14 19:15:18,375: INFO/MainProcess] mingle: searching for neighbors
+[2020-05-14 19:15:18,382: INFO/MainProcess] mingle: searching for neighbors
+[2020-05-14 19:15:18,975: INFO/MainProcess] Connected to redis://localhost:6379/0
+[2020-05-14 19:15:18,985: INFO/MainProcess] mingle: searching for neighbors
+[2020-05-14 19:15:19,381: INFO/MainProcess] mingle: all alone
+[2020-05-14 19:15:19,388: INFO/MainProcess] mingle: all alone
+[2020-05-14 19:15:20,005: INFO/MainProcess] mingle: all alone
+[2020-05-14 19:15:20,019: INFO/MainProcess] celery@rithvij-deepin ready.

@@ -5,11 +5,12 @@ import (
 	"fmt"
 	"image"
 	_ "image/jpeg"
+	// _ "image/jpg"
 	_ "image/png"
 	"io/ioutil"
 	"log"
 	"os"
-	"path/filepath"
+	// "path/filepath"
 
 	vibrant "github.com/RobCherry/vibrant"
 )
@@ -21,11 +22,12 @@ type ColorItem struct {
 }
 
 func main() {
-	filename, err := filepath.Abs(os.Args[1])
-	// log.Println(filename)
-	if err != nil {
-		log.Panic(err)
-	}
+	// filename, err := filepath.Abs(os.Args[1])
+	filename := os.Args[1]
+	log.Println(filename)
+	// if err != nil {
+	// 	log.Panic(err)
+	// }
 	file, _ := os.Open(filename)
 	defer file.Close()
 	decodedImage, _, err := image.Decode(file)

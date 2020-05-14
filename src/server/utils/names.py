@@ -23,7 +23,7 @@ def get_names(colors: list):
     for x in colors:
         colors_a += " \"" + x + "\""
     print(f"[names] node \"{NTC_PATH}\" {colors_a}")
-    data = subprocess.check_output(f"node \"{NTC_PATH}\" {colors_a}")
+    data = subprocess.check_output(("node", NTC_PATH, colors_a))
     dataP = json.loads(data)
     return dataP
 
