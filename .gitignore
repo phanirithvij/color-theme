@@ -5,3 +5,4 @@ __pycache__/
 *.pyc
 venv/
 src/logs/
+src/server/imgs/

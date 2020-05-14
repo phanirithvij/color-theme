@@ -42,8 +42,8 @@ class Knn:
         self.model.fit(self.features, self.labels)
 
     def get_color_name(self, r, g, b):
-        print(self.model.predict([[r, g, b]]))
+        # print(self.model.predict([[r, g, b]]))
 
         name = self.target_colors[int(self.model.predict([[r, g, b]])[0])]
-        print(name)
+        # print(name)
         return name

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # pip install virtualenv && virtualenv venv
-virtualenv venv
+# virtualenv venv
 source venv/bin/activate
 pwd
 pip install -r ../requirements.txt
@@ -15,11 +15,12 @@ if ! [ -x "$(command -v redis-server)" ]; then
     make -j8
 fi
 
-
-cd server/scripts
-go get -u -v github.com/RobCherry/vibrant
-go build
-cd ../../
+if ! [ -f "server/scripts/scripts" ]; then
+    cd server/scripts
+    go get -u -v github.com/RobCherry/vibrant
+    go build
+    cd ../../
+fi
 
 echo -e "\n\n\n -------------------------------------"
 x-terminal-emulator -e ./run-redis.sh &

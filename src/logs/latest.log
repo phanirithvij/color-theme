@@ -1,76 +1,172 @@
-[2020-05-14 19:15:18,348: WARNING/MainProcess] consumer: Connection to broker lost. Trying to re-establish the connection...
-Traceback (most recent call last):
-  File "/media/rithvij/Storage/Images/pallete/pallete-theme/src/venv/lib/python3.8/site-packages/celery/worker/consumer/consumer.py", line 318, in start
-    blueprint.start(self)
-  File "/media/rithvij/Storage/Images/pallete/pallete-theme/src/venv/lib/python3.8/site-packages/celery/bootsteps.py", line 119, in start
-    step.start(parent)
-  File "/media/rithvij/Storage/Images/pallete/pallete-theme/src/venv/lib/python3.8/site-packages/celery/worker/consumer/consumer.py", line 599, in start
-    c.loop(*c.loop_args())
-  File "/media/rithvij/Storage/Images/pallete/pallete-theme/src/venv/lib/python3.8/site-packages/celery/worker/loops.py", line 83, in asynloop
-    next(loop)
-  File "/media/rithvij/Storage/Images/pallete/pallete-theme/src/venv/lib/python3.8/site-packages/kombu/asynchronous/hub.py", line 364, in create_loop
-    cb(*cbargs)
-  File "/media/rithvij/Storage/Images/pallete/pallete-theme/src/venv/lib/python3.8/site-packages/kombu/transport/redis.py", line 1088, in on_readable
-    self.cycle.on_readable(fileno)
-  File "/media/rithvij/Storage/Images/pallete/pallete-theme/src/venv/lib/python3.8/site-packages/kombu/transport/redis.py", line 359, in on_readable
-    chan.handlers[type]()
-  File "/media/rithvij/Storage/Images/pallete/pallete-theme/src/venv/lib/python3.8/site-packages/kombu/transport/redis.py", line 693, in _receive
-    ret.append(self._receive_one(c))
-  File "/media/rithvij/Storage/Images/pallete/pallete-theme/src/venv/lib/python3.8/site-packages/kombu/transport/redis.py", line 703, in _receive_one
-    response = c.parse_response()
-  File "/media/rithvij/Storage/Images/pallete/pallete-theme/src/venv/lib/python3.8/site-packages/redis/client.py", line 3502, in parse_response
-    response = self._execute(conn, conn.read_response)
-  File "/media/rithvij/Storage/Images/pallete/pallete-theme/src/venv/lib/python3.8/site-packages/redis/client.py", line 3476, in _execute
-    return command(*args, **kwargs)
-  File "/media/rithvij/Storage/Images/pallete/pallete-theme/src/venv/lib/python3.8/site-packages/redis/connection.py", line 730, in read_response
-    response = self._parser.read_response()
-  File "/media/rithvij/Storage/Images/pallete/pallete-theme/src/venv/lib/python3.8/site-packages/redis/connection.py", line 321, in read_response
-    raw = self._buffer.readline()
-  File "/media/rithvij/Storage/Images/pallete/pallete-theme/src/venv/lib/python3.8/site-packages/redis/connection.py", line 256, in readline
-    self._read_from_socket()
-  File "/media/rithvij/Storage/Images/pallete/pallete-theme/src/venv/lib/python3.8/site-packages/redis/connection.py", line 201, in _read_from_socket
-    raise ConnectionError(SERVER_CLOSED_CONNECTION_ERROR)
-redis.exceptions.ConnectionError: Connection closed by server.
-[2020-05-14 19:15:18,353: WARNING/MainProcess] consumer: Connection to broker lost. Trying to re-establish the connection...
-Traceback (most recent call last):
-  File "/media/rithvij/Storage/Images/pallete/pallete-theme/src/venv/lib/python3.8/site-packages/celery/worker/consumer/consumer.py", line 318, in start
-    blueprint.start(self)
-  File "/media/rithvij/Storage/Images/pallete/pallete-theme/src/venv/lib/python3.8/site-packages/celery/bootsteps.py", line 119, in start
-    step.start(parent)
-  File "/media/rithvij/Storage/Images/pallete/pallete-theme/src/venv/lib/python3.8/site-packages/celery/worker/consumer/consumer.py", line 599, in start
-    c.loop(*c.loop_args())
-  File "/media/rithvij/Storage/Images/pallete/pallete-theme/src/venv/lib/python3.8/site-packages/celery/worker/loops.py", line 83, in asynloop
-    next(loop)
-  File "/media/rithvij/Storage/Images/pallete/pallete-theme/src/venv/lib/python3.8/site-packages/kombu/asynchronous/hub.py", line 364, in create_loop
-    cb(*cbargs)
-  File "/media/rithvij/Storage/Images/pallete/pallete-theme/src/venv/lib/python3.8/site-packages/kombu/transport/redis.py", line 1088, in on_readable
-    self.cycle.on_readable(fileno)
-  File "/media/rithvij/Storage/Images/pallete/pallete-theme/src/venv/lib/python3.8/site-packages/kombu/transport/redis.py", line 359, in on_readable
-    chan.handlers[type]()
-  File "/media/rithvij/Storage/Images/pallete/pallete-theme/src/venv/lib/python3.8/site-packages/kombu/transport/redis.py", line 693, in _receive
-    ret.append(self._receive_one(c))
-  File "/media/rithvij/Storage/Images/pallete/pallete-theme/src/venv/lib/python3.8/site-packages/kombu/transport/redis.py", line 703, in _receive_one
-    response = c.parse_response()
-  File "/media/rithvij/Storage/Images/pallete/pallete-theme/src/venv/lib/python3.8/site-packages/redis/client.py", line 3502, in parse_response
-    response = self._execute(conn, conn.read_response)
-  File "/media/rithvij/Storage/Images/pallete/pallete-theme/src/venv/lib/python3.8/site-packages/redis/client.py", line 3476, in _execute
-    return command(*args, **kwargs)
-  File "/media/rithvij/Storage/Images/pallete/pallete-theme/src/venv/lib/python3.8/site-packages/redis/connection.py", line 730, in read_response
-    response = self._parser.read_response()
-  File "/media/rithvij/Storage/Images/pallete/pallete-theme/src/venv/lib/python3.8/site-packages/redis/connection.py", line 321, in read_response
-    raw = self._buffer.readline()
-  File "/media/rithvij/Storage/Images/pallete/pallete-theme/src/venv/lib/python3.8/site-packages/redis/connection.py", line 256, in readline
-    self._read_from_socket()
-  File "/media/rithvij/Storage/Images/pallete/pallete-theme/src/venv/lib/python3.8/site-packages/redis/connection.py", line 201, in _read_from_socket
-    raise ConnectionError(SERVER_CLOSED_CONNECTION_ERROR)
-redis.exceptions.ConnectionError: Connection closed by server.
-[2020-05-14 19:15:18,362: INFO/MainProcess] Connected to redis://localhost:6379/0
-[2020-05-14 19:15:18,371: INFO/MainProcess] Connected to redis://localhost:6379/0
-[2020-05-14 19:15:18,375: INFO/MainProcess] mingle: searching for neighbors
-[2020-05-14 19:15:18,382: INFO/MainProcess] mingle: searching for neighbors
-[2020-05-14 19:15:18,975: INFO/MainProcess] Connected to redis://localhost:6379/0
-[2020-05-14 19:15:18,985: INFO/MainProcess] mingle: searching for neighbors
-[2020-05-14 19:15:19,381: INFO/MainProcess] mingle: all alone
-[2020-05-14 19:15:19,388: INFO/MainProcess] mingle: all alone
-[2020-05-14 19:15:20,005: INFO/MainProcess] mingle: all alone
-[2020-05-14 19:15:20,019: INFO/MainProcess] celery@rithvij-deepin ready.
+[2020-05-15 00:21:24,616: INFO/MainProcess] Connected to redis://localhost:6379/0
+[2020-05-15 00:21:24,623: INFO/MainProcess] mingle: searching for neighbors
+[2020-05-15 00:21:25,641: INFO/MainProcess] mingle: all alone
+[2020-05-15 00:21:25,703: INFO/MainProcess] celery@rithvij-deepin ready.
+[2020-05-15 00:21:47,292: INFO/MainProcess] Received task: server.tasks.tasks.process_image[bd5f2e9b-0517-4928-bc71-ff0e152cba8e]  
+[2020-05-15 00:21:47,294: WARNING/ForkPoolWorker-7] bd5f2e9b-0517-4928-bc71-ff0e152cba8e
+[2020-05-15 00:21:47,653: WARNING/ForkPoolWorker-7] server.tasks.tasks.process_image[bd5f2e9b-0517-4928-bc71-ff0e152cba8e]: Response for http://localhost:5000/_updates was 500 != 200
+[2020-05-15 00:21:56,276: WARNING/ForkPoolWorker-7] server.tasks.tasks.process_image[bd5f2e9b-0517-4928-bc71-ff0e152cba8e]: Response for http://localhost:5000/_updates was 500 != 200
+[2020-05-15 00:21:56,277: INFO/ForkPoolWorker-7] server.tasks.tasks.process_image[bd5f2e9b-0517-4928-bc71-ff0e152cba8e]: colortheif done for Afternoon_Ground.jpg
+[2020-05-15 00:21:57,553: WARNING/ForkPoolWorker-7] ...............................................................
+[2020-05-15 00:21:57,581: WARNING/ForkPoolWorker-7] server.tasks.tasks.process_image[bd5f2e9b-0517-4928-bc71-ff0e152cba8e]: Response for http://localhost:5000/_updates was 500 != 200
+[2020-05-15 00:21:57,581: INFO/ForkPoolWorker-7] server.tasks.tasks.process_image[bd5f2e9b-0517-4928-bc71-ff0e152cba8e]: vibrant.go done for Afternoon_Ground.jpg
+[2020-05-15 00:22:05,084: WARNING/ForkPoolWorker-7] ------------------------------
+[2020-05-15 00:22:05,084: WARNING/ForkPoolWorker-7] BASTERBASTERBASTERBASTERBASTERBASTERBASTERBASTERBASTERBASTERBASTERBASTERBASTERBASTERBASTERBASTERBASTERBASTERBASTERBASTER
+[2020-05-15 00:22:05,085: WARNING/ForkPoolWorker-7] [{'hex': '#feb525', 'names': ['My Sin', 'orangey yellow', 'Bright Yellow (Crayola)', 'My Sin', 'Sunglow'], 'similar_colors': ['#FFB31F', '#FDB915', '#FFAA1D', '#FFB31F', '#FFCC33'], 'exact': [False, False, False, False, False], 'count': 4834}, {'hex': '#feb425', 'names': ['My Sin', 'orangey yellow', 'Bright Yellow (Crayola)', 'My Sin', 'Sunglow'], 'similar_colors': ['#FFB31F', '#FDB915', '#FFAA1D', '#FFB31F', '#FFCC33'], 'exact': [False, False, False, False, False], 'count': 4822}, {'hex': '#feb325', 'names': ['My Sin', 'orangey yellow', 'Bright Yellow (Crayola)', 'My Sin', 'Sunglow'], 'similar_colors': ['#FFB31F', '#FDB915', '#FFAA1D', '#FFB31F', '#FFCC33'], 'exact': [False, False, False, False, False], 'count': 4687}, {'hex': '#feb625', 'names': ['My Sin', 'orangey yellow', 'Bright Yellow (Crayola)', 'My Sin', 'Sunglow'], 'similar_colors': ['#FFB31F', '#FDB915', '#FFAA1D', '#FFB31F', '#FFCC33'], 'exact': [False, False, False, False, False], 'count': 4608}, {'hex': '#feb225', 'names': ['My Sin', 'orangey yellow', 'Bright Yellow (Crayola)', 'My Sin', 'Sunglow'], 'similar_colors': ['#FFB31F', '#FDB915', '#FFAA1D', '#FFB31F', '#FFCC33'], 'exact': [False, False, False, False, False], 'count': 4563}, {'hex': '#feb725', 'names': ['My Sin', 'golden yellow', 'Sunglow', 'My Sin', 'Sunglow'], 'similar_colors': ['#FFB31F', '#FEC615', '#FFCC33', '#FFB31F', '#FFCC33'], 'exact': [False, False, False, False, False], 'count': 4306}, {'hex': '#feb125', 'names': ['My Sin', 'orangey yellow', 'Bright Yellow (Crayola)', 'My Sin', 'Sunglow'], 'similar_colors': ['#FFB31F', '#FDB915', '#FFAA1D', '#FFB31F', '#FFCC33'], 'exact': [False, False, False, False, False], 'count': 4134}, {'hex': '#fe3c3c', 'names': ['Coral Red', 'light red', 'Coral red', 'Flamingo', 'Red Orange'], 'similar_colors': ['#FF4040', '#FF474C', '#FF4040', '#F2552A', '#FF5349'], 'exact': [False, False, False, False, False], 'count': 4025}, {'hex': '#feb025', 'names': ['My Sin', 'mango', 'Bright Yellow (Crayola)', 'My Sin', 'Sunglow'], 'similar_colors': ['#FFB31F', '#FFA62B', '#FFAA1D', '#FFB31F', '#FFCC33'], 'exact': [False, False, False, False, False], 'count': 3934}, {'hex': '#feb825', 'names': ['My Sin', 'golden yellow', 'Sunglow', 'My Sin', 'Sunglow'], 'similar_colors': ['#FFB31F', '#FEC615', '#FFCC33', '#FFB31F', '#FFCC33'], 'exact': [False, False, False, False, False], 'count': 3737}]
+[2020-05-15 00:22:05,085: WARNING/ForkPoolWorker-7] ------------------------------
+[2020-05-15 00:22:05,105: WARNING/ForkPoolWorker-7] server.tasks.tasks.process_image[bd5f2e9b-0517-4928-bc71-ff0e152cba8e]: Response for http://localhost:5000/_updates was 500 != 200
+[2020-05-15 00:22:05,106: INFO/ForkPoolWorker-7] server.tasks.tasks.process_image[bd5f2e9b-0517-4928-bc71-ff0e152cba8e]: rgbaster done for Afternoon_Ground.jpg
+[2020-05-15 00:22:05,883: WARNING/ForkPoolWorker-7] server.tasks.tasks.process_image[bd5f2e9b-0517-4928-bc71-ff0e152cba8e]: Response for http://localhost:5000/_updates was 500 != 200
+[2020-05-15 00:22:05,883: INFO/ForkPoolWorker-7] server.tasks.tasks.process_image[bd5f2e9b-0517-4928-bc71-ff0e152cba8e]: colorcube done for Afternoon_Ground.jpg
+[2020-05-15 00:22:08,700: WARNING/ForkPoolWorker-7] server.tasks.tasks.process_image[bd5f2e9b-0517-4928-bc71-ff0e152cba8e]: Response for http://localhost:5000/_updates was 500 != 200
+[2020-05-15 00:22:08,701: INFO/ForkPoolWorker-7] server.tasks.tasks.process_image[bd5f2e9b-0517-4928-bc71-ff0e152cba8e]: colors-service done for Afternoon_Ground.jpg
+[2020-05-15 00:22:25,981: WARNING/ForkPoolWorker-7] ***************************************************************
+[2020-05-15 00:22:26,004: WARNING/ForkPoolWorker-7] [{'hex': '#fab127', 'names': ['My Sin', 'mango', 'Bright Yellow (Crayola)', 'My Sin', 'Sunglow'], 'similar_colors': ['#FFB31F', '#FFA62B', '#FFAA1D', '#FFB31F', '#FFCC33'], 'exact': [False, False, False, False, False]}, {'hex': '#ef413e', 'names': ['Coral Red', 'light red', 'Coral red', 'Punch', 'Red Orange'], 'similar_colors': ['#FF4040', '#FF474C', '#FF4040', '#DC4333', '#FF5349'], 'exact': [False, False, False, False, False]}, {'hex': '#fa8a2f', 'names': ['Neon Carrot', 'mango', 'Deep saffron', 'Crusta', 'Deep saffron'], 'similar_colors': ['#FF9933', '#FFA62B', '#FF9933', '#FD7B33', '#FF9933'], 'exact': [False, False, False, False, False]}, {'hex': '#9c2f7f', 'names': ['Royal Heath', 'warm purple', 'Maximum Red Purple', 'Royal Heath', 'Royal fuchsia'], 'similar_colors': ['#AB3472', '#952E8F', '#A63A79', '#AB3472', '#CA2C92'], 'exact': [False, False, False, False, False]}, {'hex': '#71275e', 'names': ['Finn', 'grape', 'Boysenberry', 'Finn', 'Boysenberry'], 'similar_colors': ['#692D54', '#6C3461', '#873260', '#692D54', '#873260'], 'exact': [False, False, False, False, False]}, {'hex': '#972852', 'names': ['Camelot', 'light burgundy', 'Amaranth purple', 'Camelot', 'Rich maroon'], 'similar_colors': ['#893456', '#A8415B', '#AB274F', '#893456', '#B03060'], 'exact': [False, False, False, False, False]}, {'hex': '#c9d7c0', 'names': ['Sea Mist', 'light grey', 'Bone', 'Sea Mist', 'Beige'], 'similar_colors': ['#C5DBCA', '#D8DCD6', '#E3DAC9', '#C5DBCA', '#F5F5DC'], 'exact': [False, False, False, False, False]}, {'hex': '#c051a4', 'names': ['Mulberry', 'purplish pink', 'Super pink', 'Hopbush', 'Neon fuchsia'], 'similar_colors': ['#C54B8C', '#CE5DAE', '#CF6BA9', '#D06DA1', '#FE59C2'], 'exact': [False, False, False, False, False]}, {'hex': '#bc1c2c', 'names': ['Cardinal', 'cherry', 'Fire engine red', 'Tall Poppy', 'Alizarin crimson'], 'similar_colors': ['#C41E3A', '#CF0234', '#CE2029', '#B32D29', '#E32636'], 'exact': [False, False, False, False, False]}]
+[2020-05-15 00:22:26,004: WARNING/ForkPoolWorker-7] ***************************************************************
+[2020-05-15 00:22:26,019: WARNING/ForkPoolWorker-7] server.tasks.tasks.process_image[bd5f2e9b-0517-4928-bc71-ff0e152cba8e]: Response for http://localhost:5000/_updates was 500 != 200
+[2020-05-15 00:22:26,019: INFO/ForkPoolWorker-7] server.tasks.tasks.process_image[bd5f2e9b-0517-4928-bc71-ff0e152cba8e]: get-image-colors done for Afternoon_Ground.jpg
+[2020-05-15 00:22:34,201: WARNING/ForkPoolWorker-7] --bg-color : rgb(211,60,81);
+    
+        --color-0 : rgb(251,180,39);
+        
+        --color-1 : rgb(251,147,46);
+        
+        --color-2 : rgb(120,39,99);
+        
+        --color-3 : rgb(240,61,63);
+        
+        --color-4 : rgb(159,49,128);
+        
+        --color-5 : rgb(157,42,79);
+        
+        --color-6 : rgb(240,105,54);
+        
+        --color-7 : rgb(200,216,192);
+        
+        --color-8 : rgb(197,88,164);
+        
+        --color-9 : rgb(198,81,28);
+[2020-05-15 00:22:34,365: WARNING/ForkPoolWorker-7] INSERT
+[2020-05-15 00:22:34,544: WARNING/ForkPoolWorker-7] server.tasks.tasks.process_image[bd5f2e9b-0517-4928-bc71-ff0e152cba8e]: Response for http://localhost:5000/_updates was 500 != 200
+[2020-05-15 00:22:34,545: INFO/ForkPoolWorker-7] server.tasks.tasks.process_image[bd5f2e9b-0517-4928-bc71-ff0e152cba8e]: Wrote extracted colors to <_io.TextIOWrapper name='server/tmp/Afternoon_Ground.jpg.json' mode='w+' encoding='UTF-8'>
+[2020-05-15 00:22:34,547: INFO/ForkPoolWorker-7] Task server.tasks.tasks.process_image[bd5f2e9b-0517-4928-bc71-ff0e152cba8e] succeeded in 47.252338892999944s: None
+[2020-05-15 00:23:46,254: INFO/MainProcess] Received task: server.tasks.tasks.process_image[115ece4c-9baf-4ba9-9cad-d1f0e6d7721c]  
+[2020-05-15 00:23:46,256: WARNING/ForkPoolWorker-7] 115ece4c-9baf-4ba9-9cad-d1f0e6d7721c
+[2020-05-15 00:23:54,737: INFO/ForkPoolWorker-7] server.tasks.tasks.process_image[115ece4c-9baf-4ba9-9cad-d1f0e6d7721c]: colortheif done for Bill_Spotting.jpg
+[2020-05-15 00:23:55,480: WARNING/ForkPoolWorker-7] ...............................................................
+[2020-05-15 00:23:55,499: INFO/ForkPoolWorker-7] server.tasks.tasks.process_image[115ece4c-9baf-4ba9-9cad-d1f0e6d7721c]: vibrant.go done for Bill_Spotting.jpg
+[2020-05-15 00:23:57,092: WARNING/ForkPoolWorker-7] ------------------------------
+[2020-05-15 00:23:57,093: WARNING/ForkPoolWorker-7] BASTERBASTERBASTERBASTERBASTERBASTERBASTERBASTERBASTERBASTERBASTERBASTERBASTERBASTERBASTERBASTERBASTERBASTERBASTERBASTER
+[2020-05-15 00:23:57,094: WARNING/ForkPoolWorker-7] [{'hex': '#9abf60', 'names': ['Olivine', 'light olive', 'Middle Green Yellow', 'Green Smoke', 'Medium spring bud'], 'similar_colors': ['#9AB973', '#ACBF69', '#ACBF60', '#A4AF6E', '#C9DC87'], 'exact': [False, False, False, False, False], 'count': 263041}, {'hex': '#9abf61', 'names': ['Olivine', 'light olive', 'Middle Green Yellow', 'Green Smoke', 'Medium spring bud'], 'similar_colors': ['#9AB973', '#ACBF69', '#ACBF60', '#A4AF6E', '#C9DC87'], 'exact': [False, False, False, False, False], 'count': 94712}, {'hex': '#99be5f', 'names': ['Olivine', 'light olive green', 'Middle Green Yellow', 'Green Smoke', 'Medium spring bud'], 'similar_colors': ['#9AB973', '#A4BE5C', '#ACBF60', '#A4AF6E', '#C9DC87'], 'exact': [False, False, False, False, False], 'count': 74751}, {'hex': '#9bc061', 'names': ['Olivine', 'light olive', 'Middle Green Yellow', 'Green Smoke', 'Medium spring bud'], 'similar_colors': ['#9AB973', '#ACBF69', '#ACBF60', '#A4AF6E', '#C9DC87'], 'exact': [False, False, False, False, False], 'count': 69563}, {'hex': '#9bc062', 'names': ['Olivine', 'light olive', 'Middle Green Yellow', 'Green Smoke', 'Medium spring bud'], 'similar_colors': ['#9AB973', '#ACBF69', '#ACBF60', '#A4AF6E', '#C9DC87'], 'exact': [False, False, False, False, False], 'count': 47377}, {'hex': '#9eb1c2', 'names': ['Cadet Blue', 'light grey blue', 'Wild blue yonder', 'Rock Blue', 'Languid lavender'], 'similar_colors': ['#A9B2C3', '#9DBCD4', '#A2ADD0', '#9EB1CD', '#D6CADD'], 'exact': [False, False, False, False, False], 'count': 42285}, {'hex': '#9fb2c3', 'names': ['Cadet Blue', 'cloudy blue', 'Pastel blue', 'Rock Blue', 'Languid lavender'], 'similar_colors': ['#A9B2C3', '#ACC2D9', '#AEC6CF', '#9EB1CD', '#D6CADD'], 'exact': [False, False, False, False, False], 'count': 39731}, {'hex': '#6d869c', 'names': ['Bermuda Gray', 'blue/grey', 'Shadow blue', 'Bermuda Grey', 'Manatee'], 'similar_colors': ['#6B8BA2', '#758DA3', '#778BA5', '#6B8BA2', '#979AAA'], 'exact': [False, False, False, False, False], 'count': 24578}, {'hex': '#6c859b', 'names': ['Bermuda Gray', 'blue/grey', 'Light slate gray', 'Bermuda Grey', 'Cool grey'], 'similar_colors': ['#6B8BA2', '#758DA3', '#778899', '#6B8BA2', '#8C92AC'], 'exact': [False, False, False, False, False], 'count': 24400}, {'hex': '#accb7a', 'names': ['Wild Willow', 'pale olive', 'Medium spring bud', 'Wild Willow', 'Medium spring bud'], 'similar_colors': ['#B9C46A', '#B9CC81', '#C9DC87', '#B9C46A', '#C9DC87'], 'exact': [False, False, False, False, False], 'count': 18033}]
+[2020-05-15 00:23:57,094: WARNING/ForkPoolWorker-7] ------------------------------
+[2020-05-15 00:23:57,098: INFO/ForkPoolWorker-7] server.tasks.tasks.process_image[115ece4c-9baf-4ba9-9cad-d1f0e6d7721c]: rgbaster done for Bill_Spotting.jpg
+[2020-05-15 00:23:57,652: INFO/ForkPoolWorker-7] server.tasks.tasks.process_image[115ece4c-9baf-4ba9-9cad-d1f0e6d7721c]: colorcube done for Bill_Spotting.jpg
+[2020-05-15 00:23:59,876: INFO/ForkPoolWorker-7] server.tasks.tasks.process_image[115ece4c-9baf-4ba9-9cad-d1f0e6d7721c]: colors-service done for Bill_Spotting.jpg
+[2020-05-15 00:24:03,537: WARNING/ForkPoolWorker-7] ***************************************************************
+[2020-05-15 00:24:03,562: WARNING/ForkPoolWorker-7] [{'hex': '#9cbf65', 'names': ['Olivine', 'light olive', 'Middle Green Yellow', 'Green Smoke', 'Medium spring bud'], 'similar_colors': ['#9AB973', '#ACBF69', '#ACBF60', '#A4AF6E', '#C9DC87'], 'exact': [False, False, False, False, False]}, {'hex': '#aebecc', 'names': ['Casper', 'light blue grey', 'Lavender gray', 'Casper', 'Pale lavender'], 'similar_colors': ['#ADBED1', '#B7C9E2', '#C4C3D0', '#ADBED1', '#DCD0FF'], 'exact': [False, False, False, False, False]}, {'hex': '#364e5f', 'names': ['San Juan', 'gunmetal', 'Independence', 'San Juan', 'Cadet'], 'similar_colors': ['#304B6A', '#536267', '#4C516D', '#304B6A', '#536872'], 'exact': [False, False, False, False, False]}, {'hex': '#667b8e', 'names': ['Slate Gray', 'steel', 'Slate gray', 'Lynch', 'Cool grey'], 'similar_colors': ['#708090', '#738595', '#708090', '#697E9A', '#8C92AC'], 'exact': [False, False, False, False, False]}, {'hex': '#8e9e9e', 'names': ['Pewter', 'cool grey', 'Quick Silver', 'Pewter', 'Ash grey'], 'similar_colors': ['#96A8A1', '#95A3A6', '#A6A6A6', '#96A8A1', '#B2BEB5'], 'exact': [False, False, False, False, False]}, {'hex': '#5a4a44', 'names': ['Kabul', 'purplish brown', 'Liver', 'Kabul', 'Pastel brown'], 'similar_colors': ['#5E483E', '#6B4247', '#674C47', '#5E483E', '#836953'], 'exact': [False, False, False, False, False]}, {'hex': '#698f64', 'names': ['Highland', 'green grey', 'Camouflage green', 'Highland', 'Asparagus'], 'similar_colors': ['#6F8E63', '#77926F', '#78866B', '#6F8E63', '#87A96B'], 'exact': [False, False, False, False, False]}, {'hex': '#67a224', 'names': ['Christi', 'leaf', 'Green (RYB)', 'Christi', 'Yellow green'], 'similar_colors': ['#67A712', '#71AA34', '#66B032', '#67A712', '#9ACD32'], 'exact': [False, False, False, False, False]}, {'hex': '#e0878c', 'names': ['Petite Orchid', 'rose pink', 'Tulip', 'Petite Orchid', 'Salmon pink'], 'similar_colors': ['#DB9690', '#F7879A', '#FF878D', '#DB9690', '#FF91A4'], 'exact': [False, False, False, False, False]}]
+[2020-05-15 00:24:03,563: WARNING/ForkPoolWorker-7] ***************************************************************
+[2020-05-15 00:24:03,567: INFO/ForkPoolWorker-7] server.tasks.tasks.process_image[115ece4c-9baf-4ba9-9cad-d1f0e6d7721c]: get-image-colors done for Bill_Spotting.jpg
+[2020-05-15 00:24:11,712: WARNING/ForkPoolWorker-7] --bg-color : rgb(148,180,109);
+    
+        --color-0 : rgb(169,187,201);
+        
+        --color-1 : rgb(157,192,101);
+        
+        --color-2 : rgb(54,77,94);
+        
+        --color-3 : rgb(101,122,141);
+        
+        --color-4 : rgb(142,158,159);
+        
+        --color-5 : rgb(106,141,127);
+        
+        --color-6 : rgb(90,74,67);
+        
+        --color-7 : rgb(104,163,37);
+        
+        --color-8 : rgb(179,212,126);
+        
+        --color-9 : rgb(224,136,140);
+[2020-05-15 00:24:12,527: WARNING/ForkPoolWorker-7] INSERT
+[2020-05-15 00:24:13,140: INFO/ForkPoolWorker-7] server.tasks.tasks.process_image[115ece4c-9baf-4ba9-9cad-d1f0e6d7721c]: Wrote extracted colors to <_io.TextIOWrapper name='server/tmp/Bill_Spotting.jpg.json' mode='w+' encoding='UTF-8'>
+[2020-05-15 00:24:13,141: INFO/ForkPoolWorker-7] Task server.tasks.tasks.process_image[115ece4c-9baf-4ba9-9cad-d1f0e6d7721c] succeeded in 26.885174366s: None
+[2020-05-15 00:25:08,254: INFO/MainProcess] Received task: server.tasks.tasks.process_image[d7c365d6-b8ef-4080-8bf0-066e04616de8]  
+[2020-05-15 00:25:08,256: WARNING/ForkPoolWorker-7] d7c365d6-b8ef-4080-8bf0-066e04616de8
+[2020-05-15 00:25:16,248: INFO/ForkPoolWorker-7] server.tasks.tasks.process_image[d7c365d6-b8ef-4080-8bf0-066e04616de8]: colortheif done for Artifact.jpg
+[2020-05-15 00:25:16,550: WARNING/ForkPoolWorker-7] ...............................................................
+[2020-05-15 00:25:16,570: INFO/ForkPoolWorker-7] server.tasks.tasks.process_image[d7c365d6-b8ef-4080-8bf0-066e04616de8]: vibrant.go done for Artifact.jpg
+[2020-05-15 00:25:18,727: WARNING/ForkPoolWorker-7] ------------------------------
+[2020-05-15 00:25:18,728: WARNING/ForkPoolWorker-7] BASTERBASTERBASTERBASTERBASTERBASTERBASTERBASTERBASTERBASTERBASTERBASTERBASTERBASTERBASTERBASTERBASTERBASTERBASTERBASTER
+[2020-05-15 00:25:18,729: WARNING/ForkPoolWorker-7] [{'hex': '#d3dbde', 'names': ['Geyser', 'light grey', 'Platinum', 'Geyser', 'White'], 'similar_colors': ['#D4DFE2', '#D8DCD6', '#E5E4E2', '#D4DFE2', '#FFFFFF'], 'exact': [False, False, False, False, False], 'count': 17273}, {'hex': '#dbedfb', 'names': ['Pattens Blue', 'pale grey', 'Alice blue', 'Pattens Blue', 'White'], 'similar_colors': ['#DEF5FF', '#FDFDFE', '#F0F8FF', '#DEF5FF', '#FFFFFF'], 'exact': [False, False, False, False, False], 'count': 11523}, {'hex': '#dceefc', 'names': ['Pattens Blue', 'pale grey', 'Alice blue', 'Pattens Blue', 'White'], 'similar_colors': ['#DEF5FF', '#FDFDFE', '#F0F8FF', '#DEF5FF', '#FFFFFF'], 'exact': [False, False, False, False, False], 'count': 11332}, {'hex': '#d8ebfa', 'names': ['Pattens Blue', 'ice blue', 'Alice blue', 'Pattens Blue', 'White'], 'similar_colors': ['#DEF5FF', '#D7FFFE', '#F0F8FF', '#DEF5FF', '#FFFFFF'], 'exact': [False, False, False, False, False], 'count': 11013}, {'hex': '#e4f2fd', 'names': ['Solitude', 'white', 'Ghost white', 'Solitude', 'White'], 'similar_colors': ['#EAF6FF', '#FFFFFF', '#F8F8FF', '#EAF6FF', '#FFFFFF'], 'exact': [False, False, False, False, False], 'count': 10874}, {'hex': '#d2dadd', 'names': ['Geyser', 'light grey', 'Platinum', 'Geyser', 'Magnolia'], 'similar_colors': ['#D4DFE2', '#D8DCD6', '#E5E4E2', '#D4DFE2', '#F8F4FF'], 'exact': [False, False, False, False, False], 'count': 10595}, {'hex': '#e0f0fd', 'names': ['Pattens Blue', 'white', 'Alice blue', 'Pattens Blue', 'White'], 'similar_colors': ['#DEF5FF', '#FFFFFF', '#F0F8FF', '#DEF5FF', '#FFFFFF'], 'exact': [False, False, False, False, False], 'count': 10423}, {'hex': '#d4dcdf', 'names': ['Geyser', 'light grey', 'Platinum', 'Geyser', 'White'], 'similar_colors': ['#D4DFE2', '#D8DCD6', '#E5E4E2', '#D4DFE2', '#FFFFFF'], 'exact': [False, False, False, False, False], 'count': 10338}, {'hex': '#dfeffc', 'names': ['Pattens Blue', 'pale grey', 'Alice blue', 'Pattens Blue', 'White'], 'similar_colors': ['#DEF5FF', '#FDFDFE', '#F0F8FF', '#DEF5FF', '#FFFFFF'], 'exact': [False, False, False, False, False], 'count': 10198}, {'hex': '#d4d8d7', 'names': ['Iron', 'light grey', 'Platinum', 'Iron', 'Lavender blush'], 'similar_colors': ['#D4D7D9', '#D8DCD6', '#E5E4E2', '#D4D7D9', '#FFF0F5'], 'exact': [False, False, False, False, False], 'count': 9910}]
+[2020-05-15 00:25:18,729: WARNING/ForkPoolWorker-7] ------------------------------
+[2020-05-15 00:25:18,733: INFO/ForkPoolWorker-7] server.tasks.tasks.process_image[d7c365d6-b8ef-4080-8bf0-066e04616de8]: rgbaster done for Artifact.jpg
+[2020-05-15 00:25:19,301: INFO/ForkPoolWorker-7] server.tasks.tasks.process_image[d7c365d6-b8ef-4080-8bf0-066e04616de8]: colorcube done for Artifact.jpg
+[2020-05-15 00:25:22,098: INFO/ForkPoolWorker-7] server.tasks.tasks.process_image[d7c365d6-b8ef-4080-8bf0-066e04616de8]: colors-service done for Artifact.jpg
+[2020-05-15 00:25:40,702: WARNING/ForkPoolWorker-7] ***************************************************************
+[2020-05-15 00:25:41,532: WARNING/ForkPoolWorker-7] [{'hex': '#ccd8df', 'names': ['Geyser', 'light grey', 'Gainsboro', 'Geyser', 'Magnolia'], 'similar_colors': ['#D4DFE2', '#D8DCD6', '#DCDCDC', '#D4DFE2', '#F8F4FF'], 'exact': [False, False, False, False, False]}, {'hex': '#d10c09', 'names': ['Monza', 'red', 'KU Crimson', 'Flame Red', 'Candy apple red'], 'similar_colors': ['#C7031E', '#E50000', '#E8000D', '#C7031E', '#FF0800'], 'exact': [False, False, False, False, False]}, {'hex': '#365069', 'names': ['San Juan', 'slate', 'Independence', 'San Juan', 'Payne grey'], 'similar_colors': ['#304B6A', '#516572', '#4C516D', '#304B6A', '#536878'], 'exact': [False, False, False, False, False]}, {'hex': '#e5ac0f', 'names': ['Galliano', 'saffron', 'Dark tangerine', 'Buttercup', 'Mikado yellow'], 'similar_colors': ['#DCB20C', '#FEB209', '#FFA812', '#F3AD16', '#FFC40C'], 'exact': [False, False, False, False, False]}, {'hex': '#7f95a9', 'names': ['Bali Hai', 'bluey grey', 'Cool grey', 'Bali Hai', 'Wild blue yonder'], 'similar_colors': ['#859FAF', '#89A0B0', '#8C92AC', '#859FAF', '#A2ADD0'], 'exact': [False, False, False, False, False]}, {'hex': '#b0b3b8', 'names': ['Bombay', 'silver', 'Gray (X11 gray)', 'Bombay', 'Languid lavender'], 'similar_colors': ['#AFB1B8', '#C5C9C7', '#BEBEBE', '#AFB1B8', '#D6CADD'], 'exact': [False, False, False, False, False]}, {'hex': '#a1b0c2', 'names': ['Cadet Blue', 'cloudy blue', 'Wild blue yonder', 'Rock Blue', 'Languid lavender'], 'similar_colors': ['#A9B2C3', '#ACC2D9', '#A2ADD0', '#9EB1CD', '#D6CADD'], 'exact': [False, False, False, False, False]}, {'hex': '#c58582', 'names': ['Old Rose', 'dusty pink', 'New York pink', 'Brandy Rose', 'Light salmon pink'], 'similar_colors': ['#C08081', '#D58A94', '#D7837F', '#BB8983', '#FF9999'], 'exact': [False, False, False, False, False]}, {'hex': '#b4a990', 'names': ['Taupe Gray', 'putty', 'Khaki (HTML/CSS) (Khaki)', 'Heathered Grey', 'Pale chestnut'], 'similar_colors': ['#B3AF95', '#BEAE8A', '#C3B091', '#B6B095', '#DDADAF'], 'exact': [False, False, False, False, False]}]
+[2020-05-15 00:25:41,536: WARNING/ForkPoolWorker-7] ***************************************************************
+[2020-05-15 00:25:41,540: INFO/ForkPoolWorker-7] server.tasks.tasks.process_image[d7c365d6-b8ef-4080-8bf0-066e04616de8]: get-image-colors done for Artifact.jpg
+[2020-05-15 00:25:50,967: WARNING/ForkPoolWorker-7] --bg-color : rgb(204,214,222);
+    
+        --color-0 : rgb(205,216,224);
+        
+        --color-1 : rgb(209,12,9);
+        
+        --color-2 : rgb(54,81,106);
+        
+        --color-3 : rgb(228,172,14);
+        
+        --color-4 : rgb(127,149,169);
+        
+        --color-5 : rgb(177,179,185);
+        
+        --color-6 : rgb(182,141,139);
+        
+        --color-7 : rgb(194,193,178);
+        
+        --color-8 : rgb(161,178,196);
+        
+        --color-9 : rgb(190,177,141);
+[2020-05-15 00:25:51,479: WARNING/ForkPoolWorker-7] INSERT
+[2020-05-15 00:25:52,077: INFO/ForkPoolWorker-7] server.tasks.tasks.process_image[d7c365d6-b8ef-4080-8bf0-066e04616de8]: Wrote extracted colors to <_io.TextIOWrapper name='server/tmp/Artifact.jpg.json' mode='w+' encoding='UTF-8'>
+[2020-05-15 00:25:52,567: INFO/ForkPoolWorker-7] Task server.tasks.tasks.process_image[d7c365d6-b8ef-4080-8bf0-066e04616de8] succeeded in 44.31095889200003s: None
+[2020-05-15 00:26:42,090: INFO/MainProcess] Received task: server.tasks.tasks.process_image[6da67d30-fc40-4885-ab4a-50025e6cd20d]  
+[2020-05-15 00:26:42,099: WARNING/ForkPoolWorker-7] 6da67d30-fc40-4885-ab4a-50025e6cd20d
+[2020-05-15 00:26:44,229: INFO/ForkPoolWorker-7] server.tasks.tasks.process_image[6da67d30-fc40-4885-ab4a-50025e6cd20d]: colortheif done for de3b5dd330b9b0e7e8d41d277bbce21b.png
+[2020-05-15 00:26:44,461: WARNING/ForkPoolWorker-7] ...............................................................
+[2020-05-15 00:26:44,504: INFO/ForkPoolWorker-7] server.tasks.tasks.process_image[6da67d30-fc40-4885-ab4a-50025e6cd20d]: vibrant.go done for de3b5dd330b9b0e7e8d41d277bbce21b.png
+[2020-05-15 00:26:46,483: WARNING/ForkPoolWorker-7] ------------------------------
+[2020-05-15 00:26:46,507: WARNING/ForkPoolWorker-7] BASTERBASTERBASTERBASTERBASTERBASTERBASTERBASTERBASTERBASTERBASTERBASTERBASTERBASTERBASTERBASTERBASTERBASTERBASTERBASTER
+[2020-05-15 00:26:46,508: WARNING/ForkPoolWorker-7] [{'hex': '#5b72b1', 'names': ['Waikawa Gray', 'dusty blue', 'Glaucous', 'Waikawa Grey', 'Ube'], 'similar_colors': ['#5A6E9C', '#5A86AD', '#6082B6', '#5A6E9C', '#8878C3'], 'exact': [False, False, False, False, False], 'count': 161659}, {'hex': '#f1b482', 'names': ['Tacao', 'peach', 'Macaroni and Cheese', 'Tacao', 'Deep peach'], 'similar_colors': ['#EDB381', '#FFB07C', '#FFBD88', '#EDB381', '#FFCBA4'], 'exact': [False, False, False, False, False], 'count': 8771}, {'hex': '#425e9b', 'names': ['Azure', 'dusky blue', 'UCLA Blue', 'Azure', 'Toolbox'], 'similar_colors': ['#315BA1', '#475F94', '#536895', '#315BA1', '#746CC0'], 'exact': [False, False, False, False, False], 'count': 6283}, {'hex': '#aa2323', 'names': ['Mexican Red', 'rusty red', 'Firebrick', 'Mexican Red', 'Persian red'], 'similar_colors': ['#A72525', '#AF2F0D', '#B22222', '#A72525', '#CC3333'], 'exact': [False, False, False, False, False], 'count': 2701}, {'hex': '#e4e4e1', 'names': ['Mercury', 'very light pink', 'Isabelline', 'Mercury', 'White'], 'similar_colors': ['#E5E5E5', '#FFF4F2', '#F4F0EC', '#E5E5E5', '#FFFFFF'], 'exact': [False, False, False, False, False], 'count': 1027}, {'hex': '#101010', 'names': ['Woodsmoke', 'almost black', 'Licorice', 'Woodsmoke', 'Dark jungle green'], 'similar_colors': ['#0C0D0F', '#070D0D', '#1A1110', '#0C0D0F', '#1A2421'], 'exact': [False, False, False, False, False], 'count': 549}, {'hex': '#a6936c', 'names': ['Sandal', 'dust', 'Light taupe', 'Sandal', 'Tumbleweed'], 'similar_colors': ['#AA8D6F', '#B2996E', '#B38B6D', '#AA8D6F', '#DEAA88'], 'exact': [False, False, False, False, False], 'count': 463}, {'hex': '#151329', 'names': ['Mirage', 'dark', 'Raisin black', 'Mirage', 'Dark jungle green'], 'similar_colors': ['#161928', '#1B2431', '#242124', '#161928', '#1A2421'], 'exact': [False, False, False, False, False], 'count': 150}, {'hex': '#444948', 'names': ['Gravel', 'charcoal grey', 'Dark liver', 'Gravel', 'Wenge'], 'similar_colors': ['#4A444B', '#3C4142', '#534B4F', '#4A444B', '#645452'], 'exact': [False, False, False, False, False], 'count': 148}, {'hex': '#edab32', 'names': ['Tulip Tree', 'mango', 'Yellow Orange', 'Fuel Yellow', 'Sunglow'], 'similar_colors': ['#EAB33B', '#FFA62B', '#FFAE42', '#ECA927', '#FFCC33'], 'exact': [False, False, False, False, False], 'count': 134}]
+[2020-05-15 00:26:46,628: WARNING/ForkPoolWorker-7] ------------------------------
+[2020-05-15 00:26:46,650: INFO/ForkPoolWorker-7] server.tasks.tasks.process_image[6da67d30-fc40-4885-ab4a-50025e6cd20d]: rgbaster done for de3b5dd330b9b0e7e8d41d277bbce21b.png
+[2020-05-15 00:26:46,989: INFO/ForkPoolWorker-7] server.tasks.tasks.process_image[6da67d30-fc40-4885-ab4a-50025e6cd20d]: colorcube done for de3b5dd330b9b0e7e8d41d277bbce21b.png
+[2020-05-15 00:26:48,978: INFO/ForkPoolWorker-7] server.tasks.tasks.process_image[6da67d30-fc40-4885-ab4a-50025e6cd20d]: colors-service done for de3b5dd330b9b0e7e8d41d277bbce21b.png
+[2020-05-15 00:27:03,914: WARNING/ForkPoolWorker-7] ***************************************************************
+[2020-05-15 00:27:03,938: WARNING/ForkPoolWorker-7] [{'hex': '#5b73b3', 'names': ['Indigo', 'faded blue', 'Glaucous', 'San Marino', 'Ube'], 'similar_colors': ['#4F69C6', '#658CBB', '#6082B6', '#456CAC', '#8878C3'], 'exact': [False, False, False, False, False]}, {'hex': '#e29a78', 'names': ['Apricot', 'peach', 'Light salmon', 'Apricot', 'Vivid tangerine'], 'similar_colors': ['#EB9373', '#FFB07C', '#FFA07A', '#EB9373', '#FFA089'], 'exact': [False, False, False, False, False]}, {'hex': '#445c9c', 'names': ['Azure', 'dusky blue', 'Liberty', 'Azure', 'Toolbox'], 'similar_colors': ['#315BA1', '#475F94', '#545AA7', '#315BA1', '#746CC0'], 'exact': [False, False, False, False, False]}, {'hex': '#262528', 'names': ['Shark', 'charcoal', 'Charleston green', 'Shark', 'Dark lava'], 'similar_colors': ['#25272C', '#343837', '#232B2B', '#25272C', '#483C32'], 'exact': [False, False, False, False, False]}, {'hex': '#a19271', 'names': ['Donkey Brown', 'dust', 'Light taupe', 'Donkey Brown', 'Tan'], 'similar_colors': ['#A69279', '#B2996E', '#B38B6D', '#A69279', '#D2B48C'], 'exact': [False, False, False, False, False]}, {'hex': '#555575', 'names': ['Comet', 'slate grey', 'Black Coral', 'Comet', 'French lilac'], 'similar_colors': ['#5C5D75', '#59656D', '#54626F', '#5C5D75', '#86608E'], 'exact': [False, False, False, False, False]}, {'hex': '#a4b4cc', 'names': ['Rock Blue', 'cloudy blue', 'Pastel blue', 'Rock Blue', 'Periwinkle'], 'similar_colors': ['#9EB1CD', '#ACC2D9', '#AEC6CF', '#9EB1CD', '#CCCCFF'], 'exact': [False, False, False, False, False]}, {'hex': '#343c6c', 'names': ['Rhino', 'dark grey blue', 'Deep koamaru', 'Rhino', 'Dark slate blue'], 'similar_colors': ['#2E3F62', '#29465B', '#333366', '#2E3F62', '#483D8B'], 'exact': [False, False, False, False, False]}, {'hex': '#7c94bc', 'names': ['Ship Cove', 'bluegrey', 'Ceil', 'Ship Cove', 'Blue Bell'], 'similar_colors': ['#788BBA', '#85A3B2', '#92A1CF', '#788BBA', '#A2A2D0'], 'exact': [False, False, False, False, False]}]
+[2020-05-15 00:27:04,013: WARNING/ForkPoolWorker-7] ***************************************************************
+[2020-05-15 00:27:04,032: INFO/ForkPoolWorker-7] server.tasks.tasks.process_image[6da67d30-fc40-4885-ab4a-50025e6cd20d]: get-image-colors done for de3b5dd330b9b0e7e8d41d277bbce21b.png
+[2020-05-15 00:27:06,112: WARNING/ForkPoolWorker-7] --bg-color : rgb(91,115,178);
+    
+        --color-0 : rgb(226,154,120);
+        
+        --color-1 : rgb(91,115,179);
+        
+        --color-2 : rgb(68,92,156);
+        
+        --color-3 : rgb(38,37,40);
+        
+        --color-4 : rgb(161,146,113);
+        
+        --color-5 : rgb(85,85,117);
+        
+        --color-6 : rgb(164,180,204);
+        
+        --color-7 : rgb(116,135,188);
+        
+        --color-8 : rgb(52,60,108);
+        
+        --color-9 : rgb(124,148,188);
+[2020-05-15 00:27:06,407: WARNING/ForkPoolWorker-7] INSERT
+[2020-05-15 00:27:06,850: INFO/ForkPoolWorker-7] server.tasks.tasks.process_image[6da67d30-fc40-4885-ab4a-50025e6cd20d]: Wrote extracted colors to <_io.TextIOWrapper name='server/tmp/de3b5dd330b9b0e7e8d41d277bbce21b.png.json' mode='w+' encoding='UTF-8'>
+[2020-05-15 00:27:06,853: INFO/ForkPoolWorker-7] Task server.tasks.tasks.process_image[6da67d30-fc40-4885-ab4a-50025e6cd20d] succeeded in 24.75363130400001s: None
