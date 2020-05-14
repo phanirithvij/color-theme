@@ -1,7 +1,7 @@
 import json
 import os
+from pathlib import Path
 
-# import jinja2
 from flask import Flask, jsonify, render_template, request, send_file
 from flask_cors import CORS, cross_origin
 
@@ -9,19 +9,15 @@ from server.configs import JOINER as joiner
 from server.configs import NO_SUCH_IMAGE
 from server.configs.db import (get_existing, get_existing_colors, init_db,
                                insert_file_colors, insert_pair)
-# from utils.gencss import gen_css
 from server.utils import get_colors_colortheif
 from server.utils.baster import get_baster_colors
 from server.utils.colors import hex2rgb, rgb2hex
 from server.utils.colorservice import get_color_service_pallete
 from server.utils.cube import get_colors_cube
 from server.utils.gencss import get_colors_gen_css
+from server.utils.get_colors import get_colors_image_js
 from server.utils.names import get_names_knn
 from server.utils.vibrant import get_vibrants
-from server.utils.get_colors import get_colors_image_js
-
-# import uuid
-# import sqlite3
 
 
 app = Flask(__name__)
@@ -55,22 +51,17 @@ def get_colors_and_names(filename: str):
     print(vibrant_palette)
 
     # get from db
-    colors = get_existing_colors(filename)
-    if colors and len(colors):
-        pure_colors = [x[1] for x in colors]
-        colors_names = get_names_knn(pure_colors)
-        baster_colors = get_baster_colors(file)
-        data = {
-            "file": filename,
-            # "main": get_names([colors[0][1]])[0],
-            "main": baster_colors[0],
-            "palette": colors_names,
-            "vibrant_palette": vibrant_palette,
-            "cube": get_colors_cube(file),
-            "rgbaster": get_baster_colors(file),
-            "service": get_color_service_pallete(file),
-            "get_colors": get_colors_image_js(file),
-        }
+    # colors = get_existing_colors(filename)
+    jsonfile_path = f"server/tmp/{filename}.json"
+    # print(Path(jsonfile_path).absolute())
+    # return "Wait"
+    if Path(jsonfile_path).exists():
+        print(os.getcwd(), Path(jsonfile_path).absolute().parent)
+        # return send_from_directory(
+        #     Path(jsonfile_path).absolute().parent,
+        #     jsonfile_path)
+        return send_file((Path(jsonfile_path).absolute()))
+        # return send_file(str(Path(jsonfile_path).absolute()))
     else:
         ex_colors = get_colors_colortheif(file)
         # rgb to hex to get the names
@@ -97,9 +88,9 @@ def get_colors_and_names(filename: str):
         insert_file_colors(filename, ex_colors[1])
     # file
     # print(f"{file}.json")
-    jsonfile_path = f"server/tmp/{filename}.json"
-    with open(jsonfile_path, 'w+') as jsonfile:
-        json.dump(data, jsonfile)
+        # jsonfile_path = f"server/tmp/{filename}.json"
+        with open(jsonfile_path, 'w+') as jsonfile:
+            json.dump(data, jsonfile)
 
     return jsonify(data)
 
