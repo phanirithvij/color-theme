@@ -4,6 +4,7 @@ colorgram.py
 celery
 scikit-learn
 Flask
+Flask-Session
 flask-cors
 colorthief
 pandas

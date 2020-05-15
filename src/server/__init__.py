@@ -5,14 +5,17 @@ from pathlib import Path
 
 import celery as celery_lib
 import werkzeug
+from celery.app.control import Inspect
 from flask import (Flask, current_app, jsonify, redirect, render_template,
                    request, send_file, session, url_for)
 from flask_cors import CORS, cross_origin
-from flask_socketio import SocketIO, disconnect, emit
+from flask_socketio import SocketIO, disconnect, emit, join_room, leave_room
 from werkzeug.utils import secure_filename
 
 # handling circuar imports
 import server.tasks.tasks as tasks
+from flask_session import Session
+# from flask_session import Session
 from server.configs import JOINER as joiner
 from server.configs import NO_SUCH_IMAGE
 from server.configs.config import Config
@@ -28,12 +31,14 @@ def create_app():
     app.static_folder = app.root_path + "/public"
     cors.init_app(app)
     socketio.init_app(app)
+    sess.init_app(app)
     tasks.celery.conf.update(app.config)
     return app
 
 
 cors = CORS()
 socketio = SocketIO()
+sess = Session()
 app = create_app()
 app.clients = {}
 
@@ -51,15 +56,19 @@ def disconnect_request():
 
 @socketio.on('connect', namespace='/events')
 def events_connect():
+    print(request.namespace)
     userid = str(uuid.uuid4())
     session['userid'] = userid
-    current_app.clients[userid] = request.namespace
+    # https://stackoverflow.com/questions/39423646/flask-socketio-emit-to-specific-user
+    current_app.clients[userid] = request.sid
+    join_room(request.sid, namespace='/events')
     emit('userid', {'userid': userid})
     emit('status', {'status': 'Connected user', 'userid': userid})
 
 
 @socketio.on('disconnect', namespace='/events')
 def events_disconnect():
+    leave_room(current_app.clients[session['userid']], namespace='/events')
     del current_app.clients[session['userid']]
     print('Client %s disconnected' % session['userid'])
 
@@ -77,6 +86,16 @@ def upload_image():
     if request.method == "GET":
         return render_template('upload.html')
     elif request.method == 'POST':
+        i = Inspect(app=tasks.celery)
+        # i = Inspect('')
+        # print(i.scheduled())
+        print(i.active_queues())
+        # print(i.active())
+        print(i.registered())
+        print(i.reserved())
+
+        # userId = (request.form['userid'])
+
         if 'file' not in request.files:
             # refresh page
             print('No file in files')
@@ -92,9 +111,10 @@ def upload_image():
             file = os.path.abspath(f"server/img/{filename}")
             jsonfile_path = f"server/tmp/{filename}.json"
             taskId: celery_lib.result.AsyncResult = tasks.process_image.delay(
-                filename, file, jsonfile_path, url_for(
+                filename, file, jsonfile_path,
+                request.form['userid'],
+                url_for(
                     'updates', _external=True),
-                # userid=request.json['userid']
             )
             # print(taskId, type(taskId), dir(taskId))
             return jsonify({
@@ -128,11 +148,16 @@ def get_colors_and_names(filename: str):
 
 @app.route('/_updates', methods=['POST'])
 def updates():
-    # userid = request.json['userid']
+    userid = request.json['userid']
     data = request.json
-    print(data)
-    # ns = app.clients.get(userid)
+    # print(data)
+    room = app.clients.get(userid)
+    # print('room', room)
     # if ns and data:
+    # must specify both namespace and room
+    # room is for this single user
+    socketio.emit('celerystatus', data,
+                  room=room, namespace='/events')
     # socketio.emit('celerystatus', data, namespace=ns)
     return 'ok'
     # return 'error', 404
