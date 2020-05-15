@@ -10,9 +10,13 @@
 <body>
     Upload a file
     <input type="file" name="file" />
-
+    
     <button>submit</button>
+    
 
+    <div id="progress"></div>
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/nanobar/0.4.2/nanobar.min.js"></script>
     <script src="{{ url_for('static', filename='js/socket.io.js') }}"></script>
     <script src="{{ url_for('static', filename='js/ts/upload.js') }}"></script>
 </body>

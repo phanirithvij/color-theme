@@ -17,6 +17,7 @@ from server.utils.get_colors import get_colors_image_js
 from server.utils.names import get_names_knn
 from server.utils.vibrant import get_vibrants
 
+
 logger = get_task_logger(__name__)
 
 celery = Celery(__name__, broker=Config.CELERY_BROKER_URL,
@@ -60,6 +61,7 @@ def process_image(
         file: str,
         jsonfile_path: str,
         user_id: str,
+        element_id: str,
         update_url: str):
 
     # assigned id for this task
@@ -73,7 +75,7 @@ def process_image(
     self.configure(update_url, user_id)
 
     progress = {'status': 'started', 'current': 0,
-                'total': 6, 'userid': user_id}
+                'total': 6, 'userid': user_id, 'elementid': element_id}
     self.progress = progress
 
     ex_colors = get_colors_colortheif(file)

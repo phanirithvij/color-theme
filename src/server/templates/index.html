@@ -15,6 +15,15 @@
 
         var imagefile = (params.searchParams.get('img') || 'gin.jpg');
     </script>
+    <script src="https://browser.sentry-cdn.com/5.15.5/bundle.min.js"
+        integrity="sha384-wF7Jc4ZlWVxe/L8Ji3hOIBeTgo/HwFuaeEfjGmS3EXAG7Y+7Kjjr91gJpJtr+PAT" crossorigin="anonymous">
+    </script>
+
+    <script>
+        Sentry.init({
+            dsn: 'https://daba986bd92b4966a0078ffca3226646@o393433.ingest.sentry.io/5242539'
+        });
+    </script>
     <div id="main">
         <nav id="mainnav">
         </nav>

@@ -1,8 +1,11 @@
 
-declare var io: any
+declare var io: any;
+declare var Nanobar: any;
 
 document.addEventListener('DOMContentLoaded', fn, false);
 function fn() {
+
+    var filename = "";
     const submit = document.querySelector('button')
     const input = document.querySelector('input')
 
@@ -16,6 +19,17 @@ function fn() {
         const formData = new FormData()
         formData.append('file', files[0])
         formData.append('userid', userId)
+        filename = files[0].name;
+        var progressid = generateID('progress')
+        formData.append('elementid', progressid)
+
+
+        var nanobar = new Nanobar({
+            bg: '#44f',
+            target: document.getElementById(progressid),
+        });
+
+        nanobars[progressid] = nanobar;
 
         fetch('/upload', {
             method: 'POST',
@@ -31,51 +45,42 @@ function fn() {
     }
     var gIdCounter = 0;
     var userId: string;
-    // var nanobars = {};
+    var nanobars = {};
     function generateID(baseStr) {
-        return (baseStr + gIdCounter++);
+        var id =
+            (baseStr + gIdCounter++);
+        var progress = document.createElement('div');
+        progress.id = id;
+        document.querySelector('#progress').appendChild(progress);
+        return id;
     }
-    function start_long_task() {
-        // add task status elements
-        var progressid = generateID('progress')
-        // const div = $('<div id="' + progressid + '" class="progress"><div></div><div>0%</div><div>...</div><div>&nbsp;</div></div><hr>');
-        // $('#progress').append(div);
-
-        // create a progress bar
-        // var nanobar = new Nanobar({
-        //     bg: '#44f',
-        //     target: div[0].childNodes[0]
-        // });
-        // nanobars[progressid] = nanobar;
-        // send ajax POST request to start background job
-        // $.ajax({
-        //     type: 'POST',
-        //     url: '/longtask',
-        //     contentType: "application/json; charset=utf-8",
-        //     dataType: "json",
-        //     data: JSON.stringify({"elementid": progressid, "userid": userId}),
-        //     success: function(data, status, request) {
-        //     },
-        //     error: function() {
-        //         alert('Unexpected error');
-        //     }
-        // });
+    type Data = {
+        elementid: string;
+        status: string;
+        userid: string;
+        current: number;
+        total: number;
     }
-    function update_progress(data) {
-        // let percent = parseInt(data['current'] * 100 / data['total']);
-        // nanobars[data.elementid].go(percent);
+    function update_progress(data: Data) {
+        let percent = (data.current * 100 / data.total);
+        nanobars[data.elementid].go(percent);
         // var ele = $('#'+data.elementid);
         // $(ele[0].childNodes[1]).text(percent + '%');
         // $(ele[0].childNodes[2]).text(data['status']);
         console.log(data, 'updateprogess')
+        if (data.status == "DONE") {
+            const el = document.getElementById(data.elementid);
+            const par = el.parentElement;
+            const d = document.createElement('a');
+            d.href = `/?img=${filename}`;
+            d.text = "open image";
+            par.appendChild(d);
+        }
         // if ('result' in data) {
         // show result
         //  $(ele[0].childNodes[3]).text('Result: ' + data['result']);
         // }
     }
-    // $(function() {
-    // $('#start-bg-job').click(start_long_task);
-    // });
 
     // Setup socketio functions
     var namespace = '/events'; // change to an empty string to use the global namespace
@@ -95,10 +100,7 @@ function fn() {
 
     // event handler for server sent celery status
     // the data is displayed in the "Received" section of the page
-    socket.on('celerystatus', function (msg) {
-        console.log(msg, 'updateprogess')
-        // update_progress(msg);
-    });
+    socket.on('celerystatus', update_progress);
 
     // event handler for server sent general status
     // the data is displayed in the "Received" section of the page

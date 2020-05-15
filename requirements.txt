@@ -1,3 +1,4 @@
+sentry_sdk
 ffmpeg-python
 Pillow
 colorgram.py

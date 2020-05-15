@@ -24,6 +24,17 @@ from server.configs.db import (get_existing, get_existing_colors, init_db,
 from server.utils.colors import hex2rgb
 from server.utils.gencss import get_colors_gen_css
 
+import sentry_sdk
+from sentry_sdk.integrations.celery import CeleryIntegration
+from sentry_sdk.integrations.flask import FlaskIntegration
+from sentry_sdk.integrations.redis import RedisIntegration
+
+
+sentry_sdk.init(
+    dsn='https://ee7f10c130dd4f269c6e369db226b60b@o393433.ingest.sentry.io/5242511',
+    integrations=[CeleryIntegration(), FlaskIntegration(), RedisIntegration()],
+    debug=True,
+)
 
 def create_app():
     app = Flask(__name__)
@@ -113,6 +124,7 @@ def upload_image():
             taskId: celery_lib.result.AsyncResult = tasks.process_image.delay(
                 filename, file, jsonfile_path,
                 request.form['userid'],
+                request.form['elementid'],
                 url_for(
                     'updates', _external=True),
             )
