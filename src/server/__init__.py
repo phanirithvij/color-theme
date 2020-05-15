@@ -3,10 +3,13 @@ import os
 import uuid
 from pathlib import Path
 
-from flask import (Flask, current_app, jsonify, render_template, request,
-                   send_file, session, url_for, redirect)
+import celery as celery_lib
+import werkzeug
+from flask import (Flask, current_app, jsonify, redirect, render_template,
+                   request, send_file, session, url_for)
 from flask_cors import CORS, cross_origin
 from flask_socketio import SocketIO, disconnect, emit
+from werkzeug.utils import secure_filename
 
 # handling circuar imports
 import server.tasks.tasks as tasks
@@ -17,7 +20,6 @@ from server.configs.db import (get_existing, get_existing_colors, init_db,
                                insert_file_colors, insert_pair)
 from server.utils.colors import hex2rgb
 from server.utils.gencss import get_colors_gen_css
-from werkzeug.utils import secure_filename
 
 
 def create_app():
@@ -79,7 +81,8 @@ def upload_image():
             # refresh page
             print('No file in files')
             return redirect(request.url)
-        flaskfile = request.files['file']
+        flaskfile: werkzeug.datastructures.FileStorage = request.files['file']
+        print(flaskfile, type(flaskfile), dir(flaskfile))
         if flaskfile.filename == '':
             print('No selected file')
             return redirect(request.url)
@@ -88,13 +91,16 @@ def upload_image():
             flaskfile.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             file = os.path.abspath(f"server/img/{filename}")
             jsonfile_path = f"server/tmp/{filename}.json"
-            taskId = tasks.process_image.delay(
+            taskId: celery_lib.result.AsyncResult = tasks.process_image.delay(
                 filename, file, jsonfile_path, url_for(
                     'updates', _external=True),
                 # userid=request.json['userid']
             )
-            print(taskId, type(taskId), dir(taskId))
-            return jsonify({'taskid': str(taskId)}), 202
+            # print(taskId, type(taskId), dir(taskId))
+            return jsonify({
+                'taskid': taskId.task_id,
+                'file': flaskfile.filename
+            }), 202
 
         return f'File not allowed {flaskfile.filename}', 403
 

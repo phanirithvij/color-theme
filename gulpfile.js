@@ -32,7 +32,7 @@ var copyJs = ()=>{
 var tsloadDev = ()=>{
     return gulp.src('src/client/**/*.ts')
         .pipe(typescript())
-        .pipe(concat('prod.js'))
+        // .pipe(concat('prod.js'))
         .pipe(uglify())
         .pipe(gulp.dest('src/server/public/js/'));
 };
