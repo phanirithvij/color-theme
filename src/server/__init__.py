@@ -12,10 +12,13 @@ from flask_cors import CORS, cross_origin
 from flask_socketio import SocketIO, disconnect, emit, join_room, leave_room
 from werkzeug.utils import secure_filename
 
+import sentry_sdk
 # handling circuar imports
 import server.tasks.tasks as tasks
 from flask_session import Session
-# from flask_session import Session
+from sentry_sdk.integrations.celery import CeleryIntegration
+from sentry_sdk.integrations.flask import FlaskIntegration
+from sentry_sdk.integrations.redis import RedisIntegration
 from server.configs import JOINER as joiner
 from server.configs import NO_SUCH_IMAGE
 from server.configs.config import Config
@@ -23,12 +26,6 @@ from server.configs.db import (get_existing, get_existing_colors, init_db,
                                insert_file_colors, insert_pair)
 from server.utils.colors import hex2rgb
 from server.utils.gencss import get_colors_gen_css
-
-import sentry_sdk
-from sentry_sdk.integrations.celery import CeleryIntegration
-from sentry_sdk.integrations.flask import FlaskIntegration
-from sentry_sdk.integrations.redis import RedisIntegration
-
 
 sentry_sdk.init(
     dsn='https://ee7f10c130dd4f269c6e369db226b60b@o393433.ingest.sentry.io/5242511',
