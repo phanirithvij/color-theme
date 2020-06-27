@@ -44,8 +44,10 @@ npm i
 - [ ] celery is a great learning as I need to implement it in the BTP project.
 - [ ] setup a venv for this project because flask_socketio is messed up for some reason on global python site-packages.
 - [ ] Deal with spaces in uploaded file names. Try not to have a db for the initial version. Long term store original file name, generated filename in db.
-- [ ] Try catch for individual methods. And log to a separate file, store that failed image in a separate directory. Sample image `/home/rithvij/Desktop/Temp/wp2831915-black-background-png.png` from `https://img.pngio.com/black-background-png-wallpaper-cave-pretty-black-background-png-1920_1080.png`
-
+- [ ] Try catch for individual methods. And log to a separate file, store that failed image in a separate directory.
+  Sample image `/home/rithvij/Desktop/Temp/wp2831915-black-background-png.png` from `https://img.pngio.com/black-background-png-wallpaper-cave-pretty-black-background-png-1920_1080.png`
+  - [ ] vibrant.go doesn't support ico format for eg.
+- [ ] Recreate the thing from color palette extraction from the coolors website
 
 ### Note
 

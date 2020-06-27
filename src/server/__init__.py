@@ -30,8 +30,9 @@ from server.utils.gencss import get_colors_gen_css
 sentry_sdk.init(
     dsn='https://ee7f10c130dd4f269c6e369db226b60b@o393433.ingest.sentry.io/5242511',
     integrations=[CeleryIntegration(), FlaskIntegration(), RedisIntegration()],
-    debug=True,
+    # debug=True,
 )
+
 
 def create_app():
     app = Flask(__name__)
@@ -81,12 +82,17 @@ def events_disconnect():
     print('Client %s disconnected' % session['userid'])
 
 
-ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif', 'svg'}
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif', 'svg', 'ico'}
 
 
 def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+
+@app.route('/random')
+def random_image():
+    return render_template('random.html')
 
 
 @app.route('/upload', methods=['GET', 'POST'])
@@ -174,7 +180,7 @@ def updates():
 
 @app.route('/colorcss/<filename>/style.css', methods=['GET'])
 @cross_origin()
-def getcolorCss(filename: str):
+def getcolor_css(filename: str):
     init_db()
     print(request.args)
     css_file_exists = False
@@ -185,7 +191,7 @@ def getcolorCss(filename: str):
     file_act_path = os.path.abspath(os.path.join(image_dir, filename))
 
     if not os.path.isfile(file_act_path):
-        print(f"[server.py:getcolorCss] > {filename} is inexistent")
+        print(f"[server.py:getcolor_css] > {filename} is inexistent")
         return send_file(os.path.abspath("server/public/css/404.css"))
 
     exist = get_existing(filename)
