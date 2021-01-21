@@ -1,7 +1,7 @@
 {
   "name": "pallete-theme",
   "version": "1.0.0",
-  "description": "A showcase of a color theme based on any image",
+  "description": "A showcase of a color theme based on an image",
   "main": "index.js",
   "scripts": {
     "dev:client": "gulp dev",
