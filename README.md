@@ -39,9 +39,10 @@ npm i
 ## TODO
 
 - [x] look at https://github.com/angristan/palette
-- [ ] Implement celery bgtasks and update the clients of their image color extraction progress
+- [ ] Remove celery dependency completely, to make it a cross-platform binary
+- [ ] Try rewriting in golang totally
+- [ ] Implement alternative to celery bgtasks using golang and update the clients of their image color extraction progress
 - [ ] store generated palettes in json file for each image and send them from that point.
-- [ ] celery is a great learning as I need to implement it in the BTP project.
 - [ ] setup a venv for this project because flask_socketio is messed up for some reason on global python site-packages.
 - [ ] Deal with spaces in uploaded file names. Try not to have a db for the initial version. Long term store original file name, generated filename in db.
 - [ ] Try catch for individual methods. And log to a separate file, store that failed image in a separate directory.

@@ -6,3 +6,4 @@ __pycache__/
 venv/
 src/logs/
 src/server/imgs/
+/dump.rdb
