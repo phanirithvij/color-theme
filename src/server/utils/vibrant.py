@@ -49,7 +49,7 @@ def get_vibrants(image_path):
 
 if __name__ == "__main__":
     # make the import "names" from ".names"
-    # i.e. from names import get_names
+    # i.e. from names import get_names_ntc
     print(
         get_vibrants(
             "D:/Images/Wallpapers/no-man-s-sky-wallpaper-8k-110377.jpg"

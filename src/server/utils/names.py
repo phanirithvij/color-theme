@@ -17,7 +17,7 @@ MODELS = [
 ]
 
 
-def get_names(colors: list):
+def get_names_ntc(colors: list):
     colors_a = ""
     # print(colors)
     for x in colors:
@@ -58,5 +58,5 @@ def get_names_knn(colors: list):
 
 
 if __name__ == "__main__":
-    print(get_names(["#000000", "#d4d4aa", "#ffffff"]))
+    print(get_names_ntc(["#000000", "#d4d4aa", "#ffffff"]))
     print(get_names_knn(["#000000", "#d4d4aa", "#ffffff"]))
