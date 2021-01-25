@@ -11,9 +11,6 @@ class Knn:
 
     def prepare_dataset(self):
         data = pd.read_csv(self.dataset)
-        # data = pd.read_csv("server/data/ntc.csv")
-        # data = pd.read_csv("server/data/resene.csv")
-        # data = pd.read_csv("server/data/wikipedia_color_names.csv")
 
         self.color_names = data['name'].tolist()
         self.r = data['red'].tolist()

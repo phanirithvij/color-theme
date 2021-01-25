@@ -31,7 +31,7 @@ try:
     proc.communicate()
 except KeyboardInterrupt:
     proc.send_signal(signal.SIGTERM)
-    time = datetime.now()
+    time = datetime.now().timestamp()
     # rename the log file
     copyfile(logfile, f"logs/log{time}.log")
     exit(0)
