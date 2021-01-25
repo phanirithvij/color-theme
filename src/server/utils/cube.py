@@ -11,6 +11,12 @@ def get_colors_cube(path: str):
     # Scaling down also gives colors that are more dominant in perception.
     image = Image.open(path).resize((100, 100))
 
+    try:
+        image = image.convert('RGB')
+    except Exception as e:
+        print("Image conversion failed")
+        print(e)
+    
     # Get colors for that image
     colors = cc.get_colors(image)
 

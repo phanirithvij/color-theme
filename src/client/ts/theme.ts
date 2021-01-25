@@ -14,6 +14,7 @@ interface colorData {
   file: string;
   palette: ColorItem[];
   vibrant_palette: ColorItem[];
+  node_vibrant: ColorItem[];
   cube: ColorItem[];
   rgbaster: ColorItem[];
   service: ColorItem[];
@@ -69,6 +70,7 @@ fetch(`${API_GET}/${filename}/data.json`, {
     const bg: ColorItem = a.main;
     const palette: ColorItem[] = a.palette;
     const vibrant_palette: ColorItem[] = a.vibrant_palette;
+    const node_vibrant: ColorItem[] = a.node_vibrant;
     const cube: ColorItem[] = a.cube;
     const rgbaster: ColorItem[] = a.rgbaster;
     const service: ColorItem[] = a.service;
@@ -119,27 +121,26 @@ fetch(`${API_GET}/${filename}/data.json`, {
 
     var out = "";
     var txt = "";
-    cube.forEach((p) => {
+    node_vibrant.forEach((p) => {
       txt = `<span style="color:${getContrast(p.hex)};background-color:${
         p.hex
       };">         </span>`;
-      // ${p.names}
       out += txt;
     });
 
     styledConsoleLog(out);
     out = "";
-    cube.forEach((p) => {
+    node_vibrant.forEach((p) => {
       txt = `<div style="color:${getContrast(p.hex)};background-color:${
         p.hex
-      };">${p.names}</div>`;
+      };"> ${p.names} </div>`;
       out += txt;
     });
     addPalete("#pal3", out);
 
     var out = "";
     var txt = "";
-    rgbaster.forEach((p) => {
+    cube.forEach((p) => {
       txt = `<span style="color:${getContrast(p.hex)};background-color:${
         p.hex
       };">         </span>`;
@@ -149,7 +150,7 @@ fetch(`${API_GET}/${filename}/data.json`, {
 
     styledConsoleLog(out);
     out = "";
-    rgbaster.forEach((p) => {
+    cube.forEach((p) => {
       txt = `<div style="color:${getContrast(p.hex)};background-color:${
         p.hex
       };">${p.names}</div>`;
@@ -159,6 +160,26 @@ fetch(`${API_GET}/${filename}/data.json`, {
 
     var out = "";
     var txt = "";
+    rgbaster.forEach((p) => {
+      txt = `<span style="color:${getContrast(p.hex)};background-color:${
+        p.hex
+      };">         </span>`;
+      // ${p.names}
+      out += txt;
+    });
+
+    styledConsoleLog(out);
+    out = "";
+    rgbaster.forEach((p) => {
+      txt = `<div style="color:${getContrast(p.hex)};background-color:${
+        p.hex
+      };">${p.names}</div>`;
+      out += txt;
+    });
+    addPalete("#pal5", out);
+
+    var out = "";
+    var txt = "";
     service.forEach((p) => {
       txt = `<span style="color:${getContrast(p.hex)};background-color:${
         p.hex
@@ -175,7 +196,7 @@ fetch(`${API_GET}/${filename}/data.json`, {
       };">${p.names}</div>`;
       out += txt;
     });
-    addPalete("#pal5", out);
+    addPalete("#pal6", out);
 
     var out = "";
     var txt = "";
@@ -195,7 +216,7 @@ fetch(`${API_GET}/${filename}/data.json`, {
       };">${p.names}</div>`;
       out += txt;
     });
-    addPalete("#pal6", out);
+    addPalete("#pal7", out);
 
     // const html : HTMLHtmlElement = document.querySelector(':root');
     // html.style.setProperty('--bg-color', `rgb(${bg[0]},${bg[1]},${bg[2]})`);

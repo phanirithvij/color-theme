@@ -15,7 +15,7 @@ from server.utils.cube import get_colors_cube
 from server.utils.gencss import get_colors_gen_css
 from server.utils.get_colors import get_colors_image_js
 from server.utils.names import get_names_knn
-from server.utils.vibrant import get_vibrants
+from server.utils.vibrant import get_vibrants, get_vibrants_node
 
 
 logger = get_task_logger(__name__)
@@ -75,7 +75,7 @@ def process_image(
     self.configure(update_url, user_id)
 
     progress = {'status': 'started', 'current': 0,
-                'total': 6, 'userid': user_id, 'elementid': element_id}
+                'total': 8, 'userid': user_id, 'elementid': element_id}
     self.progress = progress
 
     ex_colors = get_colors_colortheif(file)
@@ -92,6 +92,11 @@ def process_image(
     self.progress = progress
     logger.info(msg=f"vibrant.go done for {filename}")
     # print(vibrant_palette)
+
+    data["node_vibrant"] = get_vibrants_node(file)
+    progress['current'] += 1
+    self.progress = progress
+    logger.info(msg=f"node vibrant done for {filename}")
 
     data["rgbaster"] = get_baster_colors(file)
     data["main"] = data["rgbaster"][0]

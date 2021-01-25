@@ -15,24 +15,22 @@
   ],
   "author": "Phani Rithvij (phanirithvij20003@gmail.com)",
   "license": "MIT",
-  "devDependencies": {
-    "del": "^4.0.0",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "canvas": "^2.6.1",
+    "del": "^6.0.0",
+    "esm": "^3.2.25",
+    "get-image-colors": "^2.0.1",
     "gulp": "^4.0.2",
     "gulp-concat": "^2.6.1",
     "gulp-sass": "^4.1.0",
-    "gulp-typescript": "^5.0.1",
+    "gulp-typescript": "^6.0.0-alpha.1",
     "gulp-uglify": "^3.0.2",
-    "vinyl-paths": "^2.1.0"
-  },
-  "dependencies": {
-    "axios": "^0.19.2",
-    "canvas": "^2.6.1",
-    "esm": "^3.2.25",
-    "get-image-colors": "^2.0.1",
-    "node-fetch": "^2.5.0",
-    "node-vibrant": "^3.1.5",
-    "pageres": "^5.2.0",
+    "node-fetch": "^2.6.1",
+    "node-vibrant": "^3.1.6",
+    "pageres": "^5.2.1",
     "rgbaster": "^2.1.1",
-    "typescript": "^3.3.4000"
+    "typescript": "^3.9.7",
+    "vinyl-paths": "^3.0.1"
   }
 }

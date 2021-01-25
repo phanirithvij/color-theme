@@ -10,9 +10,14 @@ VIBRANT_JS = os.path.abspath("server/scripts/vibrant.js")
 # TODO remove this not using ntc.js anymore
 # using kmeans to get the color names
 def get_vibrants_node(image_path):
+    print("PWD1", os.getcwd())
+    os.chdir("..")
+    print("PWD2", os.getcwd())
     image_path = os.path.abspath(image_path)
     cmd = "node", VIBRANT_JS, image_path
     resp = subprocess.check_output(cmd)
+    os.chdir("src")
+    print("PWD3", os.getcwd())
     dataP = json.loads(resp)
     hexes = [x['hex'] for x in dataP]
     respS = get_names_knn(hexes)
@@ -23,6 +28,10 @@ def get_vibrants_node(image_path):
 
 def get_vibrants(image_path):
     image_path = os.path.abspath(image_path)
+    # TODO some kind of bug because of celery or Flask?
+    # remove this quickfix later
+    if not os.getcwd().endswith("src"):
+        os.chdir("src")
     cmd = "./server/scripts/scripts", image_path
     resp = subprocess.check_output(cmd)
     print("..." * 21)

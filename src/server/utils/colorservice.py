@@ -60,7 +60,9 @@ def extract_colors_from_file(file, clusters=None):
     new_width, new_height = calculate_new_size(image)
     image = image.resize((new_width, new_height), Image.ANTIALIAS)
 
+    print("so long fakhar ***"* 20)
     img_array = np.array(image)
+    print(img_array.shape)
     if img_array.shape[2] > 3:
         img_array = img_array[:, :, :3]
     img_vector = img_array.reshape(

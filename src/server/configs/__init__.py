@@ -1,6 +1,6 @@
 import os
 
-JOINER = "!#@#!"
+JOINER = "~~--~~"
 
 NO_SUCH_IMAGE = """
 <h1>It's a 404</h1>

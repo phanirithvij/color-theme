@@ -23,8 +23,8 @@ with open(logfile, 'w'):
 
 
 command_args = \
-    ['celery', '-E', '-A', 'server.tasks.tasks',
-        'worker', '--loglevel=info', '-f', logfile]
+    ['celery', '-A', 'server.tasks.tasks', 'worker', '-E',
+        '--loglevel=info', '-f', logfile]
 proc = subprocess.Popen(command_args, shell=False)
 
 try:

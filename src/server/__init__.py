@@ -26,6 +26,7 @@ from server.configs.db import (get_existing, get_existing_colors, init_db,
                                insert_file_colors, insert_pair)
 from server.utils.colors import hex2rgb
 from server.utils.gencss import get_colors_gen_css
+import random
 
 sentry_sdk.init(
     dsn='https://ee7f10c130dd4f269c6e369db226b60b@o393433.ingest.sentry.io/5242511',
@@ -33,13 +34,21 @@ sentry_sdk.init(
     # debug=True,
 )
 
+def initial_setup():
+    try:
+        print("[INFO] initial setup")
+        os.mkdirs("server/img")
+        # TODO make dirs based on the dbpath from config
+        os.mkdirs("server/tmp")
+    except Exception:
+        pass
 
 def create_app():
     app = Flask(__name__)
     app.config.from_object(Config)
     app.static_folder = app.root_path + "/public"
     cors.init_app(app)
-    socketio.init_app(app)
+    socketio.init_app(app, cors_allowed_origins="*")
     sess.init_app(app)
     tasks.celery.conf.update(app.config)
     return app
@@ -49,6 +58,7 @@ cors = CORS()
 socketio = SocketIO()
 sess = Session()
 app = create_app()
+initial_setup()
 app.clients = {}
 
 
@@ -92,7 +102,15 @@ def allowed_file(filename):
 
 @app.route('/random')
 def random_image():
-    return render_template('random.html')
+    #import random
+    init_db()
+    img_dir = Path("server/img")
+    # TODO better way to handle random images
+    files = []
+    for file in img_dir.iterdir():
+        files.append(file)
+    img = random.choice(files).name 
+    return render_template("index.html", imagefile=f"/image/{img}", colors=[])
 
 
 @app.route('/upload', methods=['GET', 'POST'])
@@ -261,3 +279,5 @@ def gethome():
         data = request.data
         print(json.loads(data), "json baby")
         return jsonify({"sucess": True})
+
+
