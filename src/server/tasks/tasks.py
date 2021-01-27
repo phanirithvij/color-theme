@@ -1,6 +1,6 @@
 import json
 from logging import getLogger
-from typing import Any
+from typing import Any, Dict
 
 import requests
 
@@ -26,7 +26,7 @@ class CustomTask():
     """
 
     @property
-    def progress(self) -> dict[str, Any]:
+    def progress(self) -> Dict[str, Any]:
         return self._progress
     # a setter function for progress
     # which sends updates to the initially specified update_url
@@ -59,7 +59,7 @@ class CustomTask():
             update_url: str):
 
         # assigned id for this task
-        # print(self.request.id)
+        print(dir(self))
 
         data = {
             "file": filename

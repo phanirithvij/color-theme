@@ -61,7 +61,7 @@ function fn() {
     current: number;
     total: number;
   }
-  function update_progress(data: Data) {
+  function updateProgress(data: Data) {
     let percent = (data.current * 100 / data.total);
     nanobars[data.elementid].go(percent);
     // var ele = $('#'+data.elementid);
@@ -100,7 +100,7 @@ function fn() {
 
   // event handler for server sent update status
   // the data is displayed in the "Received" section of the page
-  socket.on('updatestatus', update_progress);
+  socket.on('updatestatus', updateProgress);
 
   // event handler for server sent general status
   // the data is displayed in the "Received" section of the page

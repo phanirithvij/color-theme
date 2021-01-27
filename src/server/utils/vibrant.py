@@ -1,6 +1,7 @@
 import json
 import os
 import subprocess
+import sys
 
 from server.utils.names import get_names_knn
 
@@ -30,9 +31,14 @@ def get_vibrants(image_path):
     image_path = os.path.abspath(image_path)
     # TODO some kind of bug because of Flask
     # remove this quickfix later
+    print("PWD1", os.getcwd())
     if not os.getcwd().endswith("src"):
         os.chdir("src")
-    cmd = "./server/scripts/scripts", image_path
+    # TODO check if windows and execute .exe file
+    exe = "server/scripts/scripts" 
+    if sys.platform == "win32":
+        exe += ".exe"
+    cmd = exe, image_path
     resp = subprocess.check_output(cmd)
     print("..." * 21)
     dataP = json.loads(resp)

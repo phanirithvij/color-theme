@@ -9,6 +9,7 @@ from flask import (Flask, current_app, jsonify, redirect, render_template,
 from flask_cors import CORS, cross_origin
 from flask_socketio import SocketIO, disconnect, emit, join_room, leave_room
 from werkzeug.utils import secure_filename
+from flask_executor import Executor
 
 import sentry_sdk
 # handling circuar imports
@@ -30,6 +31,7 @@ sentry_sdk.init(
     # debug=True,
 )
 
+
 def initial_setup():
     try:
         print("[INFO] initial setup")
@@ -39,6 +41,7 @@ def initial_setup():
     except Exception:
         pass
 
+
 def create_app():
     app = Flask(__name__)
     app.config.from_object(Config)
@@ -46,14 +49,24 @@ def create_app():
     cors.init_app(app)
     socketio.init_app(app, cors_allowed_origins="*")
     sess.init_app(app)
+    executor.init_app(app)
     return app
 
 
 cors = CORS()
 socketio = SocketIO()
 sess = Session()
+executor = Executor()
+
 app = create_app()
 initial_setup()
+
+def see(x):
+    print(x)
+    print(dir(x))
+
+executor.add_default_done_callback(see)
+
 app.clients = {}
 
 
@@ -104,7 +117,7 @@ def random_image():
     files = []
     for file in img_dir.iterdir():
         files.append(file)
-    img = random.choice(files).name 
+    img = random.choice(files).name
     return render_template("index.html", imagefile=f"/image/{img}", colors=[])
 
 
@@ -131,16 +144,22 @@ def upload_image():
             jsonfile_path = f"server/tmp/{filename}.json"
             # TODO start processing the image
             # get a task id and and send it to client
-            # @params
-                # filename, file, jsonfile_path,
-                # request.form['userid'],
-                # request.form['elementid'],
-                # url_for(
-                #     'updates', _external=True),
 
-            taskId = "NOT IMPLEMENTED"
+            uid = request.form['userid']
+            elid = request.form['elementid']
+            clsx = tasks.CustomTask()
+            taskID = f"{uid}@{elid}"
+            proxy = executor.submit_stored(
+                taskID,
+                clsx.process_image,
+                filename, file, jsonfile_path,
+                uid,
+                elid,
+                url_for('updates', _external=True),
+            )
+
             return jsonify({
-                'taskid': taskId,
+                'taskid': taskID,
                 'file': flaskfile.filename
             }), 202
 
@@ -242,6 +261,7 @@ def getcolor_css(filename: str):
 @cross_origin()
 def getimage(filename: str):
     init_db()
+    print(">"*20)
     print(request.args)
     file = os.path.abspath(f"server/img/{filename}")
 
@@ -268,5 +288,3 @@ def gethome():
         data = request.data
         print(json.loads(data), "json baby")
         return jsonify({"sucess": True})
-
-

@@ -22,8 +22,5 @@ def get_baster_colors(image_path):
     for temp_, x in zip(temps, dataP):
         temp_["count"] = x["count"]
 
-    print("---" * 10)
-    print('BASTER' * 20)
     print(temps)
-    print("---" * 10)
     return temps
