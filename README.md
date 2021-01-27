@@ -29,6 +29,7 @@ npm i
 ## TODO
 
 - [ ] Implement alternative to celery bgtasks using golang and update the clients of their image color extraction progress
+  - try https://github.com/dchevell/flask-executor
 - [ ] Downsample image and save thumbnail before extracting colors
 - [x] look at https://github.com/angristan/palette
 - [ ] Try rewriting in golang totally
