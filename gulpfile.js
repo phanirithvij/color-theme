@@ -4,8 +4,8 @@ const sass = require('gulp-sass');
 const uglify = require('gulp-uglify');
 const typescript = require('gulp-typescript');
 const concat = require('gulp-concat');
-// const del = require('del');
-// const vpaths = require('vinyl-paths');
+
+// TODO add do not edit warnings to files
 
 var sassDev = ()=>{
     return gulp.src('src/client/scss/*scss')
