@@ -5,6 +5,7 @@ Pillow
 colorgram.py
 scikit-learn
 Flask
+flask_executor
 Flask-Session
 flask-cors
 colorthief
