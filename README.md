@@ -8,6 +8,8 @@ Because the project uses celery (for background scheduled tasks)
 
 And celery requires redis (or some erlang rabbitmq meh)
 
+Celery is also (dropped)[https://stackoverflow.com/a/47331438/8608146] support for windows, so plan to drop it entirely.
+
 Redis is not officially supported on windows as it's main usage is in production deployments and production deployments _will_ be linux.
 
 I've setup a celery boilerplate in this fork https://github.com/phanirithvij/flask-socketio-celery-example
@@ -38,11 +40,11 @@ npm i
 
 ## TODO
 
+- [ ] Implement alternative to celery bgtasks using golang and update the clients of their image color extraction progress
 - [ ] Downsample image and save thumbnail before extracting colors
 - [x] look at https://github.com/angristan/palette
 - [ ] Remove celery dependency completely, to make it a cross-platform binary
 - [ ] Try rewriting in golang totally
-- [ ] Implement alternative to celery bgtasks using golang and update the clients of their image color extraction progress
 - [ ] store generated palettes in json file for each image and send them from that point.
 - [ ] Deal with spaces in uploaded file names. Try not to have a db for the initial version. Long term store original file name, generated filename in db.
 - [ ] Try catch for individual methods. And log to a separate file, store that failed image in a separate directory.
