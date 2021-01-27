@@ -246,13 +246,17 @@ def getcolor_css(filename: str):
             # now it exists
             css_file_exists = True
 
+    colors = []
     if not css_file_exists:
         uid, colors, css_file = get_colors_gen_css(filename, joiner)
         # insert to css_table in db
         insert_pair(filename, uid)
     if not get_existing_colors(filename):
         # theif => method = 1 default
-        insert_file_colors(filename, colors[1])
+        if len(colors) != 0:
+            insert_file_colors(filename, colors[1])
+        else:
+            print("[WARNING] Colors are not extracted")
 
     return send_file(css_file)  # send a freshly created css file
 
