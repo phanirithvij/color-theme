@@ -28,7 +28,7 @@ def get_vibrants_node(image_path):
 
 def get_vibrants(image_path):
     image_path = os.path.abspath(image_path)
-    # TODO some kind of bug because of celery or Flask?
+    # TODO some kind of bug because of Flask
     # remove this quickfix later
     if not os.getcwd().endswith("src"):
         os.chdir("src")

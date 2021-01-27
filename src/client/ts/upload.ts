@@ -98,9 +98,9 @@ function fn() {
     userId = msg.userid;
   });
 
-  // event handler for server sent celery status
+  // event handler for server sent update status
   // the data is displayed in the "Received" section of the page
-  socket.on('celerystatus', update_progress);
+  socket.on('updatestatus', update_progress);
 
   // event handler for server sent general status
   // the data is displayed in the "Received" section of the page

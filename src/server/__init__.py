@@ -3,9 +3,7 @@ import os
 import uuid
 from pathlib import Path
 
-import celery as celery_lib
 import werkzeug
-from celery.app.control import Inspect
 from flask import (Flask, current_app, jsonify, redirect, render_template,
                    request, send_file, session, url_for)
 from flask_cors import CORS, cross_origin
@@ -16,9 +14,7 @@ import sentry_sdk
 # handling circuar imports
 import server.tasks.tasks as tasks
 from flask_session import Session
-from sentry_sdk.integrations.celery import CeleryIntegration
 from sentry_sdk.integrations.flask import FlaskIntegration
-from sentry_sdk.integrations.redis import RedisIntegration
 from server.configs import JOINER as joiner
 from server.configs import NO_SUCH_IMAGE
 from server.configs.config import Config
@@ -30,7 +26,7 @@ import random
 
 sentry_sdk.init(
     dsn='https://ee7f10c130dd4f269c6e369db226b60b@o393433.ingest.sentry.io/5242511',
-    integrations=[CeleryIntegration(), FlaskIntegration(), RedisIntegration()],
+    integrations=[FlaskIntegration()],
     # debug=True,
 )
 
@@ -50,7 +46,6 @@ def create_app():
     cors.init_app(app)
     socketio.init_app(app, cors_allowed_origins="*")
     sess.init_app(app)
-    tasks.celery.conf.update(app.config)
     return app
 
 
@@ -118,14 +113,6 @@ def upload_image():
     if request.method == "GET":
         return render_template('upload.html')
     elif request.method == 'POST':
-        i = Inspect(app=tasks.celery)
-        # i = Inspect('')
-        # print(i.scheduled())
-        print(i.active_queues())
-        # print(i.active())
-        print(i.registered())
-        print(i.reserved())
-
         # userId = (request.form['userid'])
 
         if 'file' not in request.files:
@@ -142,16 +129,18 @@ def upload_image():
             flaskfile.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             file = os.path.abspath(f"server/img/{filename}")
             jsonfile_path = f"server/tmp/{filename}.json"
-            taskId: celery_lib.result.AsyncResult = tasks.process_image.delay(
-                filename, file, jsonfile_path,
-                request.form['userid'],
-                request.form['elementid'],
-                url_for(
-                    'updates', _external=True),
-            )
-            # print(taskId, type(taskId), dir(taskId))
+            # TODO start processing the image
+            # get a task id and and send it to client
+            # @params
+                # filename, file, jsonfile_path,
+                # request.form['userid'],
+                # request.form['elementid'],
+                # url_for(
+                #     'updates', _external=True),
+
+            taskId = "NOT IMPLEMENTED"
             return jsonify({
-                'taskid': taskId.task_id,
+                'taskid': taskId,
                 'file': flaskfile.filename
             }), 202
 
@@ -189,9 +178,9 @@ def updates():
     # if ns and data:
     # must specify both namespace and room
     # room is for this single user
-    socketio.emit('celerystatus', data,
+    socketio.emit('updatestatus', data,
                   room=room, namespace='/events')
-    # socketio.emit('celerystatus', data, namespace=ns)
+    # socketio.emit('updatestatus', data, namespace=ns)
     return 'ok'
     # return 'error', 404
 

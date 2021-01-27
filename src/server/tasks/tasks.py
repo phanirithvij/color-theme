@@ -1,11 +1,9 @@
 import json
+from logging import getLogger
 
 import requests
-from celery import Celery, Task
-from celery.utils.log import get_task_logger
 
 from server.configs import JOINER as joiner
-from server.configs.config import Config
 from server.configs.db import get_existing, insert_file_colors, insert_pair
 from server.utils import get_colors_colortheif
 from server.utils.baster import get_baster_colors
@@ -18,13 +16,10 @@ from server.utils.names import get_names_knn
 from server.utils.vibrant import get_vibrants, get_vibrants_node
 
 
-logger = get_task_logger(__name__)
+logger = getLogger(__name__)
 
-celery = Celery(__name__, broker=Config.CELERY_BROKER_URL,
-                backend=Config.CELERY_RESULT_BACKEND)
-
-
-class CustomTask(Task):
+# TODO extend Thread?
+class CustomTask():
     """
     A simple task api.
     """
@@ -54,7 +49,6 @@ class CustomTask(Task):
                  f"was {r.status_code} != 200"]))
 
 
-@celery.task(bind=True, base=CustomTask)
 def process_image(
         self,
         filename: str,
@@ -128,7 +122,7 @@ def process_image(
     insert_file_colors(filename, ex_colors[1])
 
     # save generated json file to disk
-    # do this with celery
+    # TODO do this in background
     with open(jsonfile_path, 'w+') as jsonfile:
         json.dump(data, jsonfile)
 

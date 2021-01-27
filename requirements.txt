@@ -3,21 +3,12 @@ blinker
 ffmpeg-python
 Pillow
 colorgram.py
-celery
 scikit-learn
 Flask
 Flask-Session
 flask-cors
 colorthief
 pandas
-redis
 eventlet
 FLask-Socketio
 requests
-
-# watchdog is for celery hot reload
-# https://stackoverflow.com/a/43929298/8608146
-watchdog
-# these two are for watchmedo
-argh
-pyyaml
