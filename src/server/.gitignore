@@ -1,1 +1,5 @@
 img/
+# redis dumps
+*.rdb
+# log files
+*.log

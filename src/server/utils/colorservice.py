@@ -55,6 +55,7 @@ def extract_colors_from_file(file, clusters=None):
     clusters = clusters or serviceconfig.CLUSTERS
 
     image = Image.open(file)
+    image = image.convert('RGB')
 
     # Resize
     new_width, new_height = calculate_new_size(image)

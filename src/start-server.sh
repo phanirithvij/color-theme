@@ -51,6 +51,8 @@ echo -e "\n\n\n -------------------------------------"
 if [ -x "$(command -v konsole)" ]; then
     { konsole -e ./run-redis.sh; } &
     { konsole -e ./run-celery.sh; } &
+
+    wait
     # { konsole -e bash -c "source venv/bin/activate && python -m server"; } &
     tries=0
     while true;
