@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>List of images</title>
+    <style>
+      .grid-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+        grid-template-rows: repeat(4, 200px);
+        grid-gap: 1rem;
+      }
+      .grid-item {
+        padding-left: 20px;
+        align-items: center;
+        display: flex;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="grid-container">
+      {% include '_upload.html' %} {% if images|length >= 0 %} {% for image in
+      images %}
+      <div class="grid-item">
+        <a href="{{ url_for('viewimage', img=image) }}">
+          <img
+            src="{{ url_for('thumbnail', filename=image) }}"
+            alt="{{ image }}"
+          />
+        </a>
+      </div>
+      {%endfor %} {% else %}
+      <div>no images on the server add some</div>
+      {% endif %}
+    </div>
+  </body>
+</html>

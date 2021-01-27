@@ -72,7 +72,7 @@ function fn() {
       const el = document.getElementById(data.elementid);
       const par = el.parentElement;
       const d = document.createElement('a');
-      d.href = `/?img=${filename}`;
+      d.href = `/view?img=${filename}`;
       d.text = "open image";
       par.appendChild(d);
     }

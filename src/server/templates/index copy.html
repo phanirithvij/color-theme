@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Color Theme</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+    <script>
+        var params = new URL(window.location.href);
+
+        var imagepath = "{{ imagefile }}".split("/");
+        var imagefile = imagepath[imagepath.length-1];
+    </script>
+    <script src="https://browser.sentry-cdn.com/5.15.5/bundle.min.js"
+        integrity="sha384-wF7Jc4ZlWVxe/L8Ji3hOIBeTgo/HwFuaeEfjGmS3EXAG7Y+7Kjjr91gJpJtr+PAT" crossorigin="anonymous">
+    </script>
+
+    <script>
+        Sentry.init({
+            dsn: 'https://daba986bd92b4966a0078ffca3226646@o393433.ingest.sentry.io/5242539'
+        });
+    </script>
+    <div id="main">
+        <nav id="mainnav">
+        </nav>
+        <div id="content">
+            <h2>Hello World! This is the Home Page</h2>
+        </div>
+        <div id="imgc">
+            <img src="{{ imagefile }}" alt="bg-image" id="img-main">
+        </div>
+        <div id="pals" style="height:400px;">
+            <div id="pal1">
+                <!-- {% for item in navigation %}
+                    <li><a href="{{ item.href }}">{{ item.caption }}</a></li>
+                {% endfor %} -->
+            </div>
+            <div id="pal2"></div>
+            <div id="pal3"></div>
+            <div id="pal4"></div>
+            <div id="pal5"></div>
+        </div>
+        <div id="error">
+        </div>
+    </div>
+    <!-- <script>
+        document.querySelector('#img-main').src = `/image/${imagefile}`;
+        console.log('set source'); -->
+    <!-- </script> -->
+    <script src="{{ url_for('static', filename='js/console.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/colors.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/ts/theme.js') }}"></script>
+</body>
+
+</html>

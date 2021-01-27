@@ -1,21 +1,23 @@
 import json
 import os
+import random
 import uuid
 from pathlib import Path
 
+import sentry_sdk
 import werkzeug
 from flask import (Flask, current_app, jsonify, redirect, render_template,
                    request, send_file, session, url_for)
+from flask.helpers import safe_join, send_from_directory
 from flask_cors import CORS, cross_origin
-from flask_socketio import SocketIO, disconnect, emit, join_room, leave_room
-from werkzeug.utils import secure_filename
 from flask_executor import Executor
+from flask_session import Session
+from flask_socketio import SocketIO, disconnect, emit, join_room, leave_room
+from sentry_sdk.integrations.flask import FlaskIntegration
+from werkzeug.utils import secure_filename
 
-import sentry_sdk
 # handling circuar imports
 import server.tasks.tasks as tasks
-from flask_session import Session
-from sentry_sdk.integrations.flask import FlaskIntegration
 from server.configs import JOINER as joiner
 from server.configs import NO_SUCH_IMAGE
 from server.configs.config import Config
@@ -23,7 +25,6 @@ from server.configs.db import (get_existing, get_existing_colors, init_db,
                                insert_file_colors, insert_pair)
 from server.utils.colors import hex2rgb
 from server.utils.gencss import get_colors_gen_css
-import random
 
 sentry_sdk.init(
     dsn='https://ee7f10c130dd4f269c6e369db226b60b@o393433.ingest.sentry.io/5242511',
@@ -61,9 +62,11 @@ executor = Executor()
 app = create_app()
 initial_setup()
 
+
 def see(x):
     print(x)
     print(dir(x))
+
 
 executor.add_default_done_callback(see)
 
@@ -108,7 +111,7 @@ def allowed_file(filename):
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
-@app.route('/random')
+@app.route('/view/random')
 def random_image():
     #import random
     init_db()
@@ -118,7 +121,21 @@ def random_image():
     for file in img_dir.iterdir():
         files.append(file)
     img = random.choice(files).name
-    return render_template("index.html", imagefile=f"/image/{img}", colors=[])
+    return render_template("image.html", imagefile=f"/image/{img}", colors=[])
+
+
+# @app.route('/file/<path:filename>', methods=['GET'])
+# def static_proxy(filename):
+#     # NOTE we should not pass abspath to send_from_dir
+#     # file = os.path.abspath(f"server/img/{filename}")
+#     dirname = os.path.abspath(app.config['UPLOAD_FOLDER'])
+#     return send_from_directory(dirname, filename)
+@app.route('/')
+@app.route('/all')
+def all():
+    upload_dir = Path(app.config['UPLOAD_FOLDER'])
+    images = [os.path.basename(x) for x in upload_dir.iterdir() if x.is_file()]
+    return render_template('list.html', images=images)
 
 
 @app.route('/upload', methods=['GET', 'POST'])
@@ -142,14 +159,14 @@ def upload_image():
             flaskfile.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             file = os.path.abspath(f"server/img/{filename}")
             jsonfile_path = f"server/tmp/{filename}.json"
-            # TODO start processing the image
-            # get a task id and and send it to client
-
             uid = request.form['userid']
             elid = request.form['elementid']
             clsx = tasks.CustomTask()
             taskID = f"{uid}@{elid}"
-            proxy = executor.submit_stored(
+            # generate thumbnail
+            executor.submit(clsx.generate_thumbnail, file)
+            # start processing the image
+            executor.submit_stored(
                 taskID,
                 clsx.process_image,
                 filename, file, jsonfile_path,
@@ -157,7 +174,7 @@ def upload_image():
                 elid,
                 url_for('updates', _external=True),
             )
-
+            # get a task id and and send it to client
             return jsonify({
                 'taskid': taskID,
                 'file': flaskfile.filename
@@ -275,16 +292,35 @@ def getimage(filename: str):
     return send_file(file)
 
 
-@app.route('/', methods=['POST', 'GET'])
+@app.route('/thumb/<filename>', methods=['GET'])
+def thumbnail(filename: str):
+    init_db()
+    file = os.path.abspath(f"server/img/{filename}")
+
+    if not os.path.isfile(file):
+        return NO_SUCH_IMAGE.format(filename), 404
+
+    thumb_path = f"{app.config['THUMB_FOLDER']}/{filename}"
+    if not os.path.exists(thumb_path):
+        clsx = tasks.CustomTask()
+        print("Generating thumbnail for", filename, " now")
+        clsx.generate_thumbnail(file)
+
+    abs_thumb_dir = os.path.abspath(app.config['THUMB_FOLDER'])
+
+    return send_from_directory(abs_thumb_dir, filename)
+
+
+@app.route('/view', methods=['POST', 'GET'])
 @cross_origin()
-def gethome():
+def viewimage():
     init_db()
     img = "gin.jpg"
     if 'img' in request.args:
         img = (request.args['img'])
     if request.method == "GET":
         return render_template(
-            "index.html",
+            "image.html",
             imagefile=f"/image/{img}",
             colors=[],
         )

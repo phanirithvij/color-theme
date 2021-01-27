@@ -1,6 +1,8 @@
 import json
 from logging import getLogger
+import os
 from typing import Any, Dict
+from PIL import Image
 
 import requests
 
@@ -49,6 +51,17 @@ class CustomTask():
                 [f"Response for {self.update_url}",
                  f"was {r.status_code} != 200"]))
 
+    def generate_thumbnail(self, file: str):
+        name = os.path.basename(file)
+        orig = Image.open(file)
+        orig.thumbnail((150, 150))
+        dest = f"server/img/thumbs/{name}"
+        try:
+            os.makedirs(os.path.dirname(dest))
+        except OSError:
+            pass
+        orig.save(dest)
+
     def process_image(
             self,
             filename: str,
@@ -58,8 +71,6 @@ class CustomTask():
             element_id: str,
             update_url: str):
 
-        # assigned id for this task
-        print(dir(self))
 
         data = {
             "file": filename
@@ -71,6 +82,9 @@ class CustomTask():
         progress = {'status': 'started', 'current': 0,
                     'total': 8, 'userid': user_id, 'elementid': element_id}
         self.progress = progress
+
+        # TODO all the following in parallel
+        # just read the image and process so no clashes
 
         ex_colors = get_colors_colortheif(file)
         # rgb to hex to get the names
