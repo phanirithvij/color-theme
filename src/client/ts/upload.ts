@@ -5,66 +5,74 @@ document.addEventListener("DOMContentLoaded", fn, false);
 
 import Uppy = require("@uppy/core");
 import Dashboard = require("@uppy/dashboard");
-import Tus = require('@uppy/tus')
-
-console.log("Uppy loaded");
-
-const uppy = Uppy<Uppy.StrictTypes>({
-  onBeforeUpload(files) {
-    for (const [key, file] of Object.entries(files)) {
-      console.log(key, file);
-    }
-    return true;
-  },
-});
-
-window["uppy"] = uppy;
+import Tus = require("@uppy/tus");
 
 function fn() {
-  uppy.use(Dashboard, {
-    inline: true,
-    fileManagerSelectionType: 'both',
-    target: '.upload-box',
-  }).use(Tus, {
-    endpoint : "/upload_resumable"
+  const uppy = Uppy<Uppy.StrictTypes>({
+    restrictions: {
+      allowedFileTypes: ["image/*"],
+    },
+    onBeforeUpload(files) {
+      const updatedFiles: {
+        [key: string]: Uppy.UppyFile<{}, {}>;
+      } = {};
+      Object.keys(files).forEach((fileID) => {
+        updatedFiles[fileID] = {
+          ...files[fileID],
+        };
+        const meta = prepareNanoBar();
+        for (const key in meta) {
+          updatedFiles[fileID].meta[key] = meta[key];
+        }
+      });
+      return updatedFiles;
+    },
+    debug: true,
   });
-  const handleImageUpload = () => {
-    const files = ["0", "2"];
-    const formData = new FormData();
-    formData.append("file", files[0]);
-    formData.append("userid", userId);
-    var progressid = generateID("progress");
-    formData.append("elementid", progressid);
+
+  window["uppy"] = uppy;
+  console.log("Uppy loaded");
+
+  uppy
+    .use(Dashboard, {
+      inline: true,
+      fileManagerSelectionType: "both",
+      target: ".upload-box",
+      proudlyDisplayPoweredByUppy: true,
+      showLinkToFileUploadResult: true,
+      showProgressDetails: true,
+    })
+    .use(Tus, {
+      endpoint: "/upload_resumable",
+      limit: 10,
+    });
+
+  const prepareNanoBar = () => {
+    var progressID = generateID("progress");
 
     var nanobar = new Nanobar({
       bg: "#44f",
-      target: document.getElementById(progressid),
+      target: document.getElementById(progressID),
     });
 
-    nanobars[progressid] = nanobar;
-
-    fetch("/upload", {
-      method: "POST",
-      body: formData,
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    nanobars[progressID] = nanobar;
+    return {
+      progressID,
+      userID,
+    };
   };
+
   var gIdCounter = 0;
-  var userId: string;
+  var userID: string;
   var nanobars = {};
-  function generateID(baseStr) {
+  function generateID(baseStr: string) {
     var id = baseStr + gIdCounter++;
     var progress = document.createElement("div");
     progress.id = id;
     document.querySelector("#progress").appendChild(progress);
     return id;
   }
+
   type Data = {
     elementid: string;
     status: string;
@@ -72,6 +80,7 @@ function fn() {
     current: number;
     total: number;
   };
+
   function updateProgress(data: Data) {
     let percent = (data.current * 100) / data.total;
     nanobars[data.elementid].go(percent);
@@ -108,7 +117,7 @@ function fn() {
   // event handler for userid.  On initial connection, the server
   // sends back a unique userid
   socket.on("userid", function (msg) {
-    userId = msg.userid;
+    userID = msg.userid;
   });
 
   // event handler for server sent update status

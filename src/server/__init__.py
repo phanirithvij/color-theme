@@ -8,7 +8,7 @@ import sentry_sdk
 import werkzeug
 from flask import (Flask, current_app, jsonify, redirect, render_template,
                    request, send_file, session, url_for)
-from flask.helpers import safe_join, send_from_directory
+from flask.helpers import send_from_directory
 from flask_cors import CORS, cross_origin
 from flask_executor import Executor
 from flask_session import Session
@@ -63,22 +63,43 @@ executor = Executor()
 app = create_app()
 
 GB = 2**30
+TUS_UPLOAD_FOLDER = os.path.abspath("server/tmp")
 
 app.wsgi_app = TusFilter(
     app.wsgi_app,
     upload_path='/upload_resumable',
-    tmp_dir='server/tmp',
-    max_size=3*GB
+    tmp_dir=TUS_UPLOAD_FOLDER,
+    max_size=3*GB,
+    send_file=True,
 )
 
 initial_setup()
 
 
-@app.route("/upload_resumable/<tmpfile>", methods=['PATCH'])
+@app.route("/upload_resumable/<tmpfile>", methods=['GET', 'PATCH'])
 def upload_resumable(tmpfile):
+    download = False
+    if 'download' in request.args or 'dl' in request.args:
+        download = True
+
     print(tmpfile)
-    # do something else
-    return 'End of upload'
+    # check if file exists
+    info_path = os.path.join(TUS_UPLOAD_FOLDER, tmpfile + '.info')
+    if os.path.exists(info_path):
+        with open(info_path, 'r') as f:
+            info = json.load(f)
+            upload_metadata = info['upload_metadata']
+
+        if upload_metadata:
+            return send_from_directory(
+                TUS_UPLOAD_FOLDER,
+                tmpfile,
+                as_attachment=download,
+                attachment_filename=upload_metadata['name'],
+                mimetype=upload_metadata['type'],
+            )
+
+    return send_from_directory(TUS_UPLOAD_FOLDER, tmpfile)
 
 
 def see(x):
