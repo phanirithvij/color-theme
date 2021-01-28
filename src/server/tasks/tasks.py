@@ -1,11 +1,12 @@
 import json
-from logging import getLogger
 import os
+import shutil
+import sys
+from logging import StreamHandler, getLogger
 from typing import Any, Dict
-from PIL import Image
 
 import requests
-
+from PIL import Image
 from server.configs import JOINER as joiner
 from server.configs.db import get_existing, insert_file_colors, insert_pair
 from server.utils import get_colors_colortheif
@@ -18,14 +19,23 @@ from server.utils.get_colors import get_colors_image_js
 from server.utils.names import get_names_knn
 from server.utils.vibrant import get_vibrants, get_vibrants_node
 
-
 logger = getLogger(__name__)
+logger.addHandler(StreamHandler(sys.stdout))
+PROCESS_DIR = "server/tmp/queue"
+TUS_UPLOAD_FOLDER = "server/img"
+
+os.makedirs(PROCESS_DIR, exist_ok=True)
 
 # TODO extend Thread?
+
+
 class CustomTask():
     """
     A simple task api.
     """
+
+    def __init__(self):
+        logger.info(msg=f"New CustomTask created {id(self)}")
 
     @property
     def progress(self) -> Dict[str, Any]:
@@ -39,7 +49,7 @@ class CustomTask():
         self._progress = {'status': 'PENDING', 'userid': user_id}
 
     @progress.setter
-    def progress(self, value) :
+    def progress(self, value):
         self._progress = value
         self.update()
 
@@ -51,15 +61,23 @@ class CustomTask():
                 [f"Response for {self.update_url}",
                  f"was {r.status_code} != 200"]))
 
-    def generate_thumbnail(self, file: str):
+    @classmethod
+    def create_tmp_file(cls, filename, ext, file):
+        tmpfile = f"{PROCESS_DIR}/{filename}{ext}"
+        shutil.copy(file, tmpfile)
+        return tmpfile
+
+    @classmethod
+    def remove_tmp_file(cls, tmpfile):
+        os.remove(tmpfile)
+
+    def generate_thumbnail(self, file: str, ext: str, dest: str):
         name = os.path.basename(file)
-        orig = Image.open(file)
+        tmpfile = CustomTask.create_tmp_file(name, ext, file)
+        name = os.path.basename(tmpfile)
+        orig = Image.open(tmpfile)
         orig.thumbnail((150, 150))
-        dest = f"server/img/thumbs/{name}"
-        try:
-            os.makedirs(os.path.dirname(dest))
-        except OSError:
-            pass
+        os.makedirs(os.path.dirname(dest), exist_ok=True)
         orig.save(dest)
 
     def process_image(
@@ -69,8 +87,12 @@ class CustomTask():
             jsonfile_path: str,
             user_id: str,
             element_id: str,
+            ext: str,
             update_url: str):
 
+        # create a file temporarily to process
+        # and delete it later
+        tmpfile = CustomTask.create_tmp_file(filename, ext, file)
 
         data = {
             "file": filename
@@ -86,7 +108,7 @@ class CustomTask():
         # TODO all the following in parallel
         # just read the image and process so no clashes
 
-        ex_colors = get_colors_colortheif(file)
+        ex_colors = get_colors_colortheif(tmpfile)
         # rgb to hex to get the names
         ex_colors_hex = [rgb2hex(x) for x in ex_colors[1]]
         ex_colors_names = get_names_knn(ex_colors_hex)
@@ -95,41 +117,41 @@ class CustomTask():
         self.progress = progress
         logger.info(msg=f"colortheif done for {filename}")
 
-        data["vibrant_palette"] = get_vibrants(file)
+        data["vibrant_palette"] = get_vibrants(tmpfile)
         progress['current'] += 1
         self.progress = progress
         logger.info(msg=f"vibrant.go done for {filename}")
         # print(vibrant_palette)
 
-        data["node_vibrant"] = get_vibrants_node(file)
+        data["node_vibrant"] = get_vibrants_node(tmpfile)
         progress['current'] += 1
         self.progress = progress
         logger.info(msg=f"node vibrant done for {filename}")
 
-        data["rgbaster"] = get_baster_colors(file)
+        data["rgbaster"] = get_baster_colors(tmpfile)
         data["main"] = data["rgbaster"][0]
         progress['current'] += 1
         self.progress = progress
         logger.info(msg=f"rgbaster done for {filename}")
 
-        data["cube"] = get_colors_cube(file)
+        data["cube"] = get_colors_cube(tmpfile)
         progress['current'] += 1
         self.progress = progress
         logger.info(msg=f"colorcube done for {filename}")
 
-        data["service"] = get_color_service_pallete(file)
+        data["service"] = get_color_service_pallete(tmpfile)
         progress['current'] += 1
         self.progress = progress
         logger.info(msg=f"colors-service done for {filename}")
 
-        data["get_colors"] = get_colors_image_js(file)
+        data["get_colors"] = get_colors_image_js(tmpfile)
         progress['current'] += 1
         self.progress = progress
         logger.info(msg=f"get-image-colors done for {filename}")
 
         exist_css = get_existing(filename)
         if not exist_css:
-            uid, colors, css_file = get_colors_gen_css(filename, joiner)
+            uid, ex_colors, css_file = get_colors_gen_css(filename, joiner)
             # insert to css_table in db
             insert_pair(filename, uid)
         # theif => method = 1 default
@@ -144,3 +166,6 @@ class CustomTask():
         progress['status'] = 'DONE'
         self.progress = progress
         logger.info(msg=f'Wrote extracted colors to {jsonfile}')
+
+        logger.info(msg=f"Done processing {tmpfile} removing")
+        CustomTask.remove_tmp_file(tmpfile)
