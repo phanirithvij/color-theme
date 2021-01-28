@@ -9,3 +9,4 @@ venv/
 winenv/
 src/logs/
 src/server/imgs/
+src/client/public/
