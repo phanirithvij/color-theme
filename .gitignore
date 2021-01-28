@@ -3,6 +3,10 @@ tmp/
 temp/
 __pycache__/
 *.pyc
+# venv for linux
 venv/
+# venv on windows
+winenv/
 src/logs/
 src/server/imgs/
+src/server/public/

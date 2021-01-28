@@ -1,8 +1,9 @@
 # from PIL import Image, ImageDraw
+from typing import Tuple
 from colorthief import ColorThief
 
 
-def get_colors_colortheif(infile, numcolors=10) -> (tuple, list):
+def get_colors_colortheif(infile: str, numcolors: int = 10) -> Tuple[tuple, list]:
     """returns (maincolor, colorlist)"""
     if numcolors < 2:
         numcolors = 2

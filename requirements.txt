@@ -5,6 +5,7 @@ Pillow
 colorgram.py
 scikit-learn
 Flask
+flask_executor
 Flask-Session
 flask-cors
 colorthief
@@ -12,3 +13,4 @@ pandas
 eventlet
 FLask-Socketio
 requests
+git+https://github.com/phanirithvij/tusfilter

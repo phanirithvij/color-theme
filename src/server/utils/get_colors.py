@@ -12,6 +12,7 @@ def get_colors_image_js(image_path):
     cmd = "node", "-r", "esm", GET_IMAGE_COLORS_JS, image_path
     resp = subprocess.check_output(cmd)
     print("***" * 21)
+    print(resp)
     dataP = json.loads(resp)
     temps = get_names_knn(dataP)
     print(temps)

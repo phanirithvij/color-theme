@@ -4,7 +4,7 @@ import uuid
 from server.utils import get_colors_colortheif
 
 def gen_css(colors):
-    colorstrings = f"""
+    colorstrings = f"""\
     --bg-color : rgb({colors[0][0]},{colors[0][1]},{colors[0][2]});
     """
     for i, col in enumerate(colors[1]):

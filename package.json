@@ -16,7 +16,12 @@
   "author": "Phani Rithvij (phanirithvij20003@gmail.com)",
   "license": "MIT",
   "dependencies": {
+    "@uppy/core": "^1.15.1",
+    "@uppy/dashboard": "^1.15.0",
+    "@uppy/drag-drop": "^1.4.23",
+    "@uppy/tus": "^1.8.3",
     "axios": "^0.21.1",
+    "browserify": "^17.0.0",
     "canvas": "^2.6.1",
     "del": "^6.0.0",
     "esm": "^3.2.25",
@@ -27,10 +32,14 @@
     "gulp-typescript": "^6.0.0-alpha.1",
     "gulp-uglify": "^3.0.2",
     "node-fetch": "^2.6.1",
-    "node-vibrant": "^3.1.6",
+    "node-vibrant": "^3.2.1-alpha.1",
     "pageres": "^5.2.1",
     "rgbaster": "^2.1.1",
     "typescript": "^3.9.7",
-    "vinyl-paths": "^3.0.1"
+    "vinyl-paths": "^3.0.1",
+    "vinyl-source-stream": "^2.0.0"
+  },
+  "devDependencies": {
+    "@types/gulp-sass": "^4.0.0"
   }
 }
