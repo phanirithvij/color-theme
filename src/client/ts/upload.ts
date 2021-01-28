@@ -79,6 +79,7 @@ function fn() {
     userid: string;
     current: number;
     total: number;
+    filename: string;
   };
 
   function updateProgress(data: Data) {
@@ -92,7 +93,7 @@ function fn() {
       const el = document.getElementById(data.elementid);
       const par = el.parentElement;
       const d = document.createElement("a");
-      d.href = `/view?img=${"filename"}`;
+      d.href = `/view?img=${data.filename}`;
       d.text = "open image";
       par.appendChild(d);
     }

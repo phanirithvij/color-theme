@@ -101,8 +101,14 @@ class CustomTask():
         # must be called
         self.configure(update_url, user_id)
 
-        progress = {'status': 'started', 'current': 0,
-                    'total': 8, 'userid': user_id, 'elementid': element_id}
+        progress = {
+            'status': 'started',
+            'current': 0,
+            'total': 8,
+            'userid': user_id,
+            'elementid': element_id,
+            'filename': filename
+        }
         self.progress = progress
 
         # TODO all the following in parallel
