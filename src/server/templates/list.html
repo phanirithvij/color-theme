@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>List of images</title>
     <style>
+      body {
+        margin: 0;
+      }
       .grid-container {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
@@ -19,9 +22,9 @@
     </style>
   </head>
   <body>
+    {% include '_upload.html' %} {% if images|length > 0 %}
     <div class="grid-container">
-      {% include '_upload.html' %} {% if images|length >= 0 %} {% for image in
-      images %}
+      {% for image in images %}
       <div class="grid-item">
         <a href="{{ url_for('viewimage', img=image) }}">
           <img
@@ -30,9 +33,10 @@
           />
         </a>
       </div>
-      {%endfor %} {% else %}
-      <div>no images on the server add some</div>
-      {% endif %}
+      {%endfor %}
     </div>
+    {% else %}
+    <div>no images on the server add some</div>
+    {% endif %}
   </body>
 </html>

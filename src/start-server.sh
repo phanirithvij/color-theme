@@ -7,7 +7,11 @@ exe(){
     { set +x; } 2>/dev/null
 }
 
-#!/bin/bash
+
+# TODO if windows
+py -m venv winenv
+winenv/Scripts/activate.bat
+pip install -r ../requirements.freeze.txt
 
 new_inst=false
 if [ ! -d "venv" ]; then

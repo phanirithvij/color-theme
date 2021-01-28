@@ -14,6 +14,7 @@ from flask_executor import Executor
 from flask_session import Session
 from flask_socketio import SocketIO, disconnect, emit, join_room, leave_room
 from sentry_sdk.integrations.flask import FlaskIntegration
+from tusfilter import TusFilter
 from werkzeug.utils import secure_filename
 
 # handling circuar imports
@@ -60,7 +61,24 @@ sess = Session()
 executor = Executor()
 
 app = create_app()
+
+GB = 2**30
+
+app.wsgi_app = TusFilter(
+    app.wsgi_app,
+    upload_path='/upload_resumable',
+    tmp_dir='server/tmp',
+    max_size=3*GB
+)
+
 initial_setup()
+
+
+@app.route("/upload_resumable/<tmpfile>", methods=['PATCH'])
+def upload_resumable(tmpfile):
+    print(tmpfile)
+    # do something else
+    return 'End of upload'
 
 
 def see(x):

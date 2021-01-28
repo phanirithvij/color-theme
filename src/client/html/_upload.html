@@ -1,12 +1,16 @@
-<div class="upload-box">
-  Upload a file
+<!-- <style>
+  .upload-box{
+    height: 200px;
+  }
+</style> -->
+<link rel="stylesheet" href="{{ url_for('static', filename='css/upload.css') }}">
+<div class="upload-box grid-item">
+  <!-- <button class="trigger">Trigger</button> -->
+  <!-- <p>Upload a file</p>
   <input type="file" name="file" />
-
-  <button>submit</button>
-
+  <button>submit</button> -->
   <div id="progress"></div>
-
-  <script src="{{ url_for('static', filename='js/nanobar.min.js') }}"></script>
-  <script src="{{ url_for('static', filename='js/socket.io.js') }}"></script>
-  <script src="{{ url_for('static', filename='js/ts/upload.js') }}"></script>
+  <!-- <script src="{{ url_for('static', filename='js/nanobar.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/socket.io.js') }}"></script> -->
+  <script src="{{ url_for('static', filename='js/prod.all.js') }}"></script>
 </div>

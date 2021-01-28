@@ -13,3 +13,4 @@ pandas
 eventlet
 FLask-Socketio
 requests
+git+https://github.com/phanirithvij/tusfilter
