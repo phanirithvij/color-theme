@@ -7,12 +7,6 @@ exe(){
     { set +x; } 2>/dev/null
 }
 
-
-# TODO if windows
-py -m venv winenv
-winenv/Scripts/activate.bat
-pip install -r ../requirements.freeze.txt
-
 new_inst=false
 if [ ! -d "venv" ]; then
     echo "Creating python virtual env at ./venv"
@@ -37,8 +31,4 @@ if ! [ -f "server/scripts/scripts" ]; then
     exe cd ../../
 fi
 
-elif [ -x "$(command -v x-terminal-emulator)" ]; then
-    exe python -m server
-else
-    echo "Please add your terminal emulator in the else block of the start-server.sh script"
-fi
+exe python -m server

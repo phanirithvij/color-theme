@@ -2,43 +2,48 @@
 
 ## Setup
 
-Which has
+### Requirements
+
+- Golang
+- Python 3
+- Node js
+
+### Client
 
 ```shell
-# run with
-# from src directory
-py -m server
-```
-
-> Python > 3.6
-
-> Node Js > 10.0.0
-
-Python Dependencies
-
-```shell
-pip install -r requirements.txt
-```
-
-Npm setup
-
-```shell
+# clone and cd to project root
 npm i
+npm run prod:client
+```
+
+### Server
+
+```shell
+# cd to project root
+cd src
+# linux and mac (tested only on linux)
+sh start-server.sh
+
+# on windows
+.\start-server.bat
 ```
 
 ## TODO
 
-- [ ] Implement alternative to celery bgtasks using golang and update the clients of their image color extraction progress
+- [ ] Try rewriting in golang totally
+- [ ] React/Vue client? Can learn vue
+- [ ] Flutter app, flutter web(?)
+- [ ] Recreate the thing from color palette extraction from the coolors website
   - try https://github.com/dchevell/flask-executor
 - [ ] Downsample image and save thumbnail before extracting colors
-- [x] look at https://github.com/angristan/palette
-- [ ] Try rewriting in golang totally
-- [ ] store generated palettes in json file for each image and send them from that point.
+  - [x] Partially implemented, Planned for pure golang release
 - [ ] Deal with spaces in uploaded file names. Try not to have a db for the initial version. Long term store original file name, generated filename in db.
 - [ ] Try catch for individual methods. And log to a separate file, store that failed image in a separate directory.
-  Sample image `/home/rithvij/Desktop/Temp/wp2831915-black-background-png.png` from `https://img.pngio.com/black-background-png-wallpaper-cave-pretty-black-background-png-1920_1080.png`
+      Sample image `/home/rithvij/Desktop/Temp/wp2831915-black-background-png.png` from `https://img.pngio.com/black-background-png-wallpaper-cave-pretty-black-background-png-1920_1080.png`
   - [ ] vibrant.go doesn't support ico format for eg.
-- [ ] Recreate the thing from color palette extraction from the coolors website
+- [x] Implement alternative to celery bgtasks using golang and update the clients of their image color extraction progress
+- [x] look at https://github.com/angristan/palette
+- [x] store generated palettes in json file for each image and send them from that point.
 
 ### Note
 
