@@ -17,7 +17,7 @@ SET CURRENTDIR="%cd%"
 @echo on
 @echo "PWD" %CURRENTDIR%
 IF NOT EXIST "scripts.exe" (
-    go get -u -v github.com/RobCherry/vibrant
+    go get -v github.com/RobCherry/vibrant
     go build -x
 )
 
