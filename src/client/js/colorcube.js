@@ -40,7 +40,7 @@ function ColorCube(resolution = 20,
     */
     let CanvasImage = function (image) {
 
-        if (!image instanceof HTMLElement) {
+        if (!(image instanceof HTMLElement)) {
             throw "You've gotta use an html image element as ur input!!";
         }
 
