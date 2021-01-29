@@ -31,3 +31,5 @@ SET CURRENTDIR="%cd%"
 @echo on
 @echo "PWD" %CURRENTDIR%
 python -m server
+
+@echo Don't forget to run deactivate.bat
