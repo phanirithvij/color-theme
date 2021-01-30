@@ -5,6 +5,7 @@ import uuid
 from pathlib import Path
 
 import sentry_sdk
+import requests
 import mimetypes
 from flask import (Flask, current_app, jsonify, redirect, render_template,
                    request, send_file, session, url_for)
@@ -63,7 +64,7 @@ TUS_UPLOAD_FOLDER = os.path.abspath(app.config['UPLOAD_FOLDER'])
 
 app.wsgi_app = TusFilter(
     app.wsgi_app,
-    upload_path='/upload_resumable',
+    upload_path='/tus_upload',
     tmp_dir=TUS_UPLOAD_FOLDER,
     max_size=3*GB,
     send_file=True,
@@ -97,9 +98,8 @@ def process_image(filename, uid, elid, ext):
     }), 202
 
 
-@app.route("/upload_resumable/<tmpfile>", methods=['GET', 'PATCH'])
-def upload_resumable(tmpfile):
-
+@app.route("/tus_upload/<tmpfile>", methods=['GET', 'PATCH'])
+def tus_upload(tmpfile):
     print(tmpfile)
     # check if file exists
     info_path = os.path.join(TUS_UPLOAD_FOLDER, tmpfile + '.info')
@@ -109,7 +109,7 @@ def upload_resumable(tmpfile):
             upload_metadata = info['upload_metadata']
 
         if upload_metadata:
-            if request.method == 'GET':
+            if request.method == "GET":
                 download = False
                 if 'download' in request.args or 'dl' in request.args:
                     download = True
@@ -123,6 +123,7 @@ def upload_resumable(tmpfile):
                     attachment_filename=upload_metadata['name'],
                     mimetype=upload_metadata['type'],
                 )
+
             # PATCH
             return process_image(
                 tmpfile,
@@ -130,7 +131,7 @@ def upload_resumable(tmpfile):
                 upload_metadata['progressID'],
                 mimetypes.guess_extension(upload_metadata['type'])
             )
-
+    print("[WARNING] info file doesn't exist for", tmpfile)
     return send_from_directory(TUS_UPLOAD_FOLDER, tmpfile)
 
 
@@ -352,13 +353,10 @@ def thumbnail(filename: str):
     return send_from_directory(abs_thumb_dir, thumb_name)
 
 
-@app.route('/view', methods=['POST', 'GET'])
+@app.route('/view/<img>', methods=['POST', 'GET'])
 @cross_origin()
-def viewimage():
+def viewimage(img):
     init_db()
-    img = "gin.jpg"
-    if 'img' in request.args:
-        img = (request.args['img'])
     if request.method == "GET":
         return render_template(
             "image.html",

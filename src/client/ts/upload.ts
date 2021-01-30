@@ -43,7 +43,7 @@ function fn() {
       showProgressDetails: true,
     })
     .use(Tus, {
-      endpoint: "/upload_resumable",
+      endpoint: "/tus_upload",
       limit: 10,
     });
 
@@ -93,7 +93,7 @@ function fn() {
       const el = document.getElementById(data.elementid);
       const par = el.parentElement;
       const d = document.createElement("a");
-      d.href = `/view?img=${data.filename}`;
+      d.href = `/view/${data.filename}`;
       d.text = "open image";
       par.appendChild(d);
     }
