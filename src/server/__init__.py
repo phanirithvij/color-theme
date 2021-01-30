@@ -5,7 +5,6 @@ import uuid
 from pathlib import Path
 
 import sentry_sdk
-import requests
 import mimetypes
 from flask import (Flask, current_app, jsonify, redirect, render_template,
                    request, send_file, session, url_for)
@@ -193,18 +192,26 @@ def random_image():
     for file in img_dir.iterdir():
         files.append(file)
     img = random.choice(files).name
-    return render_template("image.html", imagefile=f"/image/{img}", colors=[])
+    return render_template("image.html", imagefile=f"/tus_upload/{img}", colors=[])
 
+@app.route('/view')
+def red_view():
+    return redirect('all')
 
 @app.route('/')
 @app.route('/all')
+@app.route('/new')
 def all():
+    uppy = False
+    if request.path == "/new":
+        uppy = True
     upload_dir = Path(TUS_UPLOAD_FOLDER)
     images = []
     for x in upload_dir.iterdir():
         if x.is_file() and os.path.splitext(x)[-1] != ".info":
             images.append(os.path.basename(x))
-    return render_template('list.html', images=images)
+    print(uppy)
+    return render_template('list.html', images=images, uppy=uppy)
 
 
 @app.route('/upload', methods=['GET'])
@@ -307,20 +314,6 @@ def getcolor_css(filename: str):
     return send_file(css_file)  # send a freshly created css file
 
 
-@app.route('/image/<filename>', methods=['GET'])
-@cross_origin()
-def getimage(filename: str):
-    init_db()
-    print(">"*20)
-    print(request.args)
-    file = os.path.abspath(os.path.join(TUS_UPLOAD_FOLDER, filename))
-
-    if not os.path.isfile(file):
-        return NO_SUCH_IMAGE.format(filename), 404
-
-    return send_file(file)
-
-
 @app.route('/thumb/<filename>', methods=['GET'])
 def thumbnail(filename: str):
     init_db()
@@ -360,7 +353,7 @@ def viewimage(img):
     if request.method == "GET":
         return render_template(
             "image.html",
-            imagefile=f"/image/{img}",
+            imagefile=f"/tus_upload/{img}",
             colors=[],
         )
     if request.method == "POST":

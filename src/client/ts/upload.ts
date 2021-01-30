@@ -85,9 +85,6 @@ function fn() {
   function updateProgress(data: Data) {
     let percent = (data.current * 100) / data.total;
     nanobars[data.elementid].go(percent);
-    // var ele = $('#'+data.elementid);
-    // $(ele[0].childNodes[1]).text(percent + '%');
-    // $(ele[0].childNodes[2]).text(data['status']);
     console.log(data, "updateprogess");
     if (data.status == "DONE") {
       const el = document.getElementById(data.elementid);
@@ -97,10 +94,6 @@ function fn() {
       d.text = "open image";
       par.appendChild(d);
     }
-    // if ('result' in data) {
-    // show result
-    //  $(ele[0].childNodes[3]).text('Result: ' + data['result']);
-    // }
   }
 
   // Setup socketio functions

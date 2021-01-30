@@ -37,7 +37,7 @@ imgx.onload = (ev) => {
 declare var imagefile: string;
 const filename = imagefile;
 // imgx.src = filename;
-imgx.src = `/image/${filename}`;
+imgx.src = `/tus_upload/${filename}`;
 
 const fetch_css = () => {
   const css = document.createElement("link");

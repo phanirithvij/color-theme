@@ -35,11 +35,7 @@
             <img src="{{ imagefile }}" alt="bg-image" id="img-main">
         </div>
         <div id="pals" style="height:400px;">
-            <div id="pal1">
-                <!-- {% for item in navigation %}
-                    <li><a href="{{ item.href }}">{{ item.caption }}</a></li>
-                {% endfor %} -->
-            </div>
+            <div id="pal1"></div>
             <div id="pal2"></div>
             <div id="pal3"></div>
             <div id="pal4"></div>
@@ -48,10 +44,6 @@
         <div id="error">
         </div>
     </div>
-    <!-- <script>
-        document.querySelector('#img-main').src = `/image/${imagefile}`;
-        console.log('set source'); -->
-    <!-- </script> -->
     <script src="{{ url_for('static', filename='js/console.js') }}"></script>
     <script src="{{ url_for('static', filename='js/colors.js') }}"></script>
     <script src="{{ url_for('static', filename='js/ts/theme.js') }}"></script>

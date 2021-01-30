@@ -22,7 +22,14 @@
     </style>
   </head>
   <body>
-    {% include '_upload.html' %} {% if images|length > 0 %}
+    {% if uppy == true %}
+      <script>
+        console.log("EEICKCEJO")
+      </script>
+      {% include '_upload.html' %}
+    {% endif %}
+
+    {% if images|length > 0 %}
     <div class="grid-container">
       {% for image in images %}
       <div class="grid-item">
