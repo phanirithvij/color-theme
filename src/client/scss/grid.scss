@@ -1,0 +1,21 @@
+// https://stackoverflow.com/a/3407326/8608146
+img {
+  vertical-align: bottom;
+}
+
+body {
+  margin: 0;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  grid-template-rows: repeat(4, 200px);
+  grid-gap: 1rem;
+}
+
+.grid-item {
+  align-items: center;
+  justify-content: center;
+  display: flex;
+}
