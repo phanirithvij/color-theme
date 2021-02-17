@@ -33,6 +33,9 @@ sh start-server.sh
 - [ ] Try rewriting in golang totally
 - [ ] React/Vue client? Can learn vue
 - [ ] Flutter app, flutter web(?)
+- [ ] adobe.js in golang (?)
+  - [ ] Client side is better because no server side processing is required
+  - but unfortunately code is exposed
 - [ ] Recreate the thing from color palette extraction from the coolors website
   - try https://github.com/dchevell/flask-executor
 - [ ] Downsample image and save thumbnail before extracting colors
@@ -41,9 +44,7 @@ sh start-server.sh
 - [ ] Try catch for individual methods. And log to a separate file, store that failed image in a separate directory.
       Sample image `/home/rithvij/Desktop/Temp/wp2831915-black-background-png.png` from `https://img.pngio.com/black-background-png-wallpaper-cave-pretty-black-background-png-1920_1080.png`
   - [ ] vibrant.go doesn't support ico format for eg.
-- [x] Implement alternative to celery bgtasks using golang and update the clients of their image color extraction progress
-- [x] look at https://github.com/angristan/palette
-- [x] store generated palettes in json file for each image and send them from that point.
+- [ ] Implement alternative to celery bgtasks using golang and update the clients of their image color extraction progress
 
 ### Note
 
