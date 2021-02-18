@@ -28,6 +28,16 @@ sh start-server.sh
 .\start-server.bat
 ```
 
+## Prometheus config
+
+
+## Kubernetes config
+
+- Guide https://www.youtube.com/watch?v=X48VuDVv0do&t=2087s
+- On windows only VirtualBox works https://minikube.sigs.k8s.io/docs/drivers/virtualbox/#usage
+- VirtualBox issue on my pc https://stackoverflow.com/a/57484375/8608146
+  - disable and enable
+
 ## TODO
 
 - [ ] Try rewriting in golang totally

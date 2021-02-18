@@ -324,3 +324,5 @@ winenv/
 src/logs/
 src/server/imgs/
 src/server/public/
+# prometheus data
+data/
