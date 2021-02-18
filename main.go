@@ -39,11 +39,11 @@ func LimitHandler(lmt *limiter.Limiter) gin.HandlerFunc {
 }
 
 const (
-	clientBaseURL  = "/app"
-	clientAssetDir = "client/build"
+	clientBaseURL  = "/web"
+	clientAssetDir = "client/public"
 )
 
-//go:embed client/build LICENSE
+//go:embed client/public LICENSE
 var clientAssets embed.FS
 
 func main() {
@@ -77,8 +77,8 @@ func Serve(port int, debug bool) {
 	// https://github.com/gorilla/mux#serving-single-page-applications
 
 	clientSPA := &spaHandler{
-		staticPath: clientAssetDir,
-		indexPath:  clientAssetDir + "/index.html",
+		staticDir: clientAssetDir,
+		indexPath: clientAssetDir + "/index.html",
 	}
 
 	gh, err := gziphandler.NewGzipLevelHandler(gzip.BestCompression)
@@ -100,8 +100,9 @@ func Serve(port int, debug bool) {
 }
 
 type spaHandler struct {
-	staticPath string
-	indexPath  string
+	// location of the build/static directory
+	staticDir string
+	indexPath string
 }
 
 func (h spaHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
@@ -112,7 +113,7 @@ func (h spaHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	// github.com/didip/tollbooth/v6
 
 	// prepend the path with the path to the static directory
-	path := path.Join(h.staticPath, r.URL.Path)
+	path := path.Join(h.staticDir, r.URL.Path)
 
 	// redirect /app/ to /app i.e. remove trailing slash
 	// this is safe becuase spa apps have no post requests in this route
@@ -145,7 +146,6 @@ func (h spaHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		}
 		lw.Header().Set("Content-Type", "text/html")
 		lw.Write(cont)
-		log.Println(err)
 		return
 	}
 
@@ -176,7 +176,6 @@ func cache(h http.Handler, assetDir string) http.Handler {
 		if err != nil {
 			// spa route eg. /web/about
 			// let spa handle it, no need to cache
-			log.Println(err)
 			h.ServeHTTP(w, r)
 			return
 		}
@@ -185,7 +184,6 @@ func cache(h http.Handler, assetDir string) http.Handler {
 		if err != nil {
 			// spa route eg. /web/about
 			// let spa handle it, no need to cache
-			log.Println(err)
 			h.ServeHTTP(w, r)
 			return
 		}
