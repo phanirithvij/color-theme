@@ -69,7 +69,7 @@ func Serve(port int, debug bool) {
 
 	// https://github.com/gorilla/mux#serving-single-page-applications
 
-	amdinSPA := &spaHandler{
+	clientSPA := &spaHandler{
 		staticPath: clientAssetDir,
 		indexPath:  clientAssetDir + "/index.html",
 	}
@@ -79,9 +79,9 @@ func Serve(port int, debug bool) {
 		log.Fatal(err)
 	}
 
-	adminGzHandler := gh(amdinSPA)
-	adminCacheH := http.StripPrefix(clientBaseURL, cache(adminGzHandler, clientAssetDir))
-	router.GET(clientBaseURL+"/*w", gin.WrapH(adminCacheH))
+	clientGzHandler := gh(clientSPA)
+	clientCacheH := http.StripPrefix(clientBaseURL, cache(clientGzHandler, clientAssetDir))
+	router.GET(clientBaseURL+"/*w", gin.WrapH(clientCacheH))
 
 	promH := promhttp.Handler()
 	lmt := tollbooth.NewLimiter(3, nil)
@@ -221,7 +221,7 @@ func setupSessionStore(r *gin.Engine) sessions.Store {
 		store = cookie.NewStore(bsk)
 	}
 	// https://github.com/gin-contrib/sessions#multiple-sessions
-	sessionNames := []string{"admin"}
+	sessionNames := []string{"client"}
 	r.Use(sessions.SessionsMany(sessionNames, store))
 	return store
 }
