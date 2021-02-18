@@ -3,12 +3,15 @@ package main
 
 import (
 	"compress/gzip"
+	"embed"
 	"encoding/hex"
+	"fmt"
+	"io/fs"
 	"io/ioutil"
 	"log"
 	"net/http"
 	"os"
-	"path/filepath"
+	"path"
 	"strconv"
 	"time"
 
@@ -19,7 +22,6 @@ import (
 	"github.com/gin-contrib/sessions/cookie"
 	"github.com/gin-contrib/sessions/redis"
 	"github.com/gin-gonic/gin"
-	"github.com/markbates/pkger"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 )
 
@@ -38,15 +40,20 @@ func LimitHandler(lmt *limiter.Limiter) gin.HandlerFunc {
 
 const (
 	clientBaseURL  = "/app"
-	clientAssetDir = "/client/build"
+	clientAssetDir = "client/build"
 )
 
-func init() {
-	// TODO remove pkger user go's embed
-	pkger.Include("/client/build")
-}
+//go:embed client/build LICENSE
+var clientAssets embed.FS
 
 func main() {
+	fmt.Println(fs.Glob(clientAssets, "*"))
+	fs.WalkDir(clientAssets, ".", func(path string, d fs.DirEntry, err error) error {
+		// inf, _ := d.Info()
+		// , d.Name(), inf.Name(), err
+		fmt.Println(path)
+		return err
+	})
 	Serve(5000, true)
 }
 
@@ -81,6 +88,7 @@ func Serve(port int, debug bool) {
 
 	clientGzHandler := gh(clientSPA)
 	clientCacheH := http.StripPrefix(clientBaseURL, cache(clientGzHandler, clientAssetDir))
+	router.GET(clientBaseURL, gin.WrapH(clientCacheH))
 	router.GET(clientBaseURL+"/*w", gin.WrapH(clientCacheH))
 
 	promH := promhttp.Handler()
@@ -104,16 +112,25 @@ func (h spaHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	// github.com/didip/tollbooth/v6
 
 	// prepend the path with the path to the static directory
-	path := filepath.Join(h.staticPath, r.URL.Path)
+	path := path.Join(h.staticPath, r.URL.Path)
+
+	// redirect /app/ to /app i.e. remove trailing slash
+	// this is safe becuase spa apps have no post requests in this route
+	if r.URL.Path == "/" {
+		w.WriteHeader(http.StatusMovedPermanently)
+		w.Header().Set("Location", clientBaseURL)
+		return
+	}
 
 	// check whether a file exists at the given path
-	_, err := pkger.Stat(path)
-	if err != nil {
-		// file does not exist, serve index.html
-		// http.ServeFile(w, r, filepath.Join(h.staticPath, h.indexPath))
-		file, err := pkger.Open(h.indexPath)
+	_, err := clientAssets.Open(path)
+	if err != nil || r.URL.Path == "" {
+		// file does not exist or / so serve index.html
+		log.Println(err)
+		file, err := clientAssets.Open(h.indexPath)
 		if err != nil {
 			http.Error(w, "file "+r.URL.Path+" does not exist", http.StatusNotFound)
+			log.Println(err)
 			return
 		}
 		// lw := lhWriter{w}
@@ -123,15 +140,18 @@ func (h spaHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		if err != nil {
 			lw.WriteHeader(http.StatusNotFound)
 			lw.Write([]byte("File not found"))
+			log.Println(err)
 			return
 		}
 		lw.Header().Set("Content-Type", "text/html")
 		lw.Write(cont)
+		log.Println(err)
 		return
 	}
 
 	// otherwise, use http.FileServer to serve the static dir
-	http.FileServer(pkger.Dir(h.staticPath)).ServeHTTP(w, r)
+	r.URL.Path = path
+	http.FileServer(http.FS(clientAssets)).ServeHTTP(w, r)
 }
 
 var (
@@ -149,19 +169,28 @@ var (
 func cache(h http.Handler, assetDir string) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		fname := r.URL.Path
-		if r.URL.Path == clientBaseURL {
+		if r.URL.Path == "" || r.URL.Path == "/" {
 			fname = "index.html"
 		}
-		fi, err := pkger.Stat(filepath.Join(assetDir, fname))
-
+		fi, err := clientAssets.Open(path.Join(assetDir, fname))
 		if err != nil {
 			// spa route eg. /web/about
 			// let spa handle it, no need to cache
+			log.Println(err)
 			h.ServeHTTP(w, r)
 			return
 		}
 
-		modTime := fi.ModTime()
+		inf, err := fi.Stat()
+		if err != nil {
+			// spa route eg. /web/about
+			// let spa handle it, no need to cache
+			log.Println(err)
+			h.ServeHTTP(w, r)
+			return
+		}
+
+		modTime := inf.ModTime()
 
 		fhex := hex.EncodeToString([]byte(fname))
 		fmodTH := hex.EncodeToString([]byte(strconv.FormatInt(modTime.Unix(), 10)))
