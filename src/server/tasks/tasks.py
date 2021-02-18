@@ -76,6 +76,7 @@ class CustomTask():
         tmpfile = CustomTask.create_tmp_file(name, ext, file)
         name = os.path.basename(tmpfile)
         orig = Image.open(tmpfile)
+        # This fails for many images for some reason
         orig.thumbnail((150, 150))
         os.makedirs(os.path.dirname(dest), exist_ok=True)
         orig.save(dest)

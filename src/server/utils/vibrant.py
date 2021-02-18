@@ -8,9 +8,6 @@ from server.utils.names import get_names_knn
 VIBRANT_JS = os.path.abspath("server/scripts/vibrant.js")
 THUMB_FOLDER = "server/img/thumbs/"
 
-
-# TODO remove this not using ntc.js anymore
-# using kmeans to get the color names
 def get_vibrants_node(image_path):
     image_path = os.path.join(THUMB_FOLDER, os.path.basename(image_path))
     image_path = os.path.abspath(image_path)
