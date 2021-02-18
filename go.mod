@@ -11,4 +11,5 @@ require (
 	github.com/gin-gonic/gin v1.6.3
 	github.com/prometheus/client_golang v1.9.0
 	golang.org/x/image v0.0.0-20210216034530-4410531fe030 // indirect
+	golang.org/x/sys v0.0.0-20210218155724-8ebf48af031b // indirect
 )

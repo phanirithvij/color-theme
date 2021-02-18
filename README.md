@@ -30,13 +30,83 @@ sh start-server.sh
 
 ## Prometheus config
 
-
 ## Kubernetes config
 
-- Guide https://www.youtube.com/watch?v=X48VuDVv0do&t=2087s
-- On windows only VirtualBox works https://minikube.sigs.k8s.io/docs/drivers/virtualbox/#usage
-- VirtualBox issue on my pc https://stackoverflow.com/a/57484375/8608146
-  - disable and enable
+- choco install minikube
+
+  - Guide https://www.youtube.com/watch?v=X48VuDVv0do&t=2087s
+  - On windows only VirtualBox works https://minikube.sigs.k8s.io/docs/drivers/virtualbox/#usage
+  - VirtualBox issue on my pc https://stackoverflow.com/a/57484375/8608146
+    - disable and enable
+
+````sh
+$ minikube.exe start
+* minikube v1.17.1 on Microsoft Windows 10 Home Single Language 10.0.19042 Build 19042
+* Using the virtualbox driver based on user configuration
+* Starting control plane node minikube in cluster minikube
+* Creating virtualbox VM (CPUs=2, Memory=2200MB, Disk=20000MB) ...
+* Found network options:
+  - NO_PROXY=192.168.99.100
+  - no_proxy=192.168.99.100
+* Preparing Kubernetes v1.20.2 on Docker 20.10.2 ...
+  - env NO_PROXY=192.168.99.100
+  - Generating certificates and keys ...
+  - Booting up control plane ...
+  - Configuring RBAC rules ...
+* Verifying Kubernetes components...
+* Enabled addons: storage-provisioner, default-storageclass
+* Done! kubectl is now configured to use "minikube" cluster and "default" namespace by default
+``
+
+```sh
+minikube config set driver virtualbox
+````
+
+`choco install kubernetes-helm`
+
+- https://helm.sh/docs/intro/quickstart/#initialize-a-helm-chart-repository
+
+Install kube prometheus stack
+
+```sh
+helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+helm search repo prometheus-community
+# helm install prometheus prometheus-community/kube-prometheus-stack
+```
+
+Install requirements
+
+```sh
+env GO111MODULE="on" go get github.com/jsonnet-bundler/jsonnet-bundler/cmd/jb@master #master is important https://github.com/prometheus-operator/kube-prometheus/issues/420#issuecomment-649578743
+go get -u -v go get github.com/brancz/gojsontoyaml
+go get -u -v github.com/google/go-jsonnet/cmd/jsonnet
+```
+
+```sh
+mkdir kube-prom; cd kube-prom
+jb init
+# start downloading kube-prometheus
+jb install github.com/prometheus-operator/kube-prometheus/jsonnet/kube-prometheus@release-0.7
+wget https://raw.githubusercontent.com/prometheus-operator/kube-prometheus/release-0.7/example.jsonnet -O example.jsonnet
+wget https://raw.githubusercontent.com/prometheus-operator/kube-prometheus/release-0.7/example.jsonnet -O example.jsonnet
+bash build.sh example.jsonnet # one fail command fails in this at the end
+# windows `find` messes it up
+# do it manually
+'/c/Program Files/Git/usr/bin/find.exe' manifests -type f ! -name '*.yaml' -delete
+```
+
+Apply manifests
+
+```sh
+kubectl apply -f manifests/setup
+kubectl apply -f manifests/
+```
+
+Get all from the new `monitoring` namespace
+
+```sh
+kubectl.exe get all -n monitoring
+```
 
 ## TODO
 
