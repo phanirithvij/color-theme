@@ -116,7 +116,7 @@ func (h spaHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	// prepend the path with the path to the static directory
 	path := path.Join(h.staticDir, r.URL.Path)
 
-	// redirect /app/ to /app i.e. remove trailing slash
+	// redirect /web/ to /web i.e. remove trailing slash
 	// this is safe becuase spa apps have no post requests in this route
 	if r.URL.Path == "/" {
 		w.WriteHeader(http.StatusMovedPermanently)
