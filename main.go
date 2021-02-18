@@ -74,7 +74,6 @@ func Serve(port int, debug bool) {
 	// https://stackoverflow.com/a/55854101/8608146
 	// https://github.com/gin-gonic/gin/issues/293#issuecomment-103659145
 	// https://create-react-app.dev/docs/adding-custom-environment-variables/
-
 	// https://github.com/gorilla/mux#serving-single-page-applications
 
 	clientSPA := &spaHandler{
