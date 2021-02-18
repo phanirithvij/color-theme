@@ -46,11 +46,12 @@ const (
 //go:embed client/public LICENSE
 var clientAssets embed.FS
 
+// TODO development flag where we use os.DirFS
+// https://github.com/golang/go/issues/41191#issuecomment-752184832
+
 func main() {
 	fmt.Println(fs.Glob(clientAssets, "*"))
 	fs.WalkDir(clientAssets, ".", func(path string, d fs.DirEntry, err error) error {
-		// inf, _ := d.Info()
-		// , d.Name(), inf.Name(), err
 		fmt.Println(path)
 		return err
 	})
@@ -88,6 +89,7 @@ func Serve(port int, debug bool) {
 
 	clientGzHandler := gh(clientSPA)
 	clientCacheH := http.StripPrefix(clientBaseURL, cache(clientGzHandler, clientAssetDir))
+	// TODO this is a workaround for the redirect bug /web -> /web/public/
 	router.GET(clientBaseURL, gin.WrapH(clientCacheH))
 	router.GET(clientBaseURL+"/*w", gin.WrapH(clientCacheH))
 
